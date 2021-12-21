@@ -67,4 +67,4 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         # TODO: modify below to work with REST / frontend setup
-        return render(request, "auctions/register.html"
+        return render(request, "auctions/register.html")
