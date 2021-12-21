@@ -106,3 +106,6 @@ cython_debug/
 
 # VSCode
 .vscode
+
+# Node
+node_modules/
