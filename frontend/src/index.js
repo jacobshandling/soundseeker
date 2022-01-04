@@ -1,78 +1,87 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-
-// class ClickyButton extends React.Component {
-
-//     render() {
-//         return (
-//             <div className='clicky-button'>
-//                 <button onClick={this.props.onClick}>
-//                     Click!
-//                 </button>
-//             </div>
-//         )
-//     }
-// }
-
-// class ClickyTestApp extends React.Component {
-    
-//     renderClickyButton(message) {
-//         return(
-//             <ClickyButton message={message} onClick={() => alert(message)} />
-//         );
-//     }
-
-//     render() {
-//         let clickyButtons = [];
-//         this.props.messages.forEach(message => {
-//             clickyButtons.push(this.renderClickyButton(message)) 
-//         });
-//         return (
-//             <div>
-//                 {clickyButtons}
-//             </div>
-//         )
-//     }
-// }
-
 class SoundSeekerApp extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: 'default',
+            isLoaded: false,
+            curSuite: null,
+            userData: {},
+            error: null,
+        };
+    }
+
+    componentDidMount() {
+
+        fetch("http://127.0.0.1:8000/api")
+            .then(response => response.json())
+            .then(
+                (result) => {
+                    this.setState({
+                        isLoaded: true,
+                        userData: result
+                    });
+                },
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error: error,
+                    })
+                }
+            )
+                }
+
     render() {
+        // const content = this.state.user ? <MainContent /> : <h2>Welcome. Please log in or register.</h2>
+        if (this.state.error) {
+            return <div>Error: {this.state.error.message}</div>;
+        }
+        else if (!this.state.isLoaded) {
+            return <div>Loading. . .</div>;
+        } else {
+            return (
+                <div>
+                    <h1>SoundSeeker</h1>
+                    {/* <RegAuth /> */}
+                    {/* {content} */}
+                    <MainContent
+                        curSuite={this.state.curSuite}
+                        userData={this.state.userData}
+                    />
+                </div>
+            )
+        }
+    }
+}
+
+
+class MainContent extends React.Component {
+
+    render() {
+        const content = this.props.curSuite ? <Suite suite={this.props.curSuite} /> : <SuiteList suites={this.props.userData['suites']} />;
         return (
             <div>
-                <h1>SoundSeeker</h1>
-                <UserAuth />
-                <ContentArea />
+                {content}
             </div>
-        )
+        );
     }
 }
 
-class UserAuth extends React.Component {
+class SuiteList extends React.Component {
     render() {
-        return(
-            <div>
-
-            </div>
-        )
+        const suiteList = userData.get
     }
 }
 
-class ContentArea extends React.Component {
-    render() {
-        return(
-            <div>
+class Suite extends React.Component {
 
-            </div>
-        )
-    }
 }
 
 function App() {
-    // const messages = ["woop", "dee", "doo"];
     return (
-        <div>
-            {/* <ClickyTestApp messages={messages} /> */}
+        <div class="card">
             <SoundSeekerApp />
         </div>
     );
