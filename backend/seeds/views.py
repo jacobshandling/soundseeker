@@ -11,7 +11,7 @@ from rest_framework import viewsets, permissions
 from rest_framework.decorators import action, permission_classes
 from rest_framework.response import Response
 
-from backend.seeds.serializers import SuiteSerializer, UserSerializer
+from seeds.serializers import SuiteSerializer, UserSerializer
 
 from .models import User, Suite
 from .serializers import SuiteSerializer
