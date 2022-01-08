@@ -11,7 +11,7 @@ from rest_framework import viewsets, permissions
 from rest_framework.decorators import action, permission_classes
 from rest_framework.response import Response
 
-from seeds.serializers import SuiteSerializer, UserSerializer
+from seeds.serializers import *
 
 from .models import User, Suite
 from .serializers import SuiteSerializer
@@ -97,4 +97,39 @@ class SuiteViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-# TODO: Implement viewsets for remaining models
+class BlobViewSet(viewsets.ModelViewSet):
+    '''
+    This viewset automatically provides `list`, `create`, `retrieve`,
+    `update` and `destroy` actions.
+    '''
+    queryset = Blob.objects.all()
+    serializer_class = BlobSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class AudioClipViewSet(viewsets.ModelViewSet):
+    '''
+    This viewset automatically provides `list`, `create`, `retrieve`,
+    `update` and `destroy` actions.
+    '''
+    queryset = AudioClip.objects.all()
+    serializer_class = AudioClipSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+class LabelViewSet(viewsets.ModelViewSet):
+    '''
+    This viewset automatically provides `list`, `create`, `retrieve`,
+    `update` and `destroy` actions.
+    '''
+    queryset = Label.objects.all()
+    serializer_class = LabelSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)

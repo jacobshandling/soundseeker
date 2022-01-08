@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from seeds.models import User, Suite, Blob, AudioClip
+from seeds.models import *
 
 class AudioClipSerializer(serializers.HyperlinkedModelSerializer):
     user = serializers.ReadOnlyField(source='user.username')
@@ -29,3 +29,11 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
         fields = ['url', 'id', 'username', 'user_suites']
+
+
+class LabelSerializer(serializers.HyperlinkedModelSerializer):
+    user = serializers.ReadOnlyField(source='user.username')
+
+    class Meta:
+        model = Label
+        fields = ['url', 'id', 'name', 'user', 'clips', 'blobs', 'suites']
