@@ -7,7 +7,14 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User
+from rest_framework import viewsets, permissions
+from rest_framework.decorators import action, permission_classes
+from rest_framework.response import Response
+
+from backend.seeds.serializers import SuiteSerializer, UserSerializer
+
+from .models import User, Suite
+from .serializers import SuiteSerializer
 
 def index(request):
     return render(request, 'seeds/index.html')
@@ -68,3 +75,26 @@ def register(request):
     else:
         # TODO: modify below to work with REST / frontend setup
         return render(request, "auctions/register.html")
+
+# API
+
+class UserViewSet(viewsets.ReadOnlyModelViewSet):
+    '''
+    Automatically provides 'list' and 'retrieve' actions
+    '''
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+class SuiteViewSet(viewsets.ModelViewSet):
+    '''
+    This viewset automatically provides `list`, `create`, `retrieve`,
+    `update` and `destroy` actions.
+    '''
+    queryset = Suite.objects.all()
+    serializer_class = SuiteSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+# TODO: Implement viewsets for remaining models
