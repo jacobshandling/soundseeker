@@ -15,7 +15,7 @@ class SoundSeekerApp extends React.Component {
 
     componentDidMount() {
 
-        fetch("http://127.0.0.1:8000/api")
+        fetch("http://127.0.0.1:8001/api/")
             .then(response => response.json())
             .then(
                 (result) => {

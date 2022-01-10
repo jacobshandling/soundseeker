@@ -16,6 +16,7 @@ from seeds.serializers import *
 from .models import User, Suite
 from .serializers import SuiteSerializer
 
+
 def index(request):
     return render(request, 'seeds/index.html')
 
@@ -30,16 +31,13 @@ def login_view(request):
         # Check if authentication successful
         if user is not None:
             login(request, user)
-            # TODO: modify below line to work with REST / frontend setup
             return HttpResponseRedirect(reverse("index"))
         else:
-            # TODO: modify below to work with REST / frontend setup
-            return render(request, "auctions/login.html", {
-                "message": "Invalid username and/or password."
+            return render(request, "seeds/login.html", {
+                "message": "Invalid credentials."
             })
     else: 
-        # TODO: modify below to work with REST / frontend setup
-        return render(request, "auctions/login.html")
+        return render(request, "seeds/login.html")
 
 def logout_view(request):
     logout(request)
@@ -73,8 +71,7 @@ def register(request):
         # TODO: modify below to work with REST / frontend setup
         return HttpResponseRedirect(reverse("index"))
     else:
-        # TODO: modify below to work with REST / frontend setup
-        return render(request, "auctions/register.html")
+        return render(request, "seeds/register.html")
 
 # API
 
