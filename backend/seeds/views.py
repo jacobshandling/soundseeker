@@ -53,8 +53,7 @@ def register(request):
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
         if password != confirmation:
-            # TODO: modify below to work with REST / frontend setup
-            return render(request, "auctions/register.html", {
+            return render(request, "seeds/register.html", {
                 "message": "Passwords must match."
             })
 
@@ -64,11 +63,10 @@ def register(request):
             user.save()
         except IntegrityError:
             # TODO: modify below to work with REST / frontend setup
-            return render(request, "auctions/register.html", {
+            return render(request, "seeds/register.html", {
                 "message": "Username already taken."
             })
         login(request, user)
-        # TODO: modify below to work with REST / frontend setup
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "seeds/register.html")
