@@ -4,10 +4,8 @@
 {% block body %}
     {% if user.is_authenticated %}
         <div id="react-root" />
-        {% block script %}
-            <script src="{% static 'seeds/build/main.js' %}"></script>
-            <script>var userID = "{{ user.id }}"</script>
-        {% endblock %}
+        <script>var userID = "{{ user.id }}"</script>
+        <script src="{% static 'seeds/build/main.js' %}"></script>
     {% else %}
         <h2>Welcome to SoundSeeker. Please register or log in.</h2>
         <!-- TODO: Awesome welcome intro graphic / animation right here -->
