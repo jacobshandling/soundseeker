@@ -5,23 +5,23 @@ class SoundSeekerApp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: 'default',
             isLoaded: false,
+            userSuiteLinks: [],
             curSuite: null,
-            userData: {},
+            curBlob: null,
             error: null,
         };
     }
 
     componentDidMount() {
 
-        fetch("http://127.0.0.1:8001/api/")
+        fetch(`http://127.0.0.1:8000/api/users/${userID}/`)
             .then(response => response.json())
             .then(
                 (result) => {
                     this.setState({
                         isLoaded: true,
-                        userData: result
+                        userSuiteLinks: result.user_suites,
                     });
                 },
                 (error) => {
@@ -34,7 +34,6 @@ class SoundSeekerApp extends React.Component {
                 }
 
     render() {
-        // const content = this.state.user ? <MainContent /> : <h2>Welcome. Please log in or register.</h2>
         if (this.state.error) {
             return <div>Error: {this.state.error.message}</div>;
         }
@@ -43,12 +42,8 @@ class SoundSeekerApp extends React.Component {
         } else {
             return (
                 <div>
-                    <h1>SoundSeeker</h1>
-                    {/* <RegAuth /> */}
-                    {/* {content} */}
                     <MainContent
-                        curSuite={this.state.curSuite}
-                        userData={this.state.userData}
+                        userSuiteLinks = {this.state.userSuiteLinks}
                     />
                 </div>
             )
@@ -60,7 +55,7 @@ class SoundSeekerApp extends React.Component {
 class MainContent extends React.Component {
 
     render() {
-        const content = this.props.curSuite ? <Suite suite={this.props.curSuite} /> : <SuiteList suites={this.props.userData['suites']} />;
+        const content = this.props.curSuite ? <Suite suite={this.props.curSuite} /> : <SuiteList userSuiteLinks={this.props.userSuiteLinks} />;
         return (
             <div>
                 {content}
@@ -71,7 +66,11 @@ class MainContent extends React.Component {
 
 class SuiteList extends React.Component {
     render() {
-        const suiteList = userData.get
+        return (
+            <div>
+                <p>{this.props.userSuiteLinks}</p>
+            </div>
+        )
     }
 }
 

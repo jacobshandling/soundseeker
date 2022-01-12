@@ -20,30 +20,6 @@ from .serializers import SuiteSerializer
 def index(request):
     return render(request, 'seeds/index.html')
 
-def login_view(request):
-    if request.method == "POST":
-
-        # Attempt to sign user in
-        username = request.POST["username"]
-        password = request.POST["password"]
-        user = authenticate(request, username=username, password=password)
-
-        # Check if authentication successful
-        if user is not None:
-            login(request, user)
-            return HttpResponseRedirect(reverse("index"))
-        else:
-            return render(request, "seeds/login.html", {
-                "message": "Invalid credentials."
-            })
-    else: 
-        return render(request, "seeds/login.html")
-
-def logout_view(request):
-    logout(request)
-    # TODO: modify below to work with REST / frontend setup
-    return HttpResponseRedirect(reverse("index"))
-
 def register(request):
     if request.method == "POST":
         username = request.POST["username"]
