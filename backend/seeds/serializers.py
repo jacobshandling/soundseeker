@@ -17,14 +17,16 @@ class BlobSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['url', 'id', 'user', 'name', 'clips']
 
 class SuiteSerializer(serializers.HyperlinkedModelSerializer):
-    user = serializers.ReadOnlyField(source='user.username')
+    # user = serializers.ReadOnlyField(source='user.username')
+    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), source='user.id')
 
     class Meta:
         model = Suite
         fields = ['url', 'id', 'user', 'name', 'blobs']
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
-    user_suites = serializers.HyperlinkedRelatedField(many=True, view_name='suite-detail', read_only=True)
+    # user_suites = serializers.HyperlinkedRelatedField(many=True, view_name='suite-detail', read_only=True)
+    user_suites = SuiteSerializer(many=True, read_only=True)
 
     class Meta:
         model = User
