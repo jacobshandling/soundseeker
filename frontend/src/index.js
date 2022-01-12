@@ -6,12 +6,15 @@ class SoundSeekerApp extends React.Component {
         super(props);
         this.state = {
             isLoaded: false,
-            userSuiteLinks: [],
-            curSuite: null,
+            userSuites: [],
+            curSuiteID: null,
             curBlob: null,
             error: null,
         };
+
+        this.handleSuiteClick = this.handleSuiteClick.bind(this);
     }
+
 
     componentDidMount() {
 
@@ -21,7 +24,7 @@ class SoundSeekerApp extends React.Component {
                 (result) => {
                     this.setState({
                         isLoaded: true,
-                        userSuiteLinks: result.user_suites,
+                        userSuites: result.user_suites,
                     });
                 },
                 (error) => {
@@ -33,17 +36,23 @@ class SoundSeekerApp extends React.Component {
             )
                 }
 
+    handleSuiteClick(suiteID) {
+        this.setState({
+            curSuiteID: suiteID
+        });
+    }
+
     render() {
         if (this.state.error) {
             return <div>Error: {this.state.error.message}</div>;
-        }
-        else if (!this.state.isLoaded) {
+        } else if (!this.state.isLoaded) {
             return <div>Loading. . .</div>;
         } else {
             return (
                 <div>
                     <MainContent
-                        userSuiteLinks = {this.state.userSuiteLinks}
+                        userSuites = {this.state.userSuites}
+                        handleSuiteClick = {suiteID => this.handleSuiteClick(suiteID)}
                     />
                 </div>
             )
@@ -55,7 +64,9 @@ class SoundSeekerApp extends React.Component {
 class MainContent extends React.Component {
 
     render() {
-        const content = this.props.curSuite ? <Suite suite={this.props.curSuite} /> : <SuiteList userSuiteLinks={this.props.userSuiteLinks} />;
+        const content = this.props.curSuiteID ?
+            <Suite suiteID={this.props.curSuiteID} /> : <SuiteList userSuites={this.props.userSuites} handleSuiteClick= {this.props.handleSuiteClick} />;
+
         return (
             <div>
                 {content}
@@ -66,11 +77,21 @@ class MainContent extends React.Component {
 
 class SuiteList extends React.Component {
     render() {
-        return (
-            <div>
-                <p>{this.props.userSuiteLinks}</p>
-            </div>
-        )
+        const suites = [];
+
+        this.props.userSuites.forEach((suiteObject) => {
+            suites.push(
+                <li key={suiteObject.id}>
+                    <button className="listed-suite" onClick={() => this.props.handleSuiteClick(suiteObject.id)}>{suiteObject.name}</button>
+                </li>
+            );
+        });
+
+        return ( 
+            <ul>
+                {suites}
+            </ul>
+        );
     }
 }
 
@@ -80,7 +101,7 @@ class Suite extends React.Component {
 
 function App() {
     return (
-        <div class="card">
+        <div className="card">
             <SoundSeekerApp />
         </div>
     );
