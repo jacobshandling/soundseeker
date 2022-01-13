@@ -50,7 +50,12 @@ class SoundSeekerApp extends React.Component {
         } else {
             return (
                 <div>
-                    <MainContent
+                    {/* <MainContent
+                        userSuites = {this.state.userSuites}
+                        handleSuiteClick = {suiteID => this.handleSuiteClick(suiteID)}
+                        curSuiteID = {this.state.curSuiteID}
+                    /> */}
+                    <SuiteLevelView
                         userSuites = {this.state.userSuites}
                         handleSuiteClick = {suiteID => this.handleSuiteClick(suiteID)}
                         curSuiteID = {this.state.curSuiteID}
@@ -64,14 +69,24 @@ class SoundSeekerApp extends React.Component {
 
 class MainContent extends React.Component {
 
+}
+
+class SuiteLevelView extends React.Component {
+
     render() {
-        const content = this.props.curSuiteID ?  <Suite suiteID={this.props.curSuiteID} /> : <SuiteList userSuites={this.props.userSuites} handleSuiteClick= {this.props.handleSuiteClick} />;
-        return (
-            <div>
-                {content}
-            </div>
-        );
+        const content = this.props.curSuiteID ?
+            <BlobLevelView 
+                suiteID={this.props.curSuiteID}
+            />
+            :
+            <SuiteList
+                userSuites={this.props.userSuites} 
+                handleSuiteClick= {this.props.handleSuiteClick} 
+            />;
+
+        return (content);
     }
+
 }
 
 class SuiteList extends React.Component {
@@ -94,8 +109,80 @@ class SuiteList extends React.Component {
     }
 }
 
-class Suite extends React.Component {
+class BlobLevelView extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isLoaded: false,
+            suiteBlobs: [],
+            curBlobID: null,
+            error: null,
+        };
 
+        this.handleBlobClick = this.handleBlobClick.bind(this);
+    }
+
+    handleBlobClick(blobID) {
+        this.setState({
+            curBlobID: blobID
+        });
+    }
+
+    componentDidMount() {
+
+        fetch(`http://127.0.0.1:8000/api/suites/${this.props.suiteID}/`)
+            .then(response => response.json())
+            .then(
+                (result) => {
+                    this.setState({
+                        isLoaded: true,
+                        suiteBlobs: result.blobs
+                    });
+                },
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error: error,
+                    })
+                }
+            )
+    }   
+
+    render() {
+        const content = this.props.curBlobID ?
+            <AudioClipLevelView 
+                blobID={this.props.curBlobID}
+            />
+            :
+            <BlobList
+                suiteBlobs={this.state.suiteBlobs} 
+                handleBlobClick= {this.props.handleBlobClick} 
+            />;
+
+        return (content);
+    }
+
+
+}
+
+class BlobList extends React.Component {
+    render() {
+        const blobs = [];
+
+        this.props.suiteBlobs.forEach((blobObject) => {
+            blobs.push(
+                <li key={blobObject.id}>
+                    <button className="listed-blob" onClick={() => this.props.handleBlobClick(blobObject.id)}>{blobObject.name}</button>
+                </li>
+            );
+        });
+
+        return ( 
+            <ul>
+                {blobs}
+            </ul>
+        );
+    }
 }
 
 function App() {
@@ -104,6 +191,10 @@ function App() {
             <SoundSeekerApp />
         </div>
     );
+}
+
+class AudioClipLevelView extends React.Component {
+
 }
 
 ReactDOM.render(
