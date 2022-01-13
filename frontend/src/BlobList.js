@@ -13,9 +13,12 @@ class BlobList extends React.Component {
         });
 
         return ( 
-            <ul>
-                {blobs}
-            </ul>
+            <div>
+                <h2>{this.props.curSuite.name}/Blobs</h2>
+                <ul>
+                    {blobs}
+                </ul>
+            </div>
         );
     }
 }

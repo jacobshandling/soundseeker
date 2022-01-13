@@ -8,6 +8,7 @@ class BlobLevelView extends React.Component {
         super(props);
         this.state = {
             isLoaded: false,
+            curSuite: this.props.curSuite,
             suiteBlobs: [],
             curBlobID: null,
             error: null,
@@ -24,7 +25,7 @@ class BlobLevelView extends React.Component {
 
     componentDidMount() {
 
-        fetch(`http://127.0.0.1:8000/api/suites/${this.props.suiteID}/`)
+        fetch(`http://127.0.0.1:8000/api/suites/${this.props.curSuite.id}/`)
             .then(response => response.json())
             .then(
                 (result) => {
@@ -49,6 +50,7 @@ class BlobLevelView extends React.Component {
             />
             :
             <BlobList
+                curSuite={this.state.curSuite}
                 suiteBlobs={this.state.suiteBlobs} 
                 handleBlobClick= {this.props.handleBlobClick} 
             />;

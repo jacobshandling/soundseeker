@@ -6,9 +6,9 @@ import SuiteList from './SuiteList'
 class SuiteLevelView extends React.Component {
 
     render() {
-        const content = this.props.curSuiteID ?
+        const mainContent = this.props.curSuite ?
             <BlobLevelView 
-                suiteID={this.props.curSuiteID}
+                curSuite={this.props.curSuite}
             />
             :
             <SuiteList
@@ -16,7 +16,7 @@ class SuiteLevelView extends React.Component {
                 handleSuiteClick= {this.props.handleSuiteClick} 
             />;
 
-        return (content);
+        return (mainContent);
     }
 
 }

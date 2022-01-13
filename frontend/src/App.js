@@ -10,7 +10,7 @@ class SoundSeekerApp extends React.Component {
         this.state = {
             isLoaded: false,
             userSuites: [],
-            curSuiteID: null,
+            curSuite: null,
             curBlob: null,
             error: null,
         };
@@ -39,9 +39,9 @@ class SoundSeekerApp extends React.Component {
             )
                 }
 
-    handleSuiteClick(suiteID) {
+    handleSuiteClick(suiteObject) {
         this.setState({
-            curSuiteID: suiteID
+            curSuite: suiteObject
         });
     }
 
@@ -60,8 +60,8 @@ class SoundSeekerApp extends React.Component {
                     /> */}
                     <SuiteLevelView
                         userSuites = {this.state.userSuites}
-                        handleSuiteClick = {suiteID => this.handleSuiteClick(suiteID)}
-                        curSuiteID = {this.state.curSuiteID}
+                        handleSuiteClick = {curSuite => this.handleSuiteClick(curSuite)}
+                        curSuite = {this.state.curSuite}
                     />
                 </div>
             )
