@@ -53,6 +53,7 @@ class SoundSeekerApp extends React.Component {
                     <MainContent
                         userSuites = {this.state.userSuites}
                         handleSuiteClick = {suiteID => this.handleSuiteClick(suiteID)}
+                        curSuiteID = {this.state.curSuiteID}
                     />
                 </div>
             )
@@ -64,9 +65,7 @@ class SoundSeekerApp extends React.Component {
 class MainContent extends React.Component {
 
     render() {
-        const content = this.props.curSuiteID ?
-            <Suite suiteID={this.props.curSuiteID} /> : <SuiteList userSuites={this.props.userSuites} handleSuiteClick= {this.props.handleSuiteClick} />;
-
+        const content = this.props.curSuiteID ?  <Suite suiteID={this.props.curSuiteID} /> : <SuiteList userSuites={this.props.userSuites} handleSuiteClick= {this.props.handleSuiteClick} />;
         return (
             <div>
                 {content}
