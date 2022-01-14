@@ -4,13 +4,14 @@ class SuiteList extends React.Component {
     render() {
         const suites = [];
 
-        this.props.userSuites.forEach((suiteObject) => {
+        for (var suiteID in this.props.userSuites) {
+            const suiteObject = this.props.userSuites[suiteID];
             suites.push(
                 <li key={suiteObject.id}>
                     <button className="listed-suite" onClick={() => this.props.handleSuiteClick(suiteObject)}>{suiteObject.name}</button>
                 </li>
             );
-        });
+            }
 
         return ( 
             <div>

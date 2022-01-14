@@ -9,10 +9,11 @@ class SoundSeekerApp extends React.Component {
         super(props);
         this.state = {
             isLoaded: false,
-            userSuites: [],
+            error: null,
+            userData: null,
+            userSuites: null,
             curSuite: null,
             curBlob: null,
-            error: null,
         };
 
         this.handleSuiteClick = this.handleSuiteClick.bind(this);
@@ -27,8 +28,13 @@ class SoundSeekerApp extends React.Component {
                 (result) => {
                     this.setState({
                         isLoaded: true,
-                        userSuites: result.user_suites,
-                    });
+                        userData: result,
+                        userSuites: result.user_suites.reduce((map, obj) => {
+                            map[obj.id] = obj;
+                            return map;
+                        }, {})
+                    }
+                    );
                 },
                 (error) => {
                     this.setState({
@@ -53,15 +59,11 @@ class SoundSeekerApp extends React.Component {
         } else {
             return (
                 <div>
-                    {/* <MainContent
-                        userSuites = {this.state.userSuites}
-                        handleSuiteClick = {suiteID => this.handleSuiteClick(suiteID)}
-                        curSuiteID = {this.state.curSuiteID}
-                    /> */}
                     <SuiteLevelView
-                        userSuites = {this.state.userSuites}
+                        userData = {this.state.userData}
                         handleSuiteClick = {curSuite => this.handleSuiteClick(curSuite)}
                         curSuite = {this.state.curSuite}
+                        userSuites = {this.state.userSuites}
                     />
                 </div>
             )
