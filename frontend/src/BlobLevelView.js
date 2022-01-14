@@ -4,56 +4,27 @@ import AudioClipLevelView from './AudioClipLevelView'
 import BlobList from './BlobList'
 
 class BlobLevelView extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isLoaded: false,
-            curSuite: this.props.curSuite,
-            suiteBlobs: [],
-            curBlobID: null,
-            error: null,
-        };
-
-        this.handleBlobClick = this.handleBlobClick.bind(this);
-    }
-
-    handleBlobClick(blobID) {
-        this.setState({
-            curBlobID: blobID
-        });
-    }
-
-    componentDidMount() {
-
-        fetch(`http://127.0.0.1:8000/api/suites/${this.props.curSuite.id}/`)
-            .then(response => response.json())
-            .then(
-                (result) => {
-                    this.setState({
-                        isLoaded: true,
-                        suiteBlobs: result.blobs
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error: error,
-                    })
-                }
-            )
-    }   
+    // TODO: Define handleBlobClick
 
     render() {
+        const suite = this.props.curSuite;
+        const suiteBlobMap = suite.blobs.reduce((map, obj) => {
+            map[obj.id] = obj;
+            return map;
+        }, {})
+
         const content = this.props.curBlobID ?
             <AudioClipLevelView 
                 blobID={this.props.curBlobID}
             />
             :
-            <BlobList
-                curSuite={this.state.curSuite}
-                suiteBlobs={this.state.suiteBlobs} 
-                handleBlobClick= {this.props.handleBlobClick} 
-            />;
+            <div>
+                <h2>{this.props.curSuite.name} / Blobs</h2>
+                <BlobList
+                    suiteBlobMap={suiteBlobMap} 
+                    handleBlobClick= {this.handleBlobClick} 
+                />;
+            </div>
 
         return (content);
     }
