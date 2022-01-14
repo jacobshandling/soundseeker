@@ -114,3 +114,6 @@ node_modules/
 
 # Executables
 *.exe
+
+# macOS
+*.DS_Store
