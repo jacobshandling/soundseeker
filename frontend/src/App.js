@@ -11,12 +11,13 @@ class SoundSeekerApp extends React.Component {
             isLoaded: false,
             error: null,
             userData: null,
-            userSuites: null,
+            userSuiteMap: null,
             curSuite: null,
             curBlob: null,
         };
 
         this.handleSuiteClick = this.handleSuiteClick.bind(this);
+        this.handleBlobClick = this.handleBlobClick.bind(this);
     }
 
 
@@ -29,7 +30,7 @@ class SoundSeekerApp extends React.Component {
                     this.setState({
                         isLoaded: true,
                         userData: result,
-                        userSuites: result.user_suites.reduce((map, obj) => {
+                        userSuiteMap: result.user_suites.reduce((map, obj) => {
                             map[obj.id] = obj;
                             return map;
                         }, {})
@@ -51,6 +52,12 @@ class SoundSeekerApp extends React.Component {
         });
     }
 
+    handleBlobClick(blobObject) {
+        this.setState({
+            curBlob: blobObject
+        });
+    }
+
     render() {
         if (this.state.error) {
             return <div>Error: {this.state.error.message}</div>;
@@ -60,10 +67,11 @@ class SoundSeekerApp extends React.Component {
             return (
                 <div>
                     <SuiteLevelView
-                        userData = {this.state.userData}
-                        handleSuiteClick = {curSuite => this.handleSuiteClick(curSuite)}
+                        handleSuiteClick = {suiteObject => this.handleSuiteClick(suiteObject)}
+                        handleBlobClick = {blobObject => this.handleBlobClick(blobObject)}
                         curSuite = {this.state.curSuite}
-                        userSuites = {this.state.userSuites}
+                        userSuiteMap = {this.state.userSuiteMap}
+                        curBlob = {this.state.curBlob}
                     />
                 </div>
             )

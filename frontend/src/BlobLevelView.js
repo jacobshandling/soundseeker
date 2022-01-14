@@ -4,7 +4,6 @@ import AudioClipLevelView from './AudioClipLevelView'
 import BlobList from './BlobList'
 
 class BlobLevelView extends React.Component {
-    // TODO: Define handleBlobClick
 
     render() {
         const suite = this.props.curSuite;
@@ -13,20 +12,20 @@ class BlobLevelView extends React.Component {
             return map;
         }, {})
 
-        const content = this.props.curBlobID ?
+        const mainContent = this.props.curBlob ?
             <AudioClipLevelView 
-                blobID={this.props.curBlobID}
+                curBlob = {this.props.curBlob}
             />
             :
             <div>
                 <h2>{this.props.curSuite.name} / Blobs</h2>
                 <BlobList
                     suiteBlobMap={suiteBlobMap} 
-                    handleBlobClick= {this.handleBlobClick} 
+                    handleBlobClick= {this.props.handleBlobClick} 
                 />;
             </div>
 
-        return (content);
+        return (mainContent);
     }
 
 

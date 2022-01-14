@@ -8,13 +8,15 @@ class SuiteLevelView extends React.Component {
     render() {
         const mainContent = this.props.curSuite ?
             <BlobLevelView 
-                curSuite={this.props.curSuite}
+                curSuite = {this.props.curSuite}
+                handleBlobClick = {this.props.handleBlobClick}
+                curBlob = {this.props.curBlob}
             />
             :
             <div>
                 <h2>Suites</h2>
                 <SuiteList
-                    userSuites={this.props.userSuites} 
+                    userSuiteMap={this.props.userSuiteMap} 
                     handleSuiteClick= {this.props.handleSuiteClick} 
                 />;
             </div>
