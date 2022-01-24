@@ -4,12 +4,10 @@ from seeds.models import *
 # https://www.django-rest-framework.org/api-guide/serializers/#dealing-with-nested-objects
 
 class AudioClipSerializer(serializers.HyperlinkedModelSerializer):
-    # user = serializers.ReadOnlyField(source='user.username')
-    file = serializers.HyperlinkedIdentityField(view_name='audio-file', format='mp3')  # TODO: How to server audio ?!
     
     class Meta:
         model = AudioClip
-        fields = ['url', 'id', 'user', 'name']
+        fields = ['url', 'id', 'user', 'name', 'file']
 
 class BlobSerializer(serializers.HyperlinkedModelSerializer):
     # user = serializers.ReadOnlyField(source='user.username')
