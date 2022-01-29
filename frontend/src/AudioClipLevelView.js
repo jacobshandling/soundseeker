@@ -10,10 +10,11 @@ class AudioClipLevelView extends React.Component {
         const blobClips = curBlob.clips;
 
         const clipRenders = [];
-        for (var clipObject in blobClips) {
+        for (var id in blobClips) {
+            const clipObject = blobClips[id];
             clipRenders.push(
-                <li>
-                    <AudioClip clipObject={clipObject} />);
+                <li key={clipObject.id}>
+                    <AudioClip clipObject={clipObject} />
                 </li>
             );
         }
