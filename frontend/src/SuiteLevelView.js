@@ -18,8 +18,9 @@ class SuiteLevelView extends React.Component {
                 <SuiteList
                     userSuiteMap={this.props.userSuiteMap} 
                     handleSuiteClick= {this.props.handleSuiteClick} 
-                />;
+                />
             </div>
+        ;
 
         return (mainContent);
     }

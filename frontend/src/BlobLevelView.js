@@ -23,7 +23,7 @@ class BlobLevelView extends React.Component {
                 <BlobList
                     suiteBlobMap={suiteBlobMap} 
                     handleBlobClick= {this.props.handleBlobClick} 
-                />;
+                />
             </div>
 
         return (mainContent);

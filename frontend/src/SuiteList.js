@@ -11,7 +11,7 @@ class SuiteList extends React.Component {
                     <button className="listed-suite" onClick={() => this.props.handleSuiteClick(suiteObject)}>{suiteObject.name}</button>
                 </li>
             );
-            }
+        }
 
         return ( 
             <ul>
