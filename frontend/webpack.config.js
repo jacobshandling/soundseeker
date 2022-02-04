@@ -2,6 +2,7 @@
 
 const path = require('path')
 const webpack = require('webpack')
+
 module.exports = {
 
     // Where Webpack looks to load your JavaScript
@@ -37,9 +38,13 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: ['babel-loader']
+            },
+            {
+                test: /\.svg$/,
+                use: ['@svgr/webpack']
             }
         ]
     }
