@@ -3,6 +3,11 @@ import React from 'react';
 // TODO: Implement separate API Service using axios
 // import ApiService from './ApiService';
 import SuiteLevelView from './SuiteLevelView';
+import ActionBar from './ActionBar';
+import ActionItem from './ActionItem';
+
+// TODO: Create the below referenced .svg icon, maybe some more
+// import { ReactComponent as NewClipIcon } from './icons/newclip.svg';
 
 class SoundSeekerApp extends React.Component {
     constructor(props) {
@@ -66,6 +71,12 @@ class SoundSeekerApp extends React.Component {
         } else {
             return (
                 <div>
+                    <ActionBar>
+                        <ActionItem icon="🔈" />
+                        <ActionItem icon="🔈" />
+                        <ActionItem icon="🔈" />
+                        {/* <ActionItem icon={<NewClipIcon />} /> */}
+                    </ActionBar>
                     <SuiteLevelView
                         handleSuiteClick = {suiteObject => this.handleSuiteClick(suiteObject)}
                         handleBlobClick = {blobObject => this.handleBlobClick(blobObject)}
