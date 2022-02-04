@@ -5,9 +5,7 @@ import React from 'react';
 import SuiteLevelView from './SuiteLevelView';
 import ActionBar from './ActionBar';
 import ActionItem from './ActionItem';
-
-// TODO: Create the below referenced .svg icon, maybe some more
-// import { ReactComponent as NewClipIcon } from './icons/newclip.svg';
+import PlusIcon from './icons/plus.svg';
 
 class SoundSeekerApp extends React.Component {
     constructor(props) {
@@ -19,10 +17,12 @@ class SoundSeekerApp extends React.Component {
             userSuiteMap: null,
             curSuite: null,
             curBlob: null,
+            dropdownIsOpen: false
         };
 
         this.handleSuiteClick = this.handleSuiteClick.bind(this);
         this.handleBlobClick = this.handleBlobClick.bind(this);
+        this.toggleDropdown = this.toggleDropdown.bind(this);
     }
 
 
@@ -63,6 +63,12 @@ class SoundSeekerApp extends React.Component {
         });
     }
 
+    toggleDropdown() {
+        this.setState(
+            {dropdownIsOpen: !this.state.dropdownIsOpen}
+        );
+    }
+
     render() {
         if (this.state.error) {
             return <div>Error: {this.state.error.message}</div>;
@@ -75,7 +81,13 @@ class SoundSeekerApp extends React.Component {
                         <ActionItem icon="🔈" />
                         <ActionItem icon="🔈" />
                         <ActionItem icon="🔈" />
-                        {/* <ActionItem icon={<NewClipIcon />} /> */}
+                        <ActionItem
+                            icon={<PlusIcon />} 
+                            toggleDropdown={this.toggleDropdown}
+                            dropdownIsOpen={this.state.dropdownIsOpen} 
+                        >
+                        <p>Hello Maria</p>
+                        </ActionItem>
                     </ActionBar>
                     <SuiteLevelView
                         handleSuiteClick = {suiteObject => this.handleSuiteClick(suiteObject)}
