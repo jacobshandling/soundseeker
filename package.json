@@ -1,7 +1,4 @@
 {
-  "name": "soundseeker",
-  "version" : "0.0.0",
-  "author": "Jacob Shandling <jacobshandling@pm.me>",
   "devDependencies": {
     "@svgr/webpack": "^6.2.1"
   }
