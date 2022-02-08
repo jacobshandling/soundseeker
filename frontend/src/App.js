@@ -6,6 +6,7 @@ import SuiteLevelView from './SuiteLevelView';
 import ActionBar from './ActionBar';
 import ActionItem from './ActionItem';
 import PlusIcon from './icons/plus.svg';
+import DropdownMenu from './DropdownMenu';
 
 class SoundSeekerApp extends React.Component {
     constructor(props) {
@@ -78,15 +79,12 @@ class SoundSeekerApp extends React.Component {
             return (
                 <div>
                     <ActionBar>
-                        <ActionItem icon="🔈" />
-                        <ActionItem icon="🔈" />
-                        <ActionItem icon="🔈" />
                         <ActionItem
                             icon={<PlusIcon />} 
                             toggleDropdown={this.toggleDropdown}
                             dropdownIsOpen={this.state.dropdownIsOpen} 
                         >
-                        <p>Hello Maria</p>
+                            <DropdownMenu></DropdownMenu>
                         </ActionItem>
                     </ActionBar>
                     <SuiteLevelView
