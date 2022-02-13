@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 // TODO: Implement separate API Service using axios
 // import ApiService from './ApiService';
@@ -7,6 +8,9 @@ import ActionBar from './ActionBar';
 import ActionItem from './ActionItem';
 import PlusIcon from './icons/plus.svg';
 import DropdownMenu from './DropdownMenu';
+
+// dev setup API
+const APIURL = "http://127.0.0.1:8000/api/";
 
 class SoundSeekerApp extends React.Component {
     constructor(props) {
@@ -18,12 +22,15 @@ class SoundSeekerApp extends React.Component {
             userSuiteMap: null,
             curSuite: null,
             curBlob: null,
-            dropdownIsOpen: false
+            dropdownIsOpen: false,
+            selectedFile: null
         };
 
         this.handleSuiteClick = this.handleSuiteClick.bind(this);
         this.handleBlobClick = this.handleBlobClick.bind(this);
         this.toggleDropdown = this.toggleDropdown.bind(this);
+        this.selectFile = this.selectFile.bind(this);
+        this.uploadFile = this.uploadFile.bind(this);
     }
 
 
@@ -70,6 +77,27 @@ class SoundSeekerApp extends React.Component {
         );
     }
 
+    selectFile(event) {
+        this.setState(
+            {selectedFile: event.target.files[0]}
+        );
+    }
+
+    uploadFile() {
+        const formData = new FormData();
+        formData.append(
+            "userFile",
+            this.state.selectedFile,
+            this.state.selectedFile.name
+        );
+        console.loag(this.state.selectedFile);
+
+        axios.post(APIURL + "user-file-upload", formData);
+
+        // TODO: display confirmation info to user
+        // TODO: confirm that react automatically re-renders AudioClipViews
+    };
+
     render() {
         if (this.state.error) {
             return <div>Error: {this.state.error.message}</div>;
@@ -83,6 +111,9 @@ class SoundSeekerApp extends React.Component {
                             icon={<PlusIcon />} 
                             toggleDropdown={this.toggleDropdown}
                             dropdownIsOpen={this.state.dropdownIsOpen} 
+                            selectFile={this.selectFile}
+                            uploadFile={this.uploadFile}
+
                         >
                             <DropdownMenu></DropdownMenu>
                         </ActionItem>
