@@ -6,7 +6,7 @@ class FileUploadView extends React.Component {
         return(
             <div>
                 <input type="file" onChange={this.props.onFileSelect} />
-                <button onClick={this.props.uploadFile}>Submit</button>
+                <button onClick={this.props.onFileUpload}>Submit</button>
             </div>
         )
     }

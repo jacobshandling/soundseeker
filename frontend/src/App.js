@@ -33,7 +33,7 @@ class SoundSeekerApp extends React.Component {
         this.handleBlobClick = this.handleBlobClick.bind(this);
         this.toggleDropdown = this.toggleDropdown.bind(this);
         this.onFileSelect = this.onFileSelect.bind(this);
-        this.uploadFile = this.uploadFile.bind(this);
+        this.onFileUpload = this.onFileUpload.bind(this);
         this.toggleClipUpload = this.toggleClipUpload.bind(this);
     }
 
@@ -92,7 +92,7 @@ class SoundSeekerApp extends React.Component {
         );
     }
 
-    uploadFile() {
+    onFileUpload() {
         const formData = new FormData();
         formData.append(
             "userFile",
@@ -105,6 +105,11 @@ class SoundSeekerApp extends React.Component {
 
         // TODO: display confirmation info to user
         // TODO: confirm that react automatically re-renders AudioClipViews
+
+        // If successful, say so and forward to (last location or homepage)
+        this.setState(
+            {clipUploadView: false}
+        );
     };
 
     render() {
@@ -119,8 +124,8 @@ class SoundSeekerApp extends React.Component {
         if (this.state.clipUploadView) {
             var mainContent = 
                 <FileUploadView
-                    onFileSelect={this.props.onFileSelect} 
-                    uploadFile={this.props.uploadFile} 
+                    onFileSelect={this.onFileSelect} 
+                    onFileUpload={this.onFileUpload} 
                 />;
         } else {
             var mainContent = 
