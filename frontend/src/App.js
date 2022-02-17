@@ -8,9 +8,10 @@ import ActionBar from './ActionBar';
 import ActionItem from './ActionItem';
 import PlusIcon from './icons/plus.svg';
 import DropdownMenu from './DropdownMenu';
+import FileUploadView from './FileUploadView';
 
 // dev setup API
-const APIURL = "http://127.0.0.1:8000/api/";
+const APIURL = "http://127.0.0.1:8000/api";
 
 class SoundSeekerApp extends React.Component {
     constructor(props) {
@@ -22,21 +23,24 @@ class SoundSeekerApp extends React.Component {
             userSuiteMap: null,
             curSuite: null,
             curBlob: null,
+            clipUploadView: false,
             dropdownIsOpen: false,
             selectedFile: null
+
         };
 
         this.handleSuiteClick = this.handleSuiteClick.bind(this);
         this.handleBlobClick = this.handleBlobClick.bind(this);
         this.toggleDropdown = this.toggleDropdown.bind(this);
-        this.selectFile = this.selectFile.bind(this);
+        this.onFileSelect = this.onFileSelect.bind(this);
         this.uploadFile = this.uploadFile.bind(this);
+        this.toggleClipUpload = this.toggleClipUpload.bind(this);
     }
 
 
     componentDidMount() {
 
-        fetch(`http://127.0.0.1:8000/api/users/${userID}/`)
+        fetch(`${APIURL}/users/${userID}/`)
             .then(response => response.json())
             .then(
                 (result) => {
@@ -77,7 +81,12 @@ class SoundSeekerApp extends React.Component {
         );
     }
 
-    selectFile(event) {
+    toggleClipUpload() {
+        this.setState(
+            {clipUploadView: true}
+        );
+    }
+    onFileSelect(event) {
         this.setState(
             {selectedFile: event.target.files[0]}
         );
@@ -90,9 +99,9 @@ class SoundSeekerApp extends React.Component {
             this.state.selectedFile,
             this.state.selectedFile.name
         );
-        console.loag(this.state.selectedFile);
+        console.log(this.state.selectedFile);
 
-        axios.post(APIURL + "user-file-upload", formData);
+        axios.post(`${APIURL}/user-file-upload`, formData);
 
         // TODO: display confirmation info to user
         // TODO: confirm that react automatically re-renders AudioClipViews
@@ -101,9 +110,29 @@ class SoundSeekerApp extends React.Component {
     render() {
         if (this.state.error) {
             return <div>Error: {this.state.error.message}</div>;
-        } else if (!this.state.isLoaded) {
+        }
+
+        if (!this.state.isLoaded) {
             return <div>Loading. . .</div>;
+        } 
+
+        if (this.state.clipUploadView) {
+            var mainContent = 
+                <FileUploadView
+                    onFileSelect={this.props.onFileSelect} 
+                    uploadFile={this.props.uploadFile} 
+                />;
         } else {
+            var mainContent = 
+                <SuiteLevelView
+                    handleSuiteClick = {suiteObject => this.handleSuiteClick(suiteObject)}
+                    handleBlobClick = {blobObject => this.handleBlobClick(blobObject)}
+                    curSuite = {this.state.curSuite}
+                    userSuiteMap = {this.state.userSuiteMap}
+                    curBlob = {this.state.curBlob}
+                />;
+        }
+
             return (
                 <div>
                     <ActionBar>
@@ -111,24 +140,19 @@ class SoundSeekerApp extends React.Component {
                             icon={<PlusIcon />} 
                             toggleDropdown={this.toggleDropdown}
                             dropdownIsOpen={this.state.dropdownIsOpen} 
-                            selectFile={this.selectFile}
-                            uploadFile={this.uploadFile}
 
                         >
-                            <DropdownMenu></DropdownMenu>
+                            <DropdownMenu
+                                toggleClipUpload={this.toggleClipUpload}
+                                onFileSelect={this.onFileSelect}
+                                uploadFile={this.uploadFile}
+                             />
                         </ActionItem>
                     </ActionBar>
-                    <SuiteLevelView
-                        handleSuiteClick = {suiteObject => this.handleSuiteClick(suiteObject)}
-                        handleBlobClick = {blobObject => this.handleBlobClick(blobObject)}
-                        curSuite = {this.state.curSuite}
-                        userSuiteMap = {this.state.userSuiteMap}
-                        curBlob = {this.state.curBlob}
-                    />
+                    {mainContent}
                 </div>
             )
         }
     }
-}
 
 export default SoundSeekerApp;
