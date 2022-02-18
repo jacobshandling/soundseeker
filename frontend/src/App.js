@@ -101,10 +101,15 @@ class SoundSeekerApp extends React.Component {
         );
         console.log(this.state.selectedFile);
 
-        axios.post(`${APIURL}/user-file-upload`, formData);
-
-        // TODO: display confirmation info to user
-        // TODO: confirm that react automatically re-renders AudioClipViews
+        axios.post(`${APIURL}/user-file-upload`, formData)
+        .then(response => {
+            alert(response);
+            console.log(response);
+            })
+        .catch(error => {
+            alert(error);
+            console.log(error);
+        })
 
         // If successful, say so and forward to (last location or homepage)
         this.setState(
