@@ -61,6 +61,17 @@ a {
     filter: brightness(1.2);
 }
 
+.icon-button:not(:active) {
+    animation-name: rotate-plus-icon;
+    animation-duration: 250ms;
+}
+
+@keyframes rotate-plus-icon {
+    100% {
+        transform: rotate(-90deg);
+    }
+}
+
 /* style svgs passed into icon buttons. They don't inherit size by default, so set fixed width and height here */
 .icon-button svg {
     fill: var(--text-color);
