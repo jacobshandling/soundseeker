@@ -13,6 +13,7 @@ import FileUploadView from './FileUploadView';
 // dev setup API
 const APIURL = "http://127.0.0.1:8000/api";
 
+
 class SoundSeekerApp extends React.Component {
     constructor(props) {
         super(props);
@@ -44,13 +45,16 @@ class SoundSeekerApp extends React.Component {
             .then(response => response.json())
             .then(
                 (result) => {
+                    
+                    const userSuiteMap = this.getSuiteMapFromJSON(result);
+                    const userBlobs = this.getUserBlobsFromUserSuiteMap(userSuiteMap);
+                    // console.log(`userBlobs pre-state-set: ${userBlobs[0].name}`)
+
                     this.setState({
                         isLoaded: true,
                         userData: result,
-                        userSuiteMap: result.user_suites.reduce((map, obj) => {
-                            map[obj.id] = obj;
-                            return map;
-                        }, {})
+                        userSuiteMap: userSuiteMap,
+                        userBlobs: userBlobs
                     }
                     );
                 },
@@ -62,6 +66,28 @@ class SoundSeekerApp extends React.Component {
                 }
             )
                 }
+
+    getSuiteMapFromJSON(responseAsJSON) {
+        return responseAsJSON.user_suites.reduce((map, obj) => {
+                                    map[obj.id] = obj;
+                                    return map;
+                                }, {})
+    }
+
+    getUserBlobsFromUserSuiteMap(userSuiteMap) {
+        const userBlobs = [];
+        for (let key in userSuiteMap) {
+            const suite = userSuiteMap[key];
+            for (let i = 0; i < suite.blobs.length; i++) {
+                const blob = suite.blobs[i]
+                userBlobs.push({
+                    id: blob.id,
+                    name: blob.name,
+                })
+            }
+        }
+        return userBlobs;
+    }
 
     handleSuiteClick(suiteObject) {
         this.setState({
@@ -129,8 +155,9 @@ class SoundSeekerApp extends React.Component {
         if (this.state.clipUploadView) {
             var mainContent = 
                 <FileUploadView
-                    onFileSelect={this.onFileSelect} 
-                    onFileUpload={this.onFileUpload} 
+                    onFileSelect={this.state.onFileSelect} 
+                    onFileUpload={this.state.onFileUpload} 
+                    userBlobs={this.state.userBlobs}
                 />;
         } else {
             var mainContent = 
