@@ -112,9 +112,24 @@ a {
 
 .fileupload {
     height: var(--main-size);
+    display: flex;
+    align-items: center;
 
 }
 
 .upload-field {
-    
+    padding: 20px;
 }
+
+.upload-checkbox {
+    margin-left: 0.625rem;
+    min-height: 1.25rem;
+    min-width: 1.25rem;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+  }
