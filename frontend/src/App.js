@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 
 // TODO: Implement separate API Service using axios
 // import ApiService from './ApiService';
@@ -119,15 +118,33 @@ class SoundSeekerApp extends React.Component {
     }
 
     onFileUpload() {
-        const formData = new FormData();
-        formData.append(
-            "userFile",
-            this.state.selectedFile,
-            this.state.selectedFile.name
-        );
-        console.log(this.state.selectedFile);
-
-        axios.post(`${APIURL}/user-file-upload`, formData)
+        // const form = document.querySelector('#upload-form');
+        // console.log(form);
+        // const formData = new FormData(form);
+        // console.log(formData);
+        // formData.append(
+        //     "userFile",
+        //     this.state.selectedFile,
+        //     this.state.selectedFile.name
+        // );
+        // console.log(this.state.selectedFile);
+        const file = document.querySelector('#selected-file').value;
+        const clipName = document.querySelector('#clip-name').value;
+        const blobIDs = [];
+        document.getElementsByName('blob-options').forEach((checkbox => {
+            if (checkbox.checked) {
+                blobIDs.push(checkbox.value);
+            }
+        }));
+        console.log(`blobIDs: ${blobIDs}`);
+        fetch(`${APIURL}/user-file-upload`, {
+            method: 'POST',
+            body: JSON.stringify({
+                file: file,
+                clipname: clipName,
+                blobids: blobIDs
+            })
+        })
         .then(response => {
             alert(response);
             console.log(response);
@@ -136,6 +153,16 @@ class SoundSeekerApp extends React.Component {
             alert(error);
             console.log(error);
         })
+
+        // axios.post(`${APIURL}/user-file-upload`, formData)
+        // .then(response => {
+        //     alert(response);
+        //     console.log(response);
+        //     })
+        // .catch(error => {
+        //     alert(error);
+        //     console.log(error);
+        // })
 
         // If successful, say so and forward to (last location or homepage)
         this.setState(
@@ -155,8 +182,8 @@ class SoundSeekerApp extends React.Component {
         if (this.state.clipUploadView) {
             var mainContent = 
                 <FileUploadView
-                    onFileSelect={this.state.onFileSelect} 
-                    onFileUpload={this.state.onFileUpload} 
+                    onFileSelect={this.onFileSelect} 
+                    onFileUpload={this.onFileUpload} 
                     userBlobs={this.state.userBlobs}
                 />;
         } else {
@@ -186,7 +213,9 @@ class SoundSeekerApp extends React.Component {
                              />
                         </ActionItem>
                     </ActionBar>
-                    {mainContent}
+                    <main>
+                        {mainContent}
+                    </main>
                 </div>
             )
         }
