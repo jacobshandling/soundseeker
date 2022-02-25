@@ -29,7 +29,7 @@ def register(request):
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
         if password != confirmation:
-            return render(request, "seeds/register.html", {
+            return render(request, "registration/register.html", {
                 "message": "Passwords must match."
             })
 
@@ -39,13 +39,13 @@ def register(request):
             user.save()
         except IntegrityError:
             # TODO: modify below to work with REST / frontend setup
-            return render(request, "seeds/register.html", {
+            return render(request, "registration/register.html", {
                 "message": "Username already taken."
             })
         login(request, user)
         return HttpResponseRedirect(reverse("index"))
     else:
-        return render(request, "seeds/register.html")
+        return render(request, "registration/register.html")
 
 # API
 
