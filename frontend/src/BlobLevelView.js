@@ -14,6 +14,7 @@ class BlobLevelView extends React.Component {
 
         const mainContent = this.props.curBlob ?
             <AudioClipLevelView 
+                className="audioclip-level-view"
                 curBlob = {this.props.curBlob}
                 curSuite = {this.props.curSuite}
             />
@@ -21,6 +22,7 @@ class BlobLevelView extends React.Component {
             <div>
                 <h2>{this.props.curSuite.name} / Blobs</h2>
                 <BlobList
+                    className="blob-list"
                     suiteBlobMap={suiteBlobMap} 
                     handleBlobClick= {this.props.handleBlobClick} 
                 />

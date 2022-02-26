@@ -213,7 +213,7 @@ class SoundSeekerApp extends React.Component {
                              />
                         </ActionItem>
                     </ActionBar>
-                    <main>
+                    <main class="main-content">
                         {mainContent}
                     </main>
                 </div>

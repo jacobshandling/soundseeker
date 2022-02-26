@@ -1,14 +1,22 @@
 /* see https://www.youtube.com/watch?v=IF6k0uZuypA */
 
 :root {
-    --bg: #242526;
-    --bg-accent: #484a4d;
+    --bg: #ffffff;
+    --bg-accent: #19355f;
     --text-color: #dadce1;
     --nav-size: 60px;
     --border: 1px solid #474a4d;
     --border-radius: 8px;
     --speed: 500ms;
     --main-size: 120px;
+
+}
+
+body {
+    border: solid;
+    border-radius: 24px;
+    margin: 25px;
+    padding-bottom: 100px;
 }
 
 ul {
@@ -20,6 +28,19 @@ ul {
 a {
     color: var(--text-color);
     text-decoration: none;
+}
+
+.main-content {
+    display: flex;
+    justify-content: center;
+}
+
+.blob-level-view,
+.suite-list,
+.audioclip-level-view,
+.blob-list {
+    display: inherit;
+    justify-content: inherit;
 }
 
 .actionbar {
