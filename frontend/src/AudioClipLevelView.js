@@ -13,15 +13,13 @@ class AudioClipLevelView extends React.Component {
         for (var id in blobClips) {
             const clipObject = blobClips[id];
             clipRenders.push(
-                <li key={clipObject.id}>
-                    <AudioClip clipObject={clipObject} />
-                </li>
+                <AudioClip clipObject={clipObject} />
             );
         }
         return (
-            <div>
+            <div className="audioclip-level-view">
                 <h2>{curSuite.name} / {curBlob.name} / Clips</h2>
-                <ul>
+                <ul id="listed-audioclips">
                     {clipRenders}
                 </ul>
             </div>

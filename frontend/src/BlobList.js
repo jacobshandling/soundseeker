@@ -14,7 +14,7 @@ class BlobList extends React.Component {
         }
 
         return ( 
-            <ul>
+            <ul className="listed-blobs">
                 {blobs}
             </ul>
         );

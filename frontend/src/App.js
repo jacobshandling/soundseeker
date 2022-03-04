@@ -198,7 +198,7 @@ class SoundSeekerApp extends React.Component {
         }
 
             return (
-                <div>
+                <div id="app">
                     <ActionBar>
                         <ActionItem
                             icon={<PlusIcon />} 
@@ -213,7 +213,7 @@ class SoundSeekerApp extends React.Component {
                              />
                         </ActionItem>
                     </ActionBar>
-                    <main class="main-content">
+                    <main id="main-content">
                         {mainContent}
                     </main>
                 </div>
