@@ -10,7 +10,7 @@ import DropdownMenu from './DropdownMenu';
 import FileUploadView from './FileUploadView';
 
 // dev setup API
-const APIURL = "http://127.0.0.1:8000/api";
+const APIURL = "http://127.0.0.1:8002/api";
 
 
 class SoundSeekerApp extends React.Component {
@@ -198,7 +198,7 @@ class SoundSeekerApp extends React.Component {
         }
 
             return (
-                <div id="app">
+                <div id="react-wrapper">
                     <ActionBar>
                         <ActionItem
                             icon={<PlusIcon />} 

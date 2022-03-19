@@ -4,7 +4,7 @@ import React from 'react';
 function DropdownItem(props) {
     return (
         <a href="#" className="menu-item" onClick={props.toggleClipUpload}>
-            {props.children}
+            <h4>{props.children}</h4>
         </a>
     )
 }
@@ -15,10 +15,10 @@ class DropdownMenu extends React.Component {
         return(
             <div className="dropdown">
                 <DropdownItem toggleClipUpload={this.props.toggleClipUpload}>
-                    Upload A Clip
+                    Upload a Clip
                 </DropdownItem>
-                <DropdownItem>Create A Blob</DropdownItem>
-                <DropdownItem>Create A Suite</DropdownItem>
+                <DropdownItem>Create a Blob</DropdownItem>
+                <DropdownItem>Create a Suite</DropdownItem>
             </div>
         )
     }

@@ -13,6 +13,8 @@ class BlobList extends React.Component {
             );
         }
 
+        blobs.reverse();
+
         return ( 
             <ul className="listed-blobs">
                 {blobs}

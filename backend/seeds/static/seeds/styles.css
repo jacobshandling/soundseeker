@@ -4,36 +4,76 @@
     --bg: #ffffff;
     --bg-accent: #19355f;
     --text-color: black;
-    --main-size: 32px;
-    --nav-size: 60px;
-    --border: 1px solid #474a4d;
-    --border-radius: 8px;
+    --link-hover-color: rgb(126	96	131); 
+    --border: 0.03rem solid #474a4d;
+    --border-radius: 0.4rem;
     --speed: 500ms;
+    --menu-item-font-size: 0.4rem;
+}
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 5vmin;
+    font-family: "Gill Sans", sans-serif;
+}
+
+html, body {
+    height: 100%;
 }
 
 body {
-    border: solid;
-    border-radius: 24px;
-    margin: 25px;
-    padding: 20px;
-    /* padding-bottom: 100px; */
+    padding: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 h2 {
-    font-size: calc(var(--main-size) * 0.8);
+    font-size: 1rem;
+}
+
+h3 {
+    font-size: 0.9rem;
+}
+
+a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--link-hover-color)
+}
+
+#app-wrapper {
+
+    height: 100%;
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: var(--border);
+    border-radius: var(--border-radius);
 }
 
 nav {
-    width: 20%;
     display: flex;
-    /* flex-direction: column; */
     align-items: center;
-    justify-content: space-between;
-    height: 50px;
+    justify-content: space-around;
+    gap: 1rem;
+}
+
+
+/* nav > * {
+	flex: 1 1 auto;
+} */
+
 header {
     font-size: 1rem;
 }
@@ -59,22 +99,16 @@ header:after {
     font-size: .8rem;
 }
 
-a {
-    color: var(--text-color);
-    text-decoration: none;
-}
 
 main {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
 }
 
 main ul {
     list-style: none;
-    padding-left: 0;
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
@@ -96,21 +130,16 @@ main ul {
     display: inherit;
     flex-direction: column;
     align-items: center;
-    margin: 20px;
 }
+
 
 #react-root {
     width: 100%;
 }
-
-#app {
-    width: 100%;
-}
 #actionbar {
     width: 100%;
-    height: var(--nav-size);
-    background-color: var(--bg);
-    padding: 0 1rem;
+    height: 1rem;
+    /* background-color: var(--bg); */
     border-bottom: var(--border);
     display: flex;
     justify-content: flex-end;
@@ -163,30 +192,34 @@ main ul {
 /* style svgs passed into icon buttons. They don't inherit size by default, so set fixed width and height here */
 .icon-button svg {
     fill: var(--text-color);
-    width: 20px;
-    height: 20px;
+    width: .5rem;
+    height: .5rem;
 }
 /* Dropdown Menu */
 .dropdown {
     position: absolute;
-    top: 150px;
-    width: 300px;
+    top: 6.2rem;
+    width: 4.4rem;
     transform: translateX(-45%);
     background-color: var(--bg);
     border: var(--border);
     border-radius: var(--border-radius);
-    padding: 1rem;
+    padding: .15rem;
     overflow: hidden;
-
 }
 
 .menu-item {
-    height: 50px;
+    height: .1rem;
     display: flex;
     align-items: center;
+    justify-content: center;
     border-radius: var(--border-radius);
     transition: background var(--speed);
     padding: 0.5rem;
+}
+
+.menu-item > * {
+    font-size: var(--menu-item-font-size);
 }
 
 .menu-item:hover {
