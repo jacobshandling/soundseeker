@@ -66,6 +66,9 @@ class SoundSeekerApp extends React.Component {
             )
                 }
 
+    
+    // Methods for parsing user data on initial load
+
     getSuiteMapFromJSON(responseAsJSON) {
         return responseAsJSON.user_suites.reduce((map, obj) => {
                                     map[obj.id] = obj;
@@ -88,6 +91,9 @@ class SoundSeekerApp extends React.Component {
         return userBlobs;
     }
 
+
+    // Handlers for navigating through layers of content (suites, blobs, clips)
+
     handleSuiteClick(suiteObject) {
         this.setState({
             curSuite: suiteObject
@@ -99,6 +105,9 @@ class SoundSeekerApp extends React.Component {
             curBlob: blobObject
         });
     }
+
+
+    // Dropdown menu selection handlers
 
     toggleDropdown() {
         this.setState(
@@ -114,6 +123,10 @@ class SoundSeekerApp extends React.Component {
             }
         );
     }
+
+
+    // Clip upload handlers
+
     onFileSelect(event) {
         this.setState(
             {selectedFile: event.target.files[0]}
