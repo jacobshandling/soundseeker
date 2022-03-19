@@ -108,7 +108,10 @@ class SoundSeekerApp extends React.Component {
 
     toggleClipUpload() {
         this.setState(
-            {clipUploadView: true}
+            {
+                clipUploadView: true,
+                dropdownIsOpen: !this.state.dropdownIsOpen
+            }
         );
     }
     onFileSelect(event) {
