@@ -34,17 +34,29 @@ nav {
     align-items: center;
     justify-content: space-between;
     height: 50px;
+header {
+    font-size: 1rem;
 }
 
-nav ul {
+header:after {
+    content: "";
+    position: absolute;
+    background: #474a4d;
+    width: 0.03rem;
+    height: 1.4rem;
+    margin-left: 0.5rem;
+    /* transform: translateY(-50%); */
+}
+
+#nav-items {
     list-style: none;
     display: flex;
-    align-items: flex-start;
-    padding-left: 0;
+    align-items: center;
+    gap: 1rem
 }
 
-nav li {
-    margin: 20px;
+.nav-link {
+    font-size: .8rem;
 }
 
 a {
