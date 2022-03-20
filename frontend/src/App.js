@@ -153,7 +153,7 @@ class SoundSeekerApp extends React.Component {
             }
         }));
         console.log(`blobIDs: ${blobIDs}`);
-        fetch(`${APIURL}/user-file-upload`, {
+        fetch(`${APIURL}/audioclips/create/`, {
             method: 'POST',
             body: JSON.stringify({
                 file: file,

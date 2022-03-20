@@ -11,6 +11,9 @@ from rest_framework import viewsets, permissions
 from rest_framework.decorators import action, permission_classes
 from rest_framework.response import Response
 
+# for file upload
+from rest_framework.parsers import FormParser, MultiPartParser
+
 from seeds.serializers import *
 
 from .models import User, Suite
@@ -46,6 +49,7 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "registration/register.html")
+
 
 # API
 
@@ -89,9 +93,11 @@ class AudioClipViewSet(viewsets.ModelViewSet):
     queryset = AudioClip.objects.all()
     serializer_class = AudioClipSerializer
     permission_classes = [permissions.IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        serializer.save(user=self.request.user,
+                        file=self.request.data.get('file'))
 
 class LabelViewSet(viewsets.ModelViewSet):
     '''
