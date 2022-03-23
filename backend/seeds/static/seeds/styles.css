@@ -68,7 +68,7 @@ a:hover {
 nav {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: flex-start;
     gap: 1rem;
 }
 
@@ -94,8 +94,8 @@ header:after {
 #nav-items {
     list-style: none;
     display: flex;
-    align-items: center;
-    gap: 1rem
+    align-items: flex-start;
+    gap: .5rem
 }
 
 .nav-link {
