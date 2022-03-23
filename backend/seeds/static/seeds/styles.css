@@ -219,7 +219,7 @@ main ul {
 /* Dropdown Menu */
 .dropdown {
     position: absolute;
-    top: 6.2rem;
+    top: 7.2rem;
     width: 4.4rem;
     transform: translateX(-45%);
     background-color: var(--bg);
