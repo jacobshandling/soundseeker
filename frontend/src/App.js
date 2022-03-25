@@ -144,6 +144,8 @@ class SoundSeekerApp extends React.Component {
         //     this.state.selectedFile.name
         // );
         // console.log(this.state.selectedFile);
+
+        // prepare data for upload
         const file = document.querySelector('#selected-file').value;
         const clipName = document.querySelector('#clip-name').value;
         const blobIDs = [];
@@ -153,22 +155,25 @@ class SoundSeekerApp extends React.Component {
             }
         }));
         console.log(`blobIDs: ${blobIDs}`);
-        fetch(`${APIURL}/audioclips/create/`, {
-            method: 'POST',
-            body: JSON.stringify({
-                file: file,
-                clipname: clipName,
-                blobids: blobIDs
-            })
+
+        // append data to formData instance
+        const formData = new FormData();
+        formData.append('clipname', clipName);
+        formData.append('file', file);
+        formData.append('blobids', blobIDs);
+        
+        // initiate the upload promise
+        fetch(
+            `${APIURL}/audioclips/create/`,
+            { method: 'PUT', body: formData }
+        )
+        .then(response => response.json())
+        .then(result => {
+            console.log('Success:', result);
         })
-        .then(response => {
-            alert(response);
-            console.log(response);
-            })
         .catch(error => {
-            alert(error);
-            console.log(error);
-        })
+            console.log('Error:', error);
+        });
 
         // axios.post(`${APIURL}/user-file-upload`, formData)
         // .then(response => {
