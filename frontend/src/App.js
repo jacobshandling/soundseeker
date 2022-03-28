@@ -145,8 +145,26 @@ class SoundSeekerApp extends React.Component {
         // );
         // console.log(this.state.selectedFile);
 
+        // get CSRF token from cookie. See https://docs.djangoproject.com/en/4.0/ref/csrf/#acquiring-csrf-token-from-cookie
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        const csrftoken = getCookie('csrftoken');
+
         // prepare data for upload
-        const file = document.querySelector('#selected-file').value;
+        const file = this.state.selectedFile;
         const clipName = document.querySelector('#clip-name').value;
         const blobIDs = [];
         document.getElementsByName('blob-options').forEach((checkbox => {
@@ -154,18 +172,26 @@ class SoundSeekerApp extends React.Component {
                 blobIDs.push(checkbox.value);
             }
         }));
-        console.log(`blobIDs: ${blobIDs}`);
 
         // append data to formData instance
         const formData = new FormData();
         formData.append('clipname', clipName);
         formData.append('file', file);
-        formData.append('blobids', blobIDs);
-        
+        formData.append('blobids', blobIDs); 
+        formData.append('user', '');
+
         // initiate the upload promise
-        fetch(
-            `${APIURL}/audioclips/create/`,
-            { method: 'PUT', body: formData }
+        fetch( `${APIURL}/audioclips/`, {
+                // credentials: 'include',
+                method: 'POST',
+                // mode: 'same-origin',
+                headers: {
+                //     // 'Content-Type': 'multipart/form-data',
+                    
+                    'X-CSRFToken': csrftoken
+                },
+                body: formData
+            }
         )
         .then(response => response.json())
         .then(result => {

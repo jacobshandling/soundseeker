@@ -12,7 +12,7 @@ class User(AbstractUser):
 class AudioClip(models.Model):
     name = models.CharField(max_length=64, blank=True)
     # https://docs.djangoproject.com/en/3.2/topics/files/
-    file = models.FileField(upload_to='clips')
+    file = models.FileField(upload_to="")
     # TODO: make sure file referencing / storage / serving works properly
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_clips")
 

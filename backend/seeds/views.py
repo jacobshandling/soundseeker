@@ -6,6 +6,7 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import action, permission_classes
@@ -19,7 +20,7 @@ from seeds.serializers import *
 from .models import User, Suite
 from .serializers import SuiteSerializer
 
-
+@ensure_csrf_cookie
 def index(request):
     return render(request, 'seeds/index.html')
 
@@ -97,7 +98,8 @@ class AudioClipViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user,
-                        file=self.request.data.get('file'))
+                        file=self.request.data.get('file')
+                       )
 
 class LabelViewSet(viewsets.ModelViewSet):
     '''
