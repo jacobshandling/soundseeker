@@ -175,10 +175,11 @@ class SoundSeekerApp extends React.Component {
 
         // append data to formData instance
         const formData = new FormData();
-        formData.append('clipname', clipName);
+        // formData.append('csrfmiddlewaretoken', csrftoken)
+        formData.append('user', 'http://127.0.0.1:8002/api/users/5/');
+        formData.append('name', clipName);
         formData.append('file', file);
         formData.append('blobids', blobIDs); 
-        formData.append('user', '');
 
         // initiate the upload promise
         fetch( `${APIURL}/audioclips/`, {
@@ -186,7 +187,7 @@ class SoundSeekerApp extends React.Component {
                 method: 'POST',
                 // mode: 'same-origin',
                 headers: {
-                //     // 'Content-Type': 'multipart/form-data',
+                // //     // 'Content-Type': 'multipart/form-data',
                     
                     'X-CSRFToken': csrftoken
                 },
