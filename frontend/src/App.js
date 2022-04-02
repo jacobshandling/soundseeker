@@ -83,6 +83,7 @@ class SoundSeekerApp extends React.Component {
             for (let i = 0; i < suite.blobs.length; i++) {
                 const blob = suite.blobs[i]
                 userBlobs.push({
+                    url: blob.url,
                     id: blob.id,
                     name: blob.name,
                 })
@@ -166,17 +167,17 @@ class SoundSeekerApp extends React.Component {
         // prepare data for upload
         const file = this.state.selectedFile;
         const clipName = document.querySelector('#clip-name').value;
-        const blobIDs = [];
+        const blobURLs = [];
         document.getElementsByName('blob-options').forEach((checkbox => {
             if (checkbox.checked) {
-                blobIDs.push(checkbox.value);
+                blobURLs.push(checkbox.value);
             }
         }));
 
         // append data to formData instance
         const formData = new FormData();
         formData.append('name', clipName);
-        formData.append('blobids', blobIDs); 
+        formData.append('blobs', blobURLs); 
         formData.append('file', file);
 
         // initiate the upload promise

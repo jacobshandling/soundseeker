@@ -6,7 +6,7 @@ class FileUploadView extends React.Component {
         userBlobs.forEach(userBlob => {
             blobOptions.push(
                     <label htmlFor={userBlob.name} key={userBlob.id}>
-                        <input id={userBlob.name} className="blob-select-checkbox" key={userBlob.id} type="checkbox" name="blob-options" value={userBlob.id} />
+                        <input id={userBlob.name} className="blob-select-checkbox" key={userBlob.id} type="checkbox" name="blob-options" value={userBlob.url} />
                     <p>{userBlob.name}</p></label>
                     
             )

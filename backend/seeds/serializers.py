@@ -7,7 +7,7 @@ class AudioClipSerializer(serializers.HyperlinkedModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username') 
     class Meta:
         model = AudioClip
-        fields = ['url', 'id', 'owner', 'name', 'file']
+        fields = ['url', 'id', 'owner', 'name', 'file', 'blobs']
 
 class BlobSerializer(serializers.HyperlinkedModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
