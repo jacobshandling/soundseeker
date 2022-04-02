@@ -7,7 +7,7 @@ class AudioClipSerializer(serializers.HyperlinkedModelSerializer):
     
     class Meta:
         model = AudioClip
-        fields = ['url', 'id', 'user', 'name', 'file']
+        fields = ['url', 'id', 'owner', 'name', 'file']
 
 class BlobSerializer(serializers.HyperlinkedModelSerializer):
     # user = serializers.ReadOnlyField(source='user.username')
@@ -15,7 +15,7 @@ class BlobSerializer(serializers.HyperlinkedModelSerializer):
     
     class Meta:
         model = Blob
-        fields = ['url', 'id', 'user', 'name', 'clips']
+        fields = ['url', 'id', 'owner', 'name', 'clips']
 
 class SuiteSerializer(serializers.HyperlinkedModelSerializer):
     # user = serializers.ReadOnlyField(source='user.username')
@@ -24,7 +24,7 @@ class SuiteSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Suite
-        fields = ['url', 'id', 'user', 'name', 'blobs']
+        fields = ['url', 'id', 'owner', 'name', 'blobs']
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     # user_suites = serializers.HyperlinkedRelatedField(many=True, view_name='suite-detail', read_only=True)
@@ -40,4 +40,4 @@ class LabelSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Label
-        fields = ['url', 'id', 'name', 'user', 'clips', 'blobs', 'suites']
+        fields = ['url', 'id', 'name', 'owner', 'clips', 'blobs', 'suites']

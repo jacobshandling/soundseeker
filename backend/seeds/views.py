@@ -52,7 +52,8 @@ def register(request):
         return render(request, "registration/register.html")
 
 
-# API
+
+# API Views
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
     '''
@@ -71,7 +72,7 @@ class SuiteViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        serializer.save(owner=self.request.user)
 
 class BlobViewSet(viewsets.ModelViewSet):
     '''
@@ -83,7 +84,7 @@ class BlobViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        serializer.save(owner=self.request.user)
 
 
 class AudioClipViewSet(viewsets.ModelViewSet):
@@ -97,7 +98,7 @@ class AudioClipViewSet(viewsets.ModelViewSet):
     parser_classes = [MultiPartParser, FormParser]
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user,
+        serializer.save(owner=self.request.user,
                         file=self.request.data.get('file')
                        )
 
@@ -111,4 +112,4 @@ class LabelViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        serializer.save(owner=self.request.user)
