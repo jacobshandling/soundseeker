@@ -4,7 +4,7 @@ from seeds.models import *
 # https://www.django-rest-framework.org/api-guide/serializers/#dealing-with-nested-objects
 
 class AudioClipSerializer(serializers.HyperlinkedModelSerializer):
-    
+    owner = serializers.ReadOnlyField(source='owner.username') 
     class Meta:
         model = AudioClip
         fields = ['url', 'id', 'owner', 'name', 'file']

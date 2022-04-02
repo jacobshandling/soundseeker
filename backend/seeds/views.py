@@ -98,9 +98,7 @@ class AudioClipViewSet(viewsets.ModelViewSet):
     parser_classes = [MultiPartParser, FormParser]
 
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user,
-                        file=self.request.data.get('file')
-                       )
+        serializer.save(owner=self.request.user)
 
 class LabelViewSet(viewsets.ModelViewSet):
     '''
@@ -112,4 +110,4 @@ class LabelViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+        serializer.save(user=self.request.user)
