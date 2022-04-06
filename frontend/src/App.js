@@ -21,6 +21,7 @@ class SoundSeekerApp extends React.Component {
             error: null,
             userData: null,
             userSuiteMap: null,
+            userBlobMap: null,
             curSuite: null,
             curBlob: null,
             clipUploadView: false,
@@ -46,13 +47,13 @@ class SoundSeekerApp extends React.Component {
                 (result) => {
                     
                     const userSuiteMap = this.getSuiteMapFromJSON(result);
-                    const userBlobs = this.getUserBlobsFromUserSuiteMap(userSuiteMap);
+                    const userBlobMap = this.getUserBlobMapFromUserSuiteMap(userSuiteMap);
 
                     this.setState({
                         isLoaded: true,
                         userData: result,
                         userSuiteMap: userSuiteMap,
-                        userBlobs: userBlobs
+                        userBlobMap: userBlobMap
                     }
                     );
                 },
@@ -75,20 +76,17 @@ class SoundSeekerApp extends React.Component {
                                 }, {})
     }
 
-    getUserBlobsFromUserSuiteMap(userSuiteMap) {
-        const userBlobs = [];
+    getUserBlobMapFromUserSuiteMap(userSuiteMap) {
+        const userBlobMap = {};
         for (let key in userSuiteMap) {
             const suite = userSuiteMap[key];
-            for (let i = 0; i < suite.blobs.length; i++) {
-                const blob = suite.blobs[i]
-                userBlobs.push({
-                    url: blob.url,
-                    id: blob.id,
-                    name: blob.name,
-                })
+            // for (let i = 0; i < suite.blobs.length; i++) {
+            for (let key in suite.blobs) {   
+                const blob = suite.blobs[key]
+                userBlobMap[blob.id] = blob;
             }
         }
-        return userBlobs;
+        return userBlobMap;
     }
 
 
@@ -157,12 +155,15 @@ class SoundSeekerApp extends React.Component {
         // prepare data for upload
         const file = this.state.selectedFile;
         const clipName = document.querySelector('#clip-name').value;
-        const blobURLs = [];
+        const [blobURLs, blobIDs] = [[], []];  // blobIDs only for locally adding clips after successful upload
         document.getElementsByName('blob-options').forEach((checkbox => {
             if (checkbox.checked) {
                 blobURLs.push(checkbox.value);
+                blobIDs.push(checkbox.id);
             }
         }));
+        console.log(`blobURLs: ${blobURLs}`)
+        console.log(`blobIDs: ${blobIDs}`)
 
         // validate that at least 1 blob has been selected
         if (!blobURLs.length) {
@@ -192,15 +193,27 @@ class SoundSeekerApp extends React.Component {
         .then(result => {
             console.log('Success:', result);
             alert(`Uploaded ${clipName} successfully`);
+            
+            // prepare new local data
+            const updatedUserBlobMap = { ...this.state.userBlobMap };
+            
+            blobIDs.forEach(blobID => {
+                updatedUserBlobMap[blobID].clips.push(result)
+            })
+
+            // set new data as state and return to previous view
+            this.setState(
+                {
+                    clipUploadView: false,
+                    userBlobMap: updatedUserBlobMap
+                }
+            );
+
         })
         .catch(error => {
             console.error('Error with fetch operation:', error);
         });
 
-        // If successful, say so and forward to (last location or homepage)
-        this.setState(
-            {clipUploadView: false}
-        );
     };
 
     render() {
@@ -217,7 +230,7 @@ class SoundSeekerApp extends React.Component {
                 <FileUploadView
                     onFileSelect={this.onFileSelect} 
                     onFileUpload={this.onFileUpload} 
-                    userBlobs={this.state.userBlobs}
+                    userBlobMap={this.state.userBlobMap}
                 />;
         } else {
             var mainContent = 

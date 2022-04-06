@@ -1,21 +1,22 @@
 import React from 'react';
 
 class FileUploadView extends React.Component {
-    renderBlobOptions(userBlobs) {
+    renderBlobOptions(userBlobMap) {
         const blobOptions = [];
-        userBlobs.forEach(userBlob => {
+        for (let key in userBlobMap) {
+            const userBlob = userBlobMap[key];
             blobOptions.push(
                     <label htmlFor={userBlob.name} key={userBlob.id}>
-                        <input id={userBlob.name} className="blob-select-checkbox" key={userBlob.id} type="checkbox" name="blob-options" value={userBlob.url} />
+                        <input id={userBlob.id} className="blob-select-checkbox" key={userBlob.id} type="checkbox" name="blob-options" value={userBlob.url} />
                     <p>{userBlob.name}</p></label>
                     
             )
-        });
+        };
         return blobOptions;
     }
 
     render() {
-        const blobOptions = this.renderBlobOptions(this.props.userBlobs);
+        const blobOptions = this.renderBlobOptions(this.props.userBlobMap);
         return(
             <section id="file-upload">
                 <form id="upload-form">
