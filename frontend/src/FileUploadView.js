@@ -21,10 +21,10 @@ class FileUploadView extends React.Component {
                 <form id="upload-form">
                     <input id="selected-file" className="upload-field" type="file" onChange={this.props.onFileSelect} required/>
                     <input id="clip-name" className="upload-field" type="text" placeholder='clip name' />
-                    <div className="upload-field" id="blob-options">
-                        <h3>Blobs to associate this clip with:</h3> 
+                    <fieldset className="upload-field" id="blob-options">
+                        <legend>Blobs to associate this clip with (at least 1):</legend> 
                         {blobOptions}
-                    </div>
+                    </fieldset>
                     <input type="submit" className="upload-field" onClick={this.props.onFileUpload} value="Upload" />
                 </form>
             </section>

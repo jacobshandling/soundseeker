@@ -47,7 +47,6 @@ class SoundSeekerApp extends React.Component {
                     
                     const userSuiteMap = this.getSuiteMapFromJSON(result);
                     const userBlobs = this.getUserBlobsFromUserSuiteMap(userSuiteMap);
-                    // console.log(`userBlobs pre-state-set: ${userBlobs[0].name}`)
 
                     this.setState({
                         isLoaded: true,
@@ -134,35 +133,26 @@ class SoundSeekerApp extends React.Component {
         );
     }
 
-    onFileUpload() {
-        // const form = document.querySelector('#upload-form');
-        // console.log(form);
-        // const formData = new FormData(form);
-        // console.log(formData);
-        // formData.append(
-        //     "userFile",
-        //     this.state.selectedFile,
-        //     this.state.selectedFile.name
-        // );
-        // console.log(this.state.selectedFile);
-
+    getCookie(name) {
         // get CSRF token from cookie. See https://docs.djangoproject.com/en/4.0/ref/csrf/#acquiring-csrf-token-from-cookie
-        function getCookie(name) {
-            let cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                const cookies = document.cookie.split(';');
-                for (let i = 0; i < cookies.length; i++) {
-                    const cookie = cookies[i].trim();
-                    // Does this cookie string begin with the name we want?
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
                 }
             }
-            return cookieValue;
         }
-        const csrftoken = getCookie('csrftoken');
+        return cookieValue;
+    }
+
+    onFileUpload() {
+
+        const csrftoken = this.getCookie('csrftoken');
 
         // prepare data for upload
         const file = this.state.selectedFile;
@@ -173,6 +163,12 @@ class SoundSeekerApp extends React.Component {
                 blobURLs.push(checkbox.value);
             }
         }));
+
+        // validate that at least 1 blob has been selected
+        if (!blobURLs.length) {
+            alert("Please select at least one blob to associate this clip with");
+            return;
+        }
 
         // append data to formData instance
         const formData = new FormData();
@@ -187,12 +183,18 @@ class SoundSeekerApp extends React.Component {
                 body: formData
             }
         )
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Upload error – response not ok');
+            }
+            return response.json();
+        })
         .then(result => {
             console.log('Success:', result);
+            alert(`Uploaded ${clipName} successfully`);
         })
         .catch(error => {
-            console.log('Error:', error);
+            console.error('Error with fetch operation:', error);
         });
 
         // If successful, say so and forward to (last location or homepage)
