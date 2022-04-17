@@ -17,7 +17,7 @@ class DropdownMenu extends React.Component {
                 <DropdownItem onClick={this.props.toggleClipUpload}>
                     Upload a Clip
                 </DropdownItem>
-                <DropdownItem>Create a Blob</DropdownItem>
+                <DropdownItem onClick={this.props.toggleCreateBlob}>Create a Blob</DropdownItem>
                 <DropdownItem>Create a Suite</DropdownItem>
             </div>
         )

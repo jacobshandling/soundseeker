@@ -1,13 +1,12 @@
 import React from 'react';
 
-// TODO: Implement separate API Service using axios
-// import ApiService from './ApiService';
 import SuiteLevelView from './SuiteLevelView';
 import ActionBar from './ActionBar';
 import ActionItem from './ActionItem';
 import PlusIcon from './icons/plus.svg';
 import DropdownMenu from './DropdownMenu';
 import FileUploadView from './FileUploadView';
+import CreateBlobView from './CreateBlobView';
 
 // dev setup API
 const APIURL = "http://127.0.0.1:8002/api";
@@ -24,8 +23,10 @@ class SoundSeekerApp extends React.Component {
             userBlobMap: null,
             curSuite: null,
             curBlob: null,
-            clipUploadView: false,
             dropdownIsOpen: false,
+            createView: null,
+            // clipUploadView: false,
+            // createBlobView: false,
             selectedFile: null
 
         };
@@ -36,6 +37,8 @@ class SoundSeekerApp extends React.Component {
         this.onFileSelect = this.onFileSelect.bind(this);
         this.onFileUpload = this.onFileUpload.bind(this);
         this.toggleClipUpload = this.toggleClipUpload.bind(this);
+        this.toggleCreateBlob = this.toggleCreateBlob.bind(this);
+        this.onCreateBlob = this.onCreateBlob.bind(this);
     }
 
 
@@ -43,8 +46,7 @@ class SoundSeekerApp extends React.Component {
 
         fetch(`${APIURL}/users/${userID}/`)
             .then(response => response.json())
-            .then(
-                (result) => {
+            .then((result) => {
                     
                     const userSuiteMap = this.getSuiteMapFromJSON(result);
                     const userBlobMap = this.getUserBlobMapFromUserSuiteMap(userSuiteMap);
@@ -116,14 +118,23 @@ class SoundSeekerApp extends React.Component {
     toggleClipUpload() {
         this.setState(
             {
-                clipUploadView: true,
+                createView: 'clip',
                 dropdownIsOpen: !this.state.dropdownIsOpen
             }
         );
     }
 
+    toggleCreateBlob() {
+        this.setState(
+            {
+                createView: 'blob',
+                dropdownIsOpen: !this.state.dropdownIsOpen
+            }
+        )
+    }
 
-    // Clip upload handlers
+
+    // upload handlers
 
     onFileSelect(event) {
         this.setState(
@@ -147,7 +158,7 @@ class SoundSeekerApp extends React.Component {
         }
         return cookieValue;
     }
-
+    
     onFileUpload() {
 
         const csrftoken = this.getCookie('csrftoken');
@@ -178,7 +189,7 @@ class SoundSeekerApp extends React.Component {
         formData.append('file', file);
 
         // initiate the upload promise
-        fetch( `${APIURL}/audioclips/`, {
+        fetch(`${APIURL}/audioclips/`, {
                 method: 'POST',
                 headers: { 'X-CSRFToken': csrftoken },
                 body: formData
@@ -204,7 +215,7 @@ class SoundSeekerApp extends React.Component {
             // set new data as state and return to previous view
             this.setState(
                 {
-                    clipUploadView: false,
+                    createView: null,
                     userBlobMap: updatedUserBlobMap
                 }
             );
@@ -216,6 +227,52 @@ class SoundSeekerApp extends React.Component {
 
     };
 
+    onCreateBlob() {
+        const csrftoken = this.getCookie('csrftoken');
+
+        const blobName = document.querySelector('#blob-name').value;
+
+        if (!blobName.length) {
+            alert("Please enter a name for your new Blob");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('name', blobName);
+
+        fetch(`${APIURL}/blobs/`, {
+            method: 'POST',
+            headers: { 'X-CSRFToken': csrftoken },
+            body: formData
+            }
+        )
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Create blob upload error – response not ok');
+            }
+            return response.json();
+        })
+        .then(result => {
+            alert(`Created new blob ${blobName} successfully`);
+            
+            // add new blob to local state
+            const updatedUserBlobMap = { ...this.state.userBlobMap };
+            updatedUserBlobMap[result['id']] = result;
+
+            // set new data as state and return to previous view
+            this.setState(
+                {
+                    createView: null,
+                    userBlobMap: updatedUserBlobMap
+                }
+            );
+
+        })
+        .catch(error => {
+            console.error('Error with fetch operation:', error);
+        });
+    }
+
     render() {
         if (this.state.error) {
             return <div>Error: {this.state.error.message}</div>;
@@ -225,13 +282,21 @@ class SoundSeekerApp extends React.Component {
             return <div>Loading. . .</div>;
         } 
 
-        if (this.state.clipUploadView) {
-            var mainContent = 
-                <FileUploadView
-                    onFileSelect={this.onFileSelect} 
-                    onFileUpload={this.onFileUpload} 
-                    userBlobMap={this.state.userBlobMap}
-                />;
+        if (this.state.createView) {
+            switch (this.state.createView) {
+                case 'clip':
+                    var mainContent = 
+                        <FileUploadView
+                            onFileSelect={this.onFileSelect} 
+                            onFileUpload={this.onFileUpload} 
+                            userBlobMap={this.state.userBlobMap}
+                        />;
+                    break;
+                case 'blob':
+                    var mainContent = 
+                        <CreateBlobView onCreateBlob={this.onCreateBlob} />;
+                    break;
+            }
         } else {
             var mainContent = 
                 <SuiteLevelView
@@ -254,6 +319,7 @@ class SoundSeekerApp extends React.Component {
                         >
                             <DropdownMenu
                                 toggleClipUpload={this.toggleClipUpload}
+                                toggleCreateBlob={this.toggleCreateBlob}
                                 onFileSelect={this.onFileSelect}
                                 uploadFile={this.uploadFile}
                              />
