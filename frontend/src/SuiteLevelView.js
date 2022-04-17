@@ -13,7 +13,7 @@ class SuiteLevelView extends React.Component {
                 curBlob = {this.props.curBlob}
             />
             :
-            <div className="suite-list">
+            <div className="suite-list content-view">
                 <h2>Suites</h2>
                 <SuiteList
                     userSuiteMap={this.props.userSuiteMap} 

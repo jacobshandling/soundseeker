@@ -75,10 +75,6 @@ nav {
 }
 
 
-/* nav > * {
-	flex: 1 1 auto;
-} */
-
 header {
     font-size: 1rem;
 }
@@ -146,22 +142,21 @@ main ul {
 
 }
 
-.suite-level-view,
-.suite-list,
-.blob-level-view,
-.blob-list,
-.audioclip-level-view {
+.content-view {
         display: inherit;
         flex-direction: inherit;
         justify-content: inherit;
         align-items: inherit;
+        height: 100%;
         width: 100%;
+        gap: 1rem;
     }
 
 .audioclips {
     width: 100%;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 1rem;
 }
 
@@ -171,6 +166,8 @@ main ul {
     align-items: center;
 }
 
+
+/* Action Items */
 
 #actionbar {
     width: 100%;
