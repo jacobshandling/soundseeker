@@ -1,6 +1,7 @@
 import React from 'react';
 
 class FileUploadView extends React.Component {
+    
     renderBlobOptions(userBlobMap) {
         const blobOptions = [];
         for (let key in userBlobMap) {

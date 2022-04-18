@@ -82,7 +82,6 @@ class SoundSeekerApp extends React.Component {
         const userBlobMap = {};
         for (let key in userSuiteMap) {
             const suite = userSuiteMap[key];
-            // for (let i = 0; i < suite.blobs.length; i++) {
             for (let key in suite.blobs) {   
                 const blob = suite.blobs[key]
                 userBlobMap[blob.id] = blob;
@@ -178,7 +177,7 @@ class SoundSeekerApp extends React.Component {
 
         // validate that at least 1 blob has been selected
         if (!blobURLs.length) {
-            alert("Please select at least one blob to associate this clip with");
+            alert("Please select at least one Blob to associate this Clip with");
             return;
         }
 
@@ -230,15 +229,30 @@ class SoundSeekerApp extends React.Component {
     onCreateBlob() {
         const csrftoken = this.getCookie('csrftoken');
 
+        // prepare data for upload
         const blobName = document.querySelector('#blob-name').value;
+        const [suiteURLs, suiteIDs] = [[], []]
+        document.getElementsByName('suite-options').forEach((checkbox => {
+            if (checkbox.checked) {
+                suiteURLs.push(checkbox.value);
+                suiteIDs.push(checkbox.id);
+            }
+        }));
 
+        // validate
         if (!blobName.length) {
             alert("Please enter a name for your new Blob");
             return;
         }
+        if (!suiteURLs.length) {
+            alert("Please select at least one Suite to associate this Blob with")
+            return;
+        }
 
+        // create formData instance
         const formData = new FormData();
         formData.append('name', blobName);
+        formData.append('suites', suiteURLs);
 
         fetch(`${APIURL}/blobs/`, {
             method: 'POST',
@@ -256,6 +270,14 @@ class SoundSeekerApp extends React.Component {
             alert(`Created new blob ${blobName} successfully`);
             
             // add new blob to local state
+
+                // update userSuiteMap
+            const updatedUserSuiteMap = { ...this.state.userSuiteMap }
+            suiteIDs.forEach(suiteID => {
+                updatedUserSuiteMap[suiteID].blobs.push(result);
+            })
+
+                // update userBlobMap
             const updatedUserBlobMap = { ...this.state.userBlobMap };
             updatedUserBlobMap[result['id']] = result;
 
@@ -263,6 +285,7 @@ class SoundSeekerApp extends React.Component {
             this.setState(
                 {
                     createView: null,
+                    userSuiteMap: updatedUserSuiteMap,
                     userBlobMap: updatedUserBlobMap
                 }
             );
@@ -287,14 +310,17 @@ class SoundSeekerApp extends React.Component {
                 case 'clip':
                     var mainContent = 
                         <FileUploadView
-                            onFileSelect={this.onFileSelect} 
-                            onFileUpload={this.onFileUpload} 
-                            userBlobMap={this.state.userBlobMap}
+                            onFileSelect = {this.onFileSelect} 
+                            onFileUpload = {this.onFileUpload} 
+                            userBlobMap = {this.state.userBlobMap}
                         />;
                     break;
                 case 'blob':
                     var mainContent = 
-                        <CreateBlobView onCreateBlob={this.onCreateBlob} />;
+                        <CreateBlobView 
+                            onCreateBlob = {this.onCreateBlob}
+                            userSuiteMap = {this.state.userSuiteMap}
+                        />;
                     break;
             }
         } else {
@@ -312,16 +338,16 @@ class SoundSeekerApp extends React.Component {
                 <div id="react-wrapper">
                     <ActionBar>
                         <ActionItem
-                            icon={<PlusIcon />} 
-                            toggleDropdown={this.toggleDropdown}
-                            dropdownIsOpen={this.state.dropdownIsOpen} 
+                            icon = {<PlusIcon />} 
+                            toggleDropdown = {this.toggleDropdown}
+                            dropdownIsOpen = {this.state.dropdownIsOpen} 
 
                         >
                             <DropdownMenu
-                                toggleClipUpload={this.toggleClipUpload}
-                                toggleCreateBlob={this.toggleCreateBlob}
-                                onFileSelect={this.onFileSelect}
-                                uploadFile={this.uploadFile}
+                                toggleClipUpload = {this.toggleClipUpload}
+                                toggleCreateBlob = {this.toggleCreateBlob}
+                                onFileSelect = {this.onFileSelect}
+                                uploadFile = {this.uploadFile}
                              />
                         </ActionItem>
                     </ActionBar>

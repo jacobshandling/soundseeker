@@ -15,7 +15,7 @@ class BlobSerializer(serializers.HyperlinkedModelSerializer):
     
     class Meta:
         model = Blob
-        fields = ['url', 'id', 'owner', 'name', 'clips']
+        fields = ['url', 'id', 'owner', 'name', 'clips', 'suites']
 
 class SuiteSerializer(serializers.HyperlinkedModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
