@@ -269,7 +269,10 @@ main ul {
     width: 100%;
 }
 
-#upload-form {
+
+/* Clip, Blob, and Suite Creation */
+
+.upload-form {
     /* width: 100%; */
     display: flex;
     align-items: center;
@@ -281,14 +284,18 @@ main ul {
 
 .upload-field {
     padding: .2rem;
-}V
+}
 
-.blob-select-checkbox {
+.select-checkbox {
     height: .5rem;
     width: .5rem;
     /* margin-left: 0.625rem; */
     /* min-height: 1.25rem;
     min-width: 1.25rem; */
+}
+
+legend {
+    font-size: .7rem;
 }
 
 label {
