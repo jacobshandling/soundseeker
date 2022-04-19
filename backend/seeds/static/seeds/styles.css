@@ -39,6 +39,7 @@ h2 {
 }
 
 h3 {
+    text-align: center;
     font-size: 0.7rem;
     height: auto;
     width: auto;
@@ -136,14 +137,14 @@ header:after {
     max-width: 100%;
 }
 
-#login {
+.login-reg {
     max-width: 10rem;
     display: flex;
     flex-direction: column;
     gap: .5rem;
 }
 
-#need-account {
+.toggle-reg-or-login {
     display: flex;
     flex-direction: column;
     align-items: center;

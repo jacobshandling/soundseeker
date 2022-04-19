@@ -1,7 +1,7 @@
 {% extends "seeds/layout.html" %}
 
 {% block body %}
-    <div id="login">
+    <div class="login-reg">
         <h2>Login</h2>
     
         {% if message %}
@@ -15,7 +15,7 @@
             <input class="form-field" type="submit" value="Login">
         </form>
     </div>
-    <div id="need-account">
+    <div class="toggle-reg-or-login">
         <h3>Need an account?</h3>
         <a href="{% url 'register' %}">Register</a>
     </div>
