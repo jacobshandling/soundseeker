@@ -19,8 +19,7 @@ class BlobSerializer(serializers.HyperlinkedModelSerializer):
 
 class SuiteSerializer(serializers.HyperlinkedModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
-    # user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), source='user.id')
-    blobs = BlobSerializer(many=True)
+    blobs = BlobSerializer(many=True, required=False)
 
     class Meta:
         model = Suite
