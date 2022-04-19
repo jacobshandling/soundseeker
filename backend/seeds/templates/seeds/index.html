@@ -7,7 +7,7 @@
         <script>var userID = "{{ user.id }}"</script>
         <script src="{% static 'seeds/build/main.js' %}"></script>
     {% else %}
-        <h2>Welcome to SoundSeeker. Please register or log in.</h2>
+        <h2 id="welcome">Welcome to SoundSeeker. Please register or log in.</h2>
         <!-- TODO: Awesome welcome intro graphic / animation right here -->
     {% endif %}
 {% endblock %}
