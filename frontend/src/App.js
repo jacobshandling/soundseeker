@@ -26,8 +26,6 @@ class SoundSeekerApp extends React.Component {
             curBlob: null,
             dropdownIsOpen: false,
             createView: null,
-            // clipUploadView: false,
-            // createBlobView: false,
             selectedFile: null
 
         };
@@ -173,7 +171,7 @@ class SoundSeekerApp extends React.Component {
 
         const csrftoken = this.getCookie('csrftoken');
 
-        // prepare data for upload
+        // gather data for upload
         const file = this.state.selectedFile;
         const clipName = document.querySelector('#clip-name').value;
         const [blobURLs, blobIDs] = [[], []];  // blobIDs only for locally adding clips after successful upload
@@ -192,13 +190,13 @@ class SoundSeekerApp extends React.Component {
             return;
         }
 
-        // append data to formData instance
+        // create formData instance
         const formData = new FormData();
         formData.append('name', clipName);
         formData.append('blobs', blobURLs); 
         formData.append('file', file);
 
-        // initiate the upload promise
+
         fetch(`${APIURL}/audioclips/`, {
                 method: 'POST',
                 headers: { 'X-CSRFToken': csrftoken },
@@ -240,7 +238,7 @@ class SoundSeekerApp extends React.Component {
     onCreateBlob() {
         const csrftoken = this.getCookie('csrftoken');
 
-        // prepare data for upload
+        // gather data for upload
         const blobName = document.querySelector('#blob-name').value;
         const [suiteURLs, suiteIDs] = [[], []]
         document.getElementsByName('suite-options').forEach((checkbox => {
@@ -280,19 +278,13 @@ class SoundSeekerApp extends React.Component {
         .then(result => {
             alert(`Created new blob ${blobName} successfully`);
             
-            // add new blob to local state
-
-                // update userSuiteMap
+            // add new blob to local state and return to previous view
             const updatedUserSuiteMap = { ...this.state.userSuiteMap }
             suiteIDs.forEach(suiteID => {
                 updatedUserSuiteMap[suiteID].blobs.push(result);
             })
-
-                // update userBlobMap
             const updatedUserBlobMap = { ...this.state.userBlobMap };
             updatedUserBlobMap[result['id']] = result;
-
-            // set new data as state and return to previous view
             this.setState(
                 {
                     createView: null,
@@ -311,7 +303,7 @@ class SoundSeekerApp extends React.Component {
     onCreateSuite() {
         const csrftoken = this.getCookie('csrftoken');
 
-        // prepare data for upload
+        // gather data for upload
         const suiteName = document.querySelector('#suite-name').value;
 
         // validate
@@ -339,12 +331,9 @@ class SoundSeekerApp extends React.Component {
         .then(result => {
             alert(`Created new suite ${suiteName} successfully`);
             
-            // add new Suite to local state
-
+            // add new Suite to local state and return to previous view
             const updatedUserSuiteMap = { ...this.state.userSuiteMap }
             updatedUserSuiteMap[result[id]] = result;
-
-            // set new data as state and return to previous view
             this.setState(
                 {
                     createView: null,

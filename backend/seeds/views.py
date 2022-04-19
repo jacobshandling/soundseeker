@@ -12,7 +12,6 @@ from rest_framework import viewsets, permissions
 from rest_framework.decorators import action, permission_classes
 from rest_framework.response import Response
 
-# for file upload
 from rest_framework.parsers import FormParser, MultiPartParser
 
 from seeds.serializers import *

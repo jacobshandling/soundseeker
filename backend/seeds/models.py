@@ -2,7 +2,6 @@ from django.db import models
 
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-# from django.db.models.fields import CharField
 
 class User(AbstractUser):
 
@@ -13,7 +12,6 @@ class AudioClip(models.Model):
     name = models.CharField(max_length=64, blank=True)
     # https://docs.djangoproject.com/en/3.2/topics/files/
     file = models.FileField(upload_to="")
-    # TODO: make sure file referencing / storage / serving works properly
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_clips")
 
     def __str__(self):

@@ -26,7 +26,6 @@ class SuiteSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['url', 'id', 'owner', 'name', 'blobs']
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
-    # user_suites = serializers.HyperlinkedRelatedField(many=True, view_name='suite-detail', read_only=True)
     user_suites = SuiteSerializer(many=True, read_only=True, required=False)
 
     class Meta:
