@@ -8,7 +8,7 @@ class BlobList extends React.Component {
             const blobObject = this.props.suiteBlobMap[blobID];
             blobs.push(
                 <li key={blobObject.id}>
-                    <button className="listed-blob" onClick={() => this.props.handleBlobClick(blobObject)}>{blobObject.name}</button>
+                    <button className="listed-content" onClick={() => this.props.handleBlobClick(blobObject)}>{blobObject.name}</button>
                 </li>
             );
         }
@@ -16,7 +16,7 @@ class BlobList extends React.Component {
         blobs.reverse();
 
         return ( 
-            <ul className="listed-blobs">
+            <ul className="content-list">
                 {blobs}
             </ul>
         );

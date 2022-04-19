@@ -19,7 +19,7 @@ class AudioClipLevelView extends React.Component {
         return (
             <div className="audioclip-level-view content-view">
                 <h2>{curSuite.name} / {curBlob.name} / Clips</h2>
-                <ul className="audioclips">
+                <ul id="audioclips" className="content-list">
                     {clipRenders}
                 </ul>
             </div>

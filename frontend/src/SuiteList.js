@@ -8,13 +8,13 @@ class SuiteList extends React.Component {
             const suiteObject = this.props.userSuiteMap[suiteID];
             suites.push(
                 <li key={suiteObject.id}>
-                    <button className="listed-suite" onClick={() => this.props.handleSuiteClick(suiteObject)}>{suiteObject.name}</button>
+                    <button className="listed-content" onClick={() => this.props.handleSuiteClick(suiteObject)}>{suiteObject.name}</button>
                 </li>
             );
         }
 
         return ( 
-            <ul>
+            <ul class="content-list">
                 {suites}
             </ul>
         );

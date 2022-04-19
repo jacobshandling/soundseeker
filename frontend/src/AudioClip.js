@@ -7,8 +7,8 @@ class AudioClip extends React.Component {
         const clipURL = clipObject['file'];
 
         return (
-            <li className="listed-audioclip">
-                <h3>{clipObject['name']}</h3>
+            <li className="audioclip listed-content">
+                <h4>{clipObject['name']}</h4>
                 <audio controls>
                     <source src={clipURL} type="audio/mpeg" />
                 </audio>
