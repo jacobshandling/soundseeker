@@ -7,6 +7,7 @@ import PlusIcon from './icons/plus.svg';
 import DropdownMenu from './DropdownMenu';
 import FileUploadView from './FileUploadView';
 import CreateBlobView from './CreateBlobView';
+import CreateSuiteView from './CreateSuiteView';
 
 // dev setup API
 const APIURL = "http://127.0.0.1:8002/api";
@@ -34,11 +35,13 @@ class SoundSeekerApp extends React.Component {
         this.handleSuiteClick = this.handleSuiteClick.bind(this);
         this.handleBlobClick = this.handleBlobClick.bind(this);
         this.toggleDropdown = this.toggleDropdown.bind(this);
-        this.onFileSelect = this.onFileSelect.bind(this);
-        this.onFileUpload = this.onFileUpload.bind(this);
         this.toggleClipUpload = this.toggleClipUpload.bind(this);
         this.toggleCreateBlob = this.toggleCreateBlob.bind(this);
+        this.toggleCreateSuite = this.toggleCreateSuite.bind(this);
+        this.onFileSelect = this.onFileSelect.bind(this);
+        this.onFileUpload = this.onFileUpload.bind(this);
         this.onCreateBlob = this.onCreateBlob.bind(this);
+        this.onCreateSuite = this.onCreateSuite.bind(this);
     }
 
 
@@ -132,6 +135,14 @@ class SoundSeekerApp extends React.Component {
         )
     }
 
+    toggleCreateSuite() {
+        this.setState(
+            {
+                createView: 'suite',
+                dropdownIsOpen: !this.state.dropdownIsOpen
+            }
+        )
+    }
 
     // upload handlers
 
@@ -296,6 +307,57 @@ class SoundSeekerApp extends React.Component {
         });
     }
 
+
+    onCreateSuite() {
+        const csrftoken = this.getCookie('csrftoken');
+
+        // prepare data for upload
+        const suiteName = document.querySelector('#suite-name').value;
+
+        // validate
+        if (!suiteName.length) {
+            alert("Please enter a name for your new Blob");
+            return;
+        }
+
+        // create formData instance
+        const formData = new FormData();
+        formData.append('name', suiteName);
+
+        fetch(`${APIURL}/suites/`, {
+            method: 'POST',
+            headers: { 'X-CSRFToken': csrftoken },
+            body: formData
+            }
+        )
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Create suite upload error – response not ok');
+            }
+            return response.json();
+        })
+        .then(result => {
+            alert(`Created new suite ${suiteName} successfully`);
+            
+            // add new Suite to local state
+
+            const updatedUserSuiteMap = { ...this.state.userSuiteMap }
+            updatedUserSuiteMap[result[id]] = result;
+
+            // set new data as state and return to previous view
+            this.setState(
+                {
+                    createView: null,
+                    userSuiteMap: updatedUserSuiteMap,
+                }
+            );
+
+        })
+        .catch(error => {
+            console.error('Error with fetch operation:', error);
+        });
+    }
+
     render() {
         if (this.state.error) {
             return <div>Error: {this.state.error.message}</div>;
@@ -322,6 +384,13 @@ class SoundSeekerApp extends React.Component {
                             userSuiteMap = {this.state.userSuiteMap}
                         />;
                     break;
+                case 'suite':
+                    var mainContent = 
+                        <CreateSuiteView 
+                            onCreateSuite = {this.onCreateSuite}
+                        />;
+                    break;
+
             }
         } else {
             var mainContent = 
@@ -346,6 +415,7 @@ class SoundSeekerApp extends React.Component {
                             <DropdownMenu
                                 toggleClipUpload = {this.toggleClipUpload}
                                 toggleCreateBlob = {this.toggleCreateBlob}
+                                toggleCreateSuite = {this.toggleCreateSuite}
                                 onFileSelect = {this.onFileSelect}
                                 uploadFile = {this.uploadFile}
                              />

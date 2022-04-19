@@ -14,11 +14,9 @@ class DropdownMenu extends React.Component {
     render() {
         return(
             <div className="dropdown">
-                <DropdownItem onClick={this.props.toggleClipUpload}>
-                    Upload a Clip
-                </DropdownItem>
+                <DropdownItem onClick={this.props.toggleClipUpload}>Upload a Clip</DropdownItem>
                 <DropdownItem onClick={this.props.toggleCreateBlob}>Create a Blob</DropdownItem>
-                <DropdownItem>Create a Suite</DropdownItem>
+                <DropdownItem onClick={this.props.toggleCreateSuite}>Create a Suite</DropdownItem>
             </div>
         )
     }
