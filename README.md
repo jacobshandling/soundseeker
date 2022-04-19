@@ -8,6 +8,6 @@ The process of composing music is different for everyone, yet there exist some t
 ## Soundseeker is built with:
 - Django
 - Django REST Framework
-- SQLite
-- React
+- React, Javascript
+- HTML, Vanilla CSS
 - Webpack
