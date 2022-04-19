@@ -40,14 +40,19 @@ h2 {
 
 h3 {
     font-size: 0.7rem;
+    height: auto;
+    width: auto;
 }
 
 p {
     font-size: 0.5rem;
 }
+
 a {
     color: var(--text-color);
     text-decoration: none;
+    height: auto;
+    width: auto;
 }
 
 a:hover {
@@ -55,8 +60,6 @@ a:hover {
 }
 
 #app-wrapper {
-    height: 100%;
-    width: 100%;
     padding: 2rem;
     display: flex;
     flex-direction: column;
@@ -107,6 +110,7 @@ header:after {
 }
 
 .nav-item {
+    height: auto;
     width: auto;
 }
 
@@ -123,6 +127,7 @@ header:after {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 1rem;
 }
 
 #welcome {
@@ -131,20 +136,27 @@ header:after {
     max-width: 100%;
 }
 
-#react-root {
-    height: 100%;
-    width: 100%;
+#login {
+    max-width: 10rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+#need-account {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 #react-wrapper {
-    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     gap: .5rem;
 }
 main {
-    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -164,13 +176,10 @@ main ul {
         flex-direction: inherit;
         justify-content: inherit;
         align-items: inherit;
-        height: 100%;
-        width: 100%;
         gap: 1rem;
     }
 
 .audioclips {
-    width: 100%;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -187,7 +196,6 @@ main ul {
 /* Action Items */
 
 #actionbar {
-    width: 100%;
     height: 1rem;
     padding-bottom: .5rem;
     /* background-color: var(--bg); */
@@ -198,7 +206,6 @@ main ul {
 
 #actionbar-actions {
     max-width: 100%;
-    height: 100%;
     display: flex;
     justify-content: flex-end;
 }
@@ -282,15 +289,10 @@ main ul {
     margin-left: auto;
 }
 
-#file-upload {
-    width: 100%;
-}
 
+/* Registration; Login; Clip, Blob, and Suite Creation; */
 
-/* Clip, Blob, and Suite Creation */
-
-.upload-form {
-    /* width: 100%; */
+form {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -299,7 +301,8 @@ main ul {
 
 }
 
-.upload-field {
+.form-field {
+    height: 1rem;
     padding: .2rem;
 }
 
