@@ -19,7 +19,7 @@ class EditSuiteView extends React.Component {
         const curSuite = this.props.suite;
         const blobOptions = this.renderBlobOptions(curSuite);
         return(
-            <section id="edit-suite">
+            <section id="edit-suite" className="action-view">
                 {/* <form id="edit-suite-form">
                     <input id="new-suite-name" className="form-field" type="text" placeholder={curSuite.name} />
                     <fieldset className="form-field" id="new-blob-associations">
