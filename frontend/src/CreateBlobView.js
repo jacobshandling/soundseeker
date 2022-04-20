@@ -21,12 +21,12 @@ class CreateBlobView extends React.Component {
         return(
             <section id="create-blob">
                 <form className="upload-form">
-                    <input id="blob-name" className="upload-field" type="text" placeholder='new blob name' />
-                    <fieldset className="upload-field" id="suite-options">
+                    <input id="blob-name" className="form-field" type="text" placeholder='new blob name' />
+                    <fieldset className="form-field" id="suite-options">
                         <legend>Suites to associate this clip with (at least 1):</legend> 
                         {suiteOptions}
                     </fieldset>
-                    <input type="submit" className="create-field" onClick={this.props.onCreateBlob} value="Create" />
+                    <input type="submit" className="form-field" onClick={this.props.onCreateBlob} value="Create" />
                 </form>
             </section>
         )
