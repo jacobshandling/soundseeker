@@ -223,7 +223,10 @@ class SoundSeekerApp extends React.Component {
         console.log(`blobURLs: ${blobURLs}`)
         console.log(`blobIDs: ${blobIDs}`)
 
-        // validate that at least 1 blob has been selected
+        if (!file) {
+            alert("Please select a file to upload");
+            return;
+        }
         if (!blobURLs.length) {
             alert("Please select at least one Blob to associate this Clip with");
             return;

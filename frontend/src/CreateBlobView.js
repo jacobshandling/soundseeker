@@ -19,7 +19,7 @@ class CreateBlobView extends React.Component {
     render() {
         const suiteOptions = this.renderSuiteOptions(this.props.userSuiteMap);
         return(
-            <section id="create-blob" class="action-view">
+            <section id="create-blob" className="action-view">
                 <form className="upload-form">
                     <input id="blob-name" className="form-field" type="text" placeholder='new blob name' />
                     <fieldset className="form-field" id="suite-options">
