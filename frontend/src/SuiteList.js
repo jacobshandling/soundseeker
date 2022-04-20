@@ -7,8 +7,12 @@ class SuiteList extends React.Component {
         for (var suiteID in this.props.userSuiteMap) {
             const suiteObject = this.props.userSuiteMap[suiteID];
             suites.push(
-                <li key={suiteObject.id}>
-                    <button className="listed-content" onClick={() => this.props.handleSuiteClick(suiteObject)}>{suiteObject.name}</button>
+                <li key={suiteObject.id} className="listed-content">
+                    <h3>{suiteObject.name}</h3>
+                    <span className="listed-content-actions">
+                        <button onClick={() => this.props.handleSuiteClick(suiteObject)}>View</button>
+                        <button onClick={() => this.props.toggleEditSuite(suiteObject)}>Edit</button>
+                    </span>
                 </li>
             );
         }

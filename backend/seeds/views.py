@@ -68,7 +68,7 @@ class SuiteViewSet(viewsets.ModelViewSet):
     '''
     queryset = Suite.objects.all()
     serializer_class = SuiteSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)

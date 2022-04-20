@@ -66,10 +66,9 @@ a:hover {
 }
 
 button {
-    font-size: 1rem;
-    padding: .5rem;
-    height: 6rem;
-    width: 6rem;
+    padding: .3rem;
+    height: auto;
+    width: auto;
     border-radius: var(--border-radius);
 }
 
@@ -198,14 +197,23 @@ main {
 
 }
 
-.content-list li {
-    height: auto;
-    width: auto;
-}
-
 .listed-content {
+    border: var(--border);
+    border-radius: 50%;
+    height: 5rem;
+    width: 5rem;
+    padding: .2rem;
     display: inherit;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.listed-content-actions {
+    height: auto;
+    width: auto;
+    display: inherit;
+    justify-content: center;
     align-items: center;
 }
 

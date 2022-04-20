@@ -17,22 +17,22 @@ class EditSuiteView extends React.Component {
 
     render() {
         const curSuite = this.props.suite;
-        const blobOptions = renderBlobOptions(curSuite);
+        const blobOptions = this.renderBlobOptions(curSuite);
         return(
             <section id="edit-suite">
-                <form id="edit-suite-form">
+                {/* <form id="edit-suite-form">
                     <input id="new-suite-name" className="form-field" type="text" placeholder={curSuite.name} />
                     <fieldset className="form-field" id="new-blob-associations">
                         <legend>Blobs of this Suite (at least 1):</legend> 
                         {blobOptions}
                     </fieldset>
                     <input type="submit" className="form-field" onClick={this.props.onEditSuite} value="Submit" />
-                </form>
-                <button onClick={this.props.handleDeleteSuite(curSuite)}>Delete this Suite</button>
+                </form> */}
+                <button onClick={this.props.onDeleteSuite}>Delete Suite "{curSuite.name}"</button>
             </section>
         )
     }
 
 }
 
-export default CreateSuiteView;
+export default EditSuiteView;

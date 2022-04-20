@@ -8,6 +8,7 @@ import DropdownMenu from './DropdownMenu';
 import FileUploadView from './FileUploadView';
 import CreateBlobView from './CreateBlobView';
 import CreateSuiteView from './CreateSuiteView';
+import EditSuiteView from './EditSuiteView';
 
 // dev setup API
 const APIURL = "http://127.0.0.1:8002/api";
@@ -25,7 +26,8 @@ class SoundSeekerApp extends React.Component {
             curSuite: null,
             curBlob: null,
             dropdownIsOpen: false,
-            createView: null,
+            actionView: null,
+
             selectedFile: null
 
         };
@@ -40,8 +42,19 @@ class SoundSeekerApp extends React.Component {
         this.onFileUpload = this.onFileUpload.bind(this);
         this.onCreateBlob = this.onCreateBlob.bind(this);
         this.onCreateSuite = this.onCreateSuite.bind(this);
-    }
 
+        this.toggleEditSuite = this.toggleEditSuite.bind(this);
+        // this.onEditSuite = this.onEditSuite.bind(this);
+        this.onDeleteSuite = this.onDeleteSuite.bind(this);
+        
+        // this.toggleEditBlob = this.toggleEditBlob.bind(this);
+        // this.onEditBlob = this.onEditBlob.bind(this);
+        // this.onDeleteBlob = this.onDeleteBlob.bind(this);
+
+        // this.toggleEditClip = this.toggleEditClip.bind(this);
+        // this.onEditClip = this.onEditClip.bind(this);
+        // this.onDeleteClip = this.onDeleteClip.bind(this);
+    }
 
     componentDidMount() {
 
@@ -69,7 +82,6 @@ class SoundSeekerApp extends React.Component {
             )
                 }
 
-    
     // Methods for parsing user data on initial load
 
     getSuiteMapFromJSON(responseAsJSON) {
@@ -91,7 +103,6 @@ class SoundSeekerApp extends React.Component {
         return userBlobMap;
     }
 
-
     // Handlers for navigating through layers of content (suites, blobs, clips)
 
     handleSuiteClick(suiteObject) {
@@ -106,7 +117,6 @@ class SoundSeekerApp extends React.Component {
         });
     }
 
-
     // Dropdown menu selection handlers
 
     toggleDropdown() {
@@ -118,7 +128,7 @@ class SoundSeekerApp extends React.Component {
     toggleClipUpload() {
         this.setState(
             {
-                createView: 'clip',
+                actionView: 'new-clip',
                 dropdownIsOpen: !this.state.dropdownIsOpen
             }
         );
@@ -127,7 +137,7 @@ class SoundSeekerApp extends React.Component {
     toggleCreateBlob() {
         this.setState(
             {
-                createView: 'blob',
+                actionView: 'new-blob',
                 dropdownIsOpen: !this.state.dropdownIsOpen
             }
         )
@@ -136,13 +146,42 @@ class SoundSeekerApp extends React.Component {
     toggleCreateSuite() {
         this.setState(
             {
-                createView: 'suite',
+                actionView: 'new-suite',
                 dropdownIsOpen: !this.state.dropdownIsOpen
             }
         )
     }
 
-    // upload handlers
+    toggleEditSuite(suiteObject) {
+        this.setState(
+            {
+                actionView: 'edit-suite',
+                curSuite: suiteObject,
+            }
+        )
+    }
+
+    // toggleEditBlob(blobObject) {
+    //     this.setState(
+    //         {
+    //             actionView: 'edit-blob',
+    //             curBlob: blobObject,
+    //             dropdownIsOpen: !this.state.dropdownIsOpen
+    //         }
+    //     )
+    // }
+    // toggleEditClip(clipObject) {
+    //     this.setState(
+    //         {
+    //             actionView: 'edit-clip',
+    //             curClip: clipObject,
+    //             dropdownIsOpen: !this.state.dropdownIsOpen
+    //         }
+    //     )
+    // }
+
+
+    // AJAX handlers
 
     onFileSelect(event) {
         this.setState(
@@ -223,7 +262,7 @@ class SoundSeekerApp extends React.Component {
             // set new data as state and return to previous view
             this.setState(
                 {
-                    createView: null,
+                    actionView: null,
                     userBlobMap: updatedUserBlobMap
                 }
             );
@@ -287,7 +326,7 @@ class SoundSeekerApp extends React.Component {
             updatedUserBlobMap[result['id']] = result;
             this.setState(
                 {
-                    createView: null,
+                    actionView: null,
                     userSuiteMap: updatedUserSuiteMap,
                     userBlobMap: updatedUserBlobMap
                 }
@@ -298,7 +337,6 @@ class SoundSeekerApp extends React.Component {
             console.error('Error with fetch operation:', error);
         });
     }
-
 
     onCreateSuite() {
         const csrftoken = this.getCookie('csrftoken');
@@ -336,7 +374,50 @@ class SoundSeekerApp extends React.Component {
             updatedUserSuiteMap[result[id]] = result;
             this.setState(
                 {
-                    createView: null,
+                    actionView: null,
+                    userSuiteMap: updatedUserSuiteMap,
+                }
+            );
+
+        })
+        .catch(error => {
+            console.error('Error with fetch operation:', error);
+        });
+    }
+
+
+    onDeleteSuite() {
+        const csrftoken = this.getCookie('csrftoken');
+
+        const suite = this.state.curSuite;
+        const name = suite.name;
+        const id = suite.id;
+        const url = suite.url;
+
+        const formData = new FormData();
+        formData.append('url', url);
+
+        fetch(`${APIURL}/suites/`, {
+            method: 'DELETE',
+            headers: { 'X-CSRFToken': csrftoken },
+            body: formData
+            }
+        )
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Delete suite upload error – response not ok');
+            }
+            return response.json();
+        })
+        .then(result => {
+            alert(`Deleted suite ${name} successfully`);
+            
+            // Remove Suite from local state and return to previous view
+            const updatedUserSuiteMap = { ...this.state.userSuiteMap }
+            delete updatedUserSuiteMap.id;
+            this.setState(
+                {
+                    actionView: null,
                     userSuiteMap: updatedUserSuiteMap,
                 }
             );
@@ -356,9 +437,9 @@ class SoundSeekerApp extends React.Component {
             return <div>Loading. . .</div>;
         } 
 
-        if (this.state.createView) {
-            switch (this.state.createView) {
-                case 'clip':
+        if (this.state.actionView) {
+            switch (this.state.actionView) {
+                case 'new-clip':
                     var mainContent = 
                         <FileUploadView
                             onFileSelect = {this.onFileSelect} 
@@ -366,25 +447,38 @@ class SoundSeekerApp extends React.Component {
                             userBlobMap = {this.state.userBlobMap}
                         />;
                     break;
-                case 'blob':
+                case 'new-blob':
                     var mainContent = 
                         <CreateBlobView 
                             onCreateBlob = {this.onCreateBlob}
                             userSuiteMap = {this.state.userSuiteMap}
                         />;
                     break;
-                case 'suite':
+                case 'new-suite':
                     var mainContent = 
                         <CreateSuiteView 
                             onCreateSuite = {this.onCreateSuite}
                         />;
                     break;
+                case 'edit-suite':
+                    var mainContent =
+                        <EditSuiteView
+                            suite={this.state.curSuite}
+                            // onEditSuite={this.onEditSuite}
+                            onDeleteSuite={this.onDeleteSuite}
+                        />;
+                    break;
+                // case 'edit-blob':
+                //     break;
+                // case 'edit-clip':
+                //     break;
 
             }
         } else {
             var mainContent = 
                 <SuiteLevelView
                     handleSuiteClick = {suiteObject => this.handleSuiteClick(suiteObject)}
+                    toggleEditSuite = {suiteObject => this.toggleEditSuite(suiteObject)}
                     handleBlobClick = {blobObject => this.handleBlobClick(blobObject)}
                     curSuite = {this.state.curSuite}
                     userSuiteMap = {this.state.userSuiteMap}
