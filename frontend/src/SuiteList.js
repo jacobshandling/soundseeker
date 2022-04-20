@@ -14,7 +14,7 @@ class SuiteList extends React.Component {
         }
 
         return ( 
-            <ul class="content-list">
+            <ul className="content-list">
                 {suites}
             </ul>
         );
