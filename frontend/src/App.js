@@ -480,7 +480,7 @@ class SoundSeekerApp extends React.Component {
 
             return (
                 <div id="react-wrapper">
-                    <ActionBar>
+                    <main id="main-content">
                         <ActionItem
                             icon = {<PlusIcon />} 
                             toggleDropdown = {this.toggleDropdown}
@@ -493,10 +493,8 @@ class SoundSeekerApp extends React.Component {
                                 toggleCreateSuite = {this.toggleCreateSuite}
                                 onFileSelect = {this.onFileSelect}
                                 uploadFile = {this.uploadFile}
-                             />
+                                />
                         </ActionItem>
-                    </ActionBar>
-                    <main id="main-content">
                         {mainContent}
                     </main>
                 </div>
