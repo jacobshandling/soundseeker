@@ -55,8 +55,8 @@ class SoundSeekerApp extends React.Component {
         // this.onEditBlob = this.onEditBlob.bind(this);
 
         this.toggleEditClip = this.toggleEditClip.bind(this);
+        this.onDeleteClip = this.onDeleteClip.bind(this);
         // this.onEditClip = this.onEditClip.bind(this);
-        // this.onDeleteClip = this.onDeleteClip.bind(this);
     }
 
     componentDidMount() {
@@ -276,7 +276,59 @@ class SoundSeekerApp extends React.Component {
         .catch(error => {
             console.error('Error with fetch operation:', error);
         });
-};
+    };
+
+    onDeleteClip() {
+        const csrftoken = this.getCookie('csrftoken');
+
+        const clip = this.state.curClip;
+        const name = clip.name;
+        const id = clip.id;
+        const url = clip.url;
+
+        fetch(url, {
+            method: 'DELETE',
+            headers: { 'X-CSRFToken': csrftoken },
+            }
+        )
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Delete clip upload error – response not ok');
+            }
+            return;
+        })
+        .then(result => {
+            alert(`Deleted clip ${name} successfully`);
+            
+            // Remove clip from local state and return to previous view
+            // * Not updating clips buried 2 levels down in userSuiteMap*
+
+            // remove clip from all Blobs that pointed to it
+            const updatedUserBlobMap = {...this.state.userBlobMap};
+            for (let key in updatedUserBlobMap) {
+                const blob = updatedUserBlobMap[key];
+                for (let i = 0; i < blob.clips.length; i++) {
+                    if (blob.clips[i].id == id) {
+                        blob.clips.splice(i, 1);
+                        break;  // assumes no duplicate clips
+                    }
+                }
+            }
+            
+            this.setState(
+                {
+                    curClip: null,
+                    actionView: null,
+                    userBlobMap: updatedUserBlobMap
+                }
+            );
+
+        })
+        .catch(error => {
+            console.error('Error with fetch operation:', error);
+        });
+    }
+
 
     onCreateBlob() {
         const csrftoken = this.getCookie('csrftoken');
@@ -527,6 +579,7 @@ class SoundSeekerApp extends React.Component {
                     var mainContent =
                         <EditClipView
                             clipObject = {this.state.curClip}
+                            onDeleteClip = {this.onDeleteClip}
                         />;
                     break;
 
