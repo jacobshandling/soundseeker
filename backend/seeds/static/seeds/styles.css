@@ -1,10 +1,12 @@
 /* see https://www.youtube.com/watch?v=IF6k0uZuypA */
 
 :root {
-    --bg: #ffffff;
-    --bg-accent: #19355f;
-    --text-color: black;
-    --link-hover-color: rgb(126	96	131); 
+    --bg-main: rgb(41	44	51);
+    --bg-alt: rgb(124	132	135);
+    --bg-accent: #b8bdc4;
+    --text-color:rgb(130	117	173	);
+    --link-hover-color: rgb(234	234	81	); 
+    --menu-color: ;
     --border: 0.03rem solid #474a4d;
     --structure-br: .2rem;
     --content-br: 50%;
@@ -23,6 +25,8 @@
 html {
     font-size: 5vmin;
     font-family: "Gill Sans", sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-color);
 }
 
 body {
@@ -71,6 +75,7 @@ button {
     height: auto;
     width: auto;
     border-radius: var(--structure-br);
+    background-color: var(--bg-accent);
 }
 
 #app-wrapper {
@@ -247,7 +252,7 @@ audio {
     --button-size: 1rem;
     width: var(--button-size);
     height: var(--button-size);
-    background-color: #b8bdc4;
+    background-color: var(--bg-accent);
     border-radius: 50%;
     padding: 5px;
     margin: 2px;
@@ -290,7 +295,7 @@ audio {
     height: auto;
     width: auto;
     transform: translateX(-45%);
-    background-color: var(--bg);
+    background-color: ;
     border: var(--border);
     border-radius: var(--structure-br);
     padding: .15rem;
@@ -312,7 +317,7 @@ audio {
 }
 
 .menu-item:hover {
-    background-color: #c0c1c9;
+    background-color: var(--bg-alt);
 }
 
 .icon-right {
