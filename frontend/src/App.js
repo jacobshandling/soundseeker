@@ -10,6 +10,7 @@ import CreateBlobView from './CreateBlobView';
 import CreateSuiteView from './CreateSuiteView';
 import EditSuiteView from './EditSuiteView';
 import EditBlobView from './EditBlobView';
+import EditClipView from './EditClipView';
 
 
 // dev setup API
@@ -53,7 +54,7 @@ class SoundSeekerApp extends React.Component {
         this.onDeleteBlob = this.onDeleteBlob.bind(this);
         // this.onEditBlob = this.onEditBlob.bind(this);
 
-        // this.toggleEditClip = this.toggleEditClip.bind(this);
+        this.toggleEditClip = this.toggleEditClip.bind(this);
         // this.onEditClip = this.onEditClip.bind(this);
         // this.onDeleteClip = this.onDeleteClip.bind(this);
     }
@@ -172,14 +173,14 @@ class SoundSeekerApp extends React.Component {
         )
     }
 
-    // toggleEditClip(clipObject) {
-    //     this.setState(
-    //         {
-    //             actionView: 'edit-clip',
-    //             curClip: clipObject,
-    //         }
-    //     )
-    // }
+    toggleEditClip(clipObject) {
+        this.setState(
+            {
+                actionView: 'edit-clip',
+                curClip: clipObject,
+            }
+        )
+    }
 
 
     // AJAX handlers
@@ -522,8 +523,12 @@ class SoundSeekerApp extends React.Component {
                             onDeleteBlob = {this.onDeleteBlob}
                         />;
                     break;
-                // case 'edit-clip':
-                //     break;
+                case 'edit-clip':
+                    var mainContent =
+                        <EditClipView
+                            clipObject = {this.state.curClip}
+                        />;
+                    break;
 
             }
         } else {
@@ -533,6 +538,7 @@ class SoundSeekerApp extends React.Component {
                     toggleEditSuite = {suiteObject => this.toggleEditSuite(suiteObject)}
                     handleBlobClick = {blobObject => this.handleBlobClick(blobObject)}
                     toggleEditBlob = {blobObject => this.toggleEditBlob(blobObject)}
+                    toggleEditClip = {clipObject => this.toggleEditClip(clipObject)}
                     curSuite = {this.state.curSuite}
                     userSuiteMap = {this.state.userSuiteMap}
                     curBlob = {this.state.curBlob}
