@@ -1,5 +1,4 @@
 import React from "react";
-
 import AudioClip from './AudioClip'
 
 class AudioClipLevelView extends React.Component {
@@ -13,7 +12,9 @@ class AudioClipLevelView extends React.Component {
         for (var id in blobClips) {
             const clipObject = blobClips[id];
             clipRenders.push(
-                <AudioClip clipObject={clipObject} />
+                <AudioClip 
+                    clipObject={clipObject}
+                />
             );
         }
         return (
