@@ -50,8 +50,8 @@ class SoundSeekerApp extends React.Component {
         this.onDeleteSuite = this.onDeleteSuite.bind(this);
         
         this.toggleEditBlob = this.toggleEditBlob.bind(this);
+        this.onDeleteBlob = this.onDeleteBlob.bind(this);
         // this.onEditBlob = this.onEditBlob.bind(this);
-        // this.onDeleteBlob = this.onDeleteBlob.bind(this);
 
         // this.toggleEditClip = this.toggleEditClip.bind(this);
         // this.onEditClip = this.onEditClip.bind(this);
@@ -341,6 +341,60 @@ class SoundSeekerApp extends React.Component {
         });
     }
 
+    onDeleteBlob() {
+        const csrftoken = this.getCookie('csrftoken');
+
+        const blob = this.state.curBlob;
+        const name = blob.name;
+        const id = blob.id;
+        const url = blob.url;
+
+        fetch(url, {
+            method: 'DELETE',
+            headers: { 'X-CSRFToken': csrftoken },
+            }
+        )
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Delete blob upload error – response not ok');
+            }
+            return;
+        })
+        .then(result => {
+            alert(`Deleted blob ${name} successfully`);
+            
+            // Remove blob from local state and return to previous view
+
+                // remove Blob from all Suites that pointed to it
+            const updatedUserSuiteMap = {...this.state.userSuiteMap};
+            for (let key in updatedUserSuiteMap) {
+                const suite = updatedUserSuiteMap[key];
+                for (let i = 0; i < suite.blobs.length; i++) {
+                    if (suite.blobs[i].id == id) {
+                        suite.blobs.splice(i, 1);
+                        break;  // assumes no duplicate Blobs
+                    }
+                }
+            }
+                // remove Blob from Blob map
+            const updatedUserBlobMap = {...this.state.userBlobMap};
+            delete updatedUserBlobMap[id];
+
+            this.setState(
+                {
+                    curBlob: null,
+                    actionView: null,
+                    userSuiteMap: updatedUserSuiteMap,
+                    userBlobMap: updatedUserBlobMap
+                }
+            );
+
+        })
+        .catch(error => {
+            console.error('Error with fetch operation:', error);
+        });
+    }
+
     onCreateSuite() {
         const csrftoken = this.getCookie('csrftoken');
         const suiteName = document.querySelector('#suite-name').value;
@@ -465,6 +519,7 @@ class SoundSeekerApp extends React.Component {
                     var mainContent =
                         <EditBlobView
                             blobObject = {this.state.curBlob}
+                            onDeleteBlob = {this.onDeleteBlob}
                         />;
                     break;
                 // case 'edit-clip':
