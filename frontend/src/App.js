@@ -9,6 +9,8 @@ import FileUploadView from './FileUploadView';
 import CreateBlobView from './CreateBlobView';
 import CreateSuiteView from './CreateSuiteView';
 import EditSuiteView from './EditSuiteView';
+import EditBlobView from './EditBlobView';
+
 
 // dev setup API
 const APIURL = "http://127.0.0.1:8002/api";
@@ -47,7 +49,7 @@ class SoundSeekerApp extends React.Component {
         // this.onEditSuite = this.onEditSuite.bind(this);
         this.onDeleteSuite = this.onDeleteSuite.bind(this);
         
-        // this.toggleEditBlob = this.toggleEditBlob.bind(this);
+        this.toggleEditBlob = this.toggleEditBlob.bind(this);
         // this.onEditBlob = this.onEditBlob.bind(this);
         // this.onDeleteBlob = this.onDeleteBlob.bind(this);
 
@@ -161,21 +163,20 @@ class SoundSeekerApp extends React.Component {
         )
     }
 
-    // toggleEditBlob(blobObject) {
-    //     this.setState(
-    //         {
-    //             actionView: 'edit-blob',
-    //             curBlob: blobObject,
-    //             dropdownIsOpen: !this.state.dropdownIsOpen
-    //         }
-    //     )
-    // }
+    toggleEditBlob(blobObject) {
+        this.setState(
+            {
+                actionView: 'edit-blob',
+                curBlob: blobObject,
+            }
+        )
+    }
+
     // toggleEditClip(clipObject) {
     //     this.setState(
     //         {
     //             actionView: 'edit-clip',
     //             curClip: clipObject,
-    //             dropdownIsOpen: !this.state.dropdownIsOpen
     //         }
     //     )
     // }
@@ -455,13 +456,17 @@ class SoundSeekerApp extends React.Component {
                 case 'edit-suite':
                     var mainContent =
                         <EditSuiteView
-                            suite={this.state.curSuite}
+                            suite = {this.state.curSuite}
+                            onDeleteSuite = {this.onDeleteSuite}
                             // onEditSuite={this.onEditSuite}
-                            onDeleteSuite={this.onDeleteSuite}
                         />;
                     break;
-                // case 'edit-blob':
-                //     break;
+                case 'edit-blob':
+                    var mainContent =
+                        <EditBlobView
+                            blobObject = {this.state.curBlob}
+                        />;
+                    break;
                 // case 'edit-clip':
                 //     break;
 
@@ -472,6 +477,7 @@ class SoundSeekerApp extends React.Component {
                     handleSuiteClick = {suiteObject => this.handleSuiteClick(suiteObject)}
                     toggleEditSuite = {suiteObject => this.toggleEditSuite(suiteObject)}
                     handleBlobClick = {blobObject => this.handleBlobClick(blobObject)}
+                    toggleEditBlob = {blobObject => this.toggleEditBlob(blobObject)}
                     curSuite = {this.state.curSuite}
                     userSuiteMap = {this.state.userSuiteMap}
                     curBlob = {this.state.curBlob}
