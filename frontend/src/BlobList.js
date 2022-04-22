@@ -1,15 +1,17 @@
 import React from "react";
+import Blob from './Blob';
 
 class BlobList extends React.Component {
     render() {
         const blobs = [];
 
         for (var blobID in this.props.suiteBlobMap) {
-            const blobObject = this.props.suiteBlobMap[blobID];
             blobs.push(
-                <li key={blobObject.id}>
-                    <button className="listed-content" onClick={() => this.props.handleBlobClick(blobObject)}>{blobObject.name}</button>
-                </li>
+                <Blob
+                    blobObject={this.props.suiteBlobMap[blobID]}
+                    handleBlobClick={this.props.handleBlobClick}
+                    toggleEditBlob={this.props.toggleEditBlob}
+                />
             );
         }
 

@@ -2,7 +2,7 @@ import React from "react";
 
 class Suite extends React.Component {
     render() {
-            const suite = this.props.suite;
+            const suite = this.props.suiteObject;
             return (
                 <li key={suite.id} className="listed-content">
                     <h3>{suite.name}</h3>

@@ -6,10 +6,9 @@ class SuiteList extends React.Component {
         const suites = [];
 
         for (var suiteID in this.props.userSuiteMap) {
-            const suiteObject = this.props.userSuiteMap[suiteID];
             suites.push(
                 <Suite
-                    suite={suiteObject}
+                    suiteObject={this.props.userSuiteMap[suiteID]}
                     handleSuiteClick={this.props.handleSuiteClick}
                     toggleEditSuite={this.props.toggleEditSuite}
                 />
