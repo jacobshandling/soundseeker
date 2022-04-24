@@ -26,7 +26,7 @@ class CreateBlobView extends React.Component {
                         <legend>Suites to associate this clip with (at least 1):</legend> 
                         {suiteOptions}
                     </fieldset>
-                    <input type="submit" className="form-field" onClick={this.props.onCreateBlob} value="Create" />
+                    <input type="button" className="form-field" onClick={this.props.onCreateBlob} value="Create" />
                 </form>
             </section>
         )

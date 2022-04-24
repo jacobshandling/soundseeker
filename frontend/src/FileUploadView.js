@@ -27,7 +27,7 @@ class FileUploadView extends React.Component {
                         <legend>Blobs to associate this clip with (at least 1):</legend> 
                         {blobOptions}
                     </fieldset>
-                    <input type="submit" className="form-field" onClick={this.props.onFileUpload} value="Upload" />
+                    <input type="button" className="form-field" onClick={this.props.onFileUpload} value="Upload" />
                 </form>
             </section>
         )
