@@ -13,8 +13,8 @@ import EditBlobView from './EditBlobView';
 import EditClipView from './EditClipView';
 
 
-// dev setup API
-const APIURL = "http://127.0.0.1:8002/api";
+// Heroku deployment API
+const APIURL = "https://sound-seeker.herokuapp.com/api";
 
 
 class SoundSeekerApp extends React.Component {
