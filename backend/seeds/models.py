@@ -1,7 +1,6 @@
-from django.db import models
-
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from backend.storage_backends import PrivateMediaStorage
 
 class User(AbstractUser):
 
@@ -11,7 +10,7 @@ class User(AbstractUser):
 class AudioClip(models.Model):
     name = models.CharField(max_length=64, blank=True)
     # https://docs.djangoproject.com/en/3.2/topics/files/
-    file = models.FileField(upload_to="")
+    file = models.FileField(storage=PrivateMediaStorage())
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_clips")
 
     def __str__(self):
