@@ -1,7 +1,8 @@
 // frontend/webpack.config.js
 
-const path = require('path')
-const webpack = require('webpack')
+const path = require('path');
+const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
 
@@ -21,6 +22,8 @@ module.exports = {
     plugins: [
         // Don't output new files if there is an error
         new webpack.NoEmitOnErrorsPlugin(),
+        // use Dotenv to access environment vars with process.env.ENV_VAR
+        new Dotenv()
     ],
 
     // Where find modules that can be imported (eg. React) 

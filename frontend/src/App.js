@@ -13,9 +13,13 @@ import EditBlobView from './EditBlobView';
 import EditClipView from './EditClipView';
 
 
-// Heroku deployment API
-const APIURL = "https://sound-seeker.herokuapp.com/api";
-
+if (process.env.WHEREAMI == 'heroku') {
+    // Heroku deployment API
+    var APIURL = "https://sound-seeker.herokuapp.com/api";
+} else {
+    // local development, server running on port 8002
+    var APIURL = "127.0.0.1:8002/api"
+}
 
 class SoundSeekerApp extends React.Component {
     constructor(props) {
@@ -60,7 +64,7 @@ class SoundSeekerApp extends React.Component {
     }
 
     componentDidMount() {
-
+        console.log(APIURL);
         fetch(`${APIURL}/users/${userID}/`)
             .then(response => response.json())
             .then((result) => {
