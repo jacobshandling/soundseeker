@@ -295,11 +295,12 @@ audio {
     height: auto;
     width: auto;
     transform: translateX(-45%);
-    background-color: ;
+    background-color: var(--bg-accent);
     border: var(--border);
     border-radius: var(--structure-br);
     padding: .15rem;
     overflow: hidden;
+    
 }
 
 .menu-item {
