@@ -11,9 +11,9 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-if os.environ.get('WHEREAMI') == 'HEROKU':
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.heroku_settings')
-else:
+if os.environ.get('WHEREAMI').lower() == 'dev':
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
+else:
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.heroku_settings')
 
 application = get_wsgi_application()
