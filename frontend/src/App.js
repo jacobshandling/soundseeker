@@ -12,13 +12,13 @@ import EditSuiteView from './EditSuiteView';
 import EditBlobView from './EditBlobView';
 import EditClipView from './EditClipView';
 
-
-if (process.env.WHEREAMI == 'heroku') {
+const WHEREAMI = process.env.WHEREAMI;
+if ( WHEREAMI == 'heroku') {
     // Heroku deployment API
     var APIURL = "https://sound-seeker.herokuapp.com/api";
 } else {
     // local development, server running on port 8002
-    var APIURL = "127.0.0.1:8002/api"
+    var APIURL = "http://127.0.0.1:8002/api";
 }
 
 class SoundSeekerApp extends React.Component {
@@ -64,11 +64,9 @@ class SoundSeekerApp extends React.Component {
     }
 
     componentDidMount() {
-        console.log(APIURL);
         fetch(`${APIURL}/users/${userID}/`)
             .then(response => response.json())
             .then((result) => {
-                    
                     const userSuiteMap = this.getSuiteMapFromJSON(result);
                     const userBlobMap = this.getUserBlobMapFromUserSuiteMap(userSuiteMap);
 
