@@ -6,7 +6,7 @@
     --bg-accent: #b8bdc4;
     --text-color:rgb(130	117	173	);
     --link-hover-color: rgb(234	234	81	); 
-    --menu-color: ;
+    --delete-button-color: rgb(229	99	87);
     --border: 0.03rem solid #474a4d;
     --structure-br: .2rem;
     --content-br: 50%;
@@ -76,6 +76,10 @@ button {
     width: auto;
     border-radius: var(--structure-br);
     background-color: var(--bg-accent);
+}
+
+.delete-button {
+    background-color: var(--delete-button-color);
 }
 
 #app-wrapper {
@@ -329,13 +333,19 @@ audio {
 /* Registration; Login; Clip, Blob, and Suite Creation; */
 
 .action-view {
+    height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    gap: 1rem;
 }
 
-.upload-form {
+.form {
+    border: var(--border);
+    padding: .5rem;
+    height: auto;
+    width: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -363,9 +373,13 @@ audio {
 
 legend {
     font-size: .5rem;
+    height: auto;
+    width: auto;
 }
 
 label {
+    height: auto;
+    width: auto;
     margin-bottom: 0.2rem;
     display: flex;
     align-items: center;

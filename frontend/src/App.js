@@ -51,7 +51,7 @@ class SoundSeekerApp extends React.Component {
         this.onCreateSuite = this.onCreateSuite.bind(this);
 
         this.toggleEditSuite = this.toggleEditSuite.bind(this);
-        // this.onEditSuite = this.onEditSuite.bind(this);
+        this.onEditSuite = this.onEditSuite.bind(this);
         this.onDeleteSuite = this.onDeleteSuite.bind(this);
         
         this.toggleEditBlob = this.toggleEditBlob.bind(this);
@@ -156,6 +156,8 @@ class SoundSeekerApp extends React.Component {
             }
         )
     }
+
+    // Toggle Edit handlers
 
     toggleEditSuite(suiteObject) {
         this.setState(
@@ -279,6 +281,7 @@ class SoundSeekerApp extends React.Component {
             console.error('Error with fetch operation:', error);
         });
     };
+
 
     onDeleteClip() {
         const csrftoken = this.getCookie('csrftoken');
@@ -530,6 +533,47 @@ class SoundSeekerApp extends React.Component {
         });
     }
 
+    onEditSuite() {
+        const suite = this.state.curSuite;
+        const url = suite.url;
+
+        const csrftoken = this.getCookie('csrftoken');
+        const newName = document.querySelector('#new-name').value;
+        const formData = new FormData();
+        formData.append('name', newName);
+
+        fetch(url, {
+            method: 'PUT',
+            headers: { 'X-CSRFToken': csrftoken },
+            body: formData
+            }
+        )
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Edit suite upload error – response not ok');
+            }
+            return response.json();
+        })
+        .then(result => {
+            
+            // add new Suite to local state and return to previous view
+            const updatedUserSuiteMap = { ...this.state.userSuiteMap }
+            updatedUserSuiteMap[result.id] = result;
+            this.setState(
+                {
+                    curSuite: null,
+                    actionView: null,
+                    userSuiteMap: updatedUserSuiteMap,
+                }
+            );
+            alert(`Edited suite succcessfully`);
+        })
+        .catch(error => {
+            console.error('Error with fetch operation:', error);
+        });
+    }
+
+
     render() {
         if (this.state.error) {
             return <div>Error: {this.state.error.message}</div>;
@@ -567,7 +611,7 @@ class SoundSeekerApp extends React.Component {
                         <EditSuiteView
                             suite = {this.state.curSuite}
                             onDeleteSuite = {this.onDeleteSuite}
-                            // onEditSuite={this.onEditSuite}
+                            onEditSuite={this.onEditSuite}
                         />;
                     break;
                 case 'edit-blob':
@@ -575,6 +619,7 @@ class SoundSeekerApp extends React.Component {
                         <EditBlobView
                             blobObject = {this.state.curBlob}
                             onDeleteBlob = {this.onDeleteBlob}
+                            onEditBlob={this.onEditBlob}
                         />;
                     break;
                 case 'edit-clip':
@@ -582,6 +627,7 @@ class SoundSeekerApp extends React.Component {
                         <EditClipView
                             clipObject = {this.state.curClip}
                             onDeleteClip = {this.onDeleteClip}
+                            onEditClip={this.onEditClip}
                         />;
                     break;
 
@@ -600,28 +646,28 @@ class SoundSeekerApp extends React.Component {
                 />;
         }
 
-            return (
-                <div id="react-wrapper">
-                    <main id="main-content">
-                        <ActionItem
-                            icon = {<PlusIcon />} 
-                            toggleDropdown = {this.toggleDropdown}
-                            dropdownIsOpen = {this.state.dropdownIsOpen} 
+        return (
+            <div id="react-wrapper">
+                <main id="main-content">
+                    <ActionItem
+                        icon = {<PlusIcon />} 
+                        toggleDropdown = {this.toggleDropdown}
+                        dropdownIsOpen = {this.state.dropdownIsOpen} 
 
-                        >
-                            <DropdownMenu
-                                toggleClipUpload = {this.toggleClipUpload}
-                                toggleCreateBlob = {this.toggleCreateBlob}
-                                toggleCreateSuite = {this.toggleCreateSuite}
-                                onFileSelect = {this.onFileSelect}
-                                uploadFile = {this.uploadFile}
-                                />
-                        </ActionItem>
-                        {mainContent}
-                    </main>
-                </div>
-            )
-        }
+                    >
+                        <DropdownMenu
+                            toggleClipUpload = {this.toggleClipUpload}
+                            toggleCreateBlob = {this.toggleCreateBlob}
+                            toggleCreateSuite = {this.toggleCreateSuite}
+                            onFileSelect = {this.onFileSelect}
+                            uploadFile = {this.uploadFile}
+                            />
+                    </ActionItem>
+                    {mainContent}
+                </main>
+            </div>
+        )
     }
+}
 
 export default SoundSeekerApp;

@@ -20,7 +20,7 @@ class CreateBlobView extends React.Component {
         const suiteOptions = this.renderSuiteOptions(this.props.userSuiteMap);
         return(
             <section id="create-blob" className="action-view">
-                <div className="upload-form">
+                <div className="form">
                     <input id="blob-name" className="form-field" type="text" placeholder='new blob name' autoFocus/>
                     <fieldset className="form-field" id="suite-options">
                         <legend>Suites to associate this clip with (at least 1):</legend> 
