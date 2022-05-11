@@ -3,38 +3,39 @@ from seeds.models import *
 
 # https://www.django-rest-framework.org/api-guide/serializers/#dealing-with-nested-objects
 
-class AudioClipSerializer(serializers.HyperlinkedModelSerializer):
+class AudioClipSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username') 
 
     class Meta:
         model = AudioClip
-        fields = ['url', 'id', 'owner', 'name', 'file']
+        fields = ['id', 'owner', 'name', 'file']
 
-class BlobSerializer(serializers.HyperlinkedModelSerializer):
+class BlobSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     
     class Meta:
         model = Blob
-        fields = ['url', 'id', 'owner', 'name', 'clips']
+        fields = ['id', 'owner', 'name', 'clips']
 
-class SuiteSerializer(serializers.HyperlinkedModelSerializer):
+class SuiteSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
+    blobs = serializers.ReadOnlyField(source='id')
 
     class Meta:
         model = Suite
-        fields = ['url', 'id', 'owner', 'name', 'blobs']
+        fields = ['id', 'owner', 'name', 'blobs']
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     user_suites = SuiteSerializer(many=True, required=False)
     user_blobs = BlobSerializer(many=True, required=False)
     user_clips = AudioClipSerializer(many=True, required=False)
-    
+
     class Meta:
         model = User
-        fields = ['url', 'id', 'username', 'user_suites', 'user_blobs', 'user_clips']
+        fields = ['id', 'username', 'user_suites', 'user_blobs', 'user_clips']
 
 
-class LabelSerializer(serializers.HyperlinkedModelSerializer):
+class LabelSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
 
     class Meta:

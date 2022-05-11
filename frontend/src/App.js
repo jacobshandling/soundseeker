@@ -27,14 +27,12 @@ class SoundSeekerApp extends React.Component {
         this.state = {
             isLoaded: false,
             error: null,
-            userData: null,
             userSuiteMap: null,
             userBlobMap: null,
             curSuite: null,
             curBlob: null,
             dropdownIsOpen: false,
             actionView: null,
-
             selectedFile: null
 
         };
@@ -64,17 +62,16 @@ class SoundSeekerApp extends React.Component {
     }
 
     componentDidMount() {
+        // fetch 
         fetch(`${APIURL}/users/${userID}/`)
             .then(response => response.json())
             .then((result) => {
-                    const userSuiteMap = this.getSuiteMapFromJSON(result);
-                    const userBlobMap = this.getUserBlobMapFromUserSuiteMap(userSuiteMap);
 
                     this.setState({
                         isLoaded: true,
-                        userData: result,
-                        userSuiteMap: userSuiteMap,
-                        userBlobMap: userBlobMap
+                        userSuiteMap: this.getIDMapFromObjArray(result.user_suites);
+                        userBlobMap: this.getIDMapFromObjArray(result.user_blobs);
+                        userClipMap: this.getIDMapFromObjArray(result.user_clips);
                     }
                     );
                 },
@@ -89,22 +86,11 @@ class SoundSeekerApp extends React.Component {
 
     // Methods for parsing user data on initial load
 
-    getSuiteMapFromJSON(responseAsJSON) {
-        return responseAsJSON.user_suites.reduce((map, obj) => {
+    getIDMapFromObjArray(obj_array) {
+        return obj_array.reduce((map, obj) => {
                                     map[obj.id] = obj;
                                     return map;
                                 }, {})
-    }
-    getUserBlobMapFromUserSuiteMap(userSuiteMap) {
-        const userBlobMap = {};
-        for (let key in userSuiteMap) {
-            const suite = userSuiteMap[key];
-            for (let key in suite.blobs) {   
-                const blob = suite.blobs[key]
-                userBlobMap[blob.id] = blob;
-            }
-        }
-        return userBlobMap;
     }
 
     // Handlers for navigating through layers of content (suites, blobs, clips)
