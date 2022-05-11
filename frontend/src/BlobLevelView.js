@@ -23,7 +23,7 @@ class BlobLevelView extends React.Component {
                 <BlobList
                     userBlobMap = {this.props.userBlobMap}
                     suiteBlobIDs = {suite.blobs} 
-                    handleBlobClick = {this.props.handleBlobClick} 
+                    toggleViewBlob = {this.props.toggleViewBlob} 
                     toggleEditBlob = {this.props.toggleEditBlob}
                 />
             </div>

@@ -37,11 +37,11 @@ class SoundSeekerApp extends React.Component {
 
         };
 
-        this.handleBlobClick = this.handleBlobClick.bind(this);
         this.toggleDropdown = this.toggleDropdown.bind(this);
         this.toggleClipUpload = this.toggleClipUpload.bind(this);
         this.toggleCreateBlob = this.toggleCreateBlob.bind(this);
         this.toggleCreateSuite = this.toggleCreateSuite.bind(this);
+
         this.onClipSelect = this.onClipSelect.bind(this);
         this.onClipUpload = this.onClipUpload.bind(this);
         this.onCreateBlob = this.onCreateBlob.bind(this);
@@ -52,6 +52,7 @@ class SoundSeekerApp extends React.Component {
         this.onEditSuite = this.onEditSuite.bind(this);
         this.onDeleteSuite = this.onDeleteSuite.bind(this);
         
+        this.toggleViewBlob = this.toggleViewBlob.bind(this);
         this.toggleEditBlob = this.toggleEditBlob.bind(this);
         this.onDeleteBlob = this.onDeleteBlob.bind(this);
         // this.onEditBlob = this.onEditBlob.bind(this);
@@ -100,7 +101,7 @@ class SoundSeekerApp extends React.Component {
         });
     }
 
-    handleBlobClick(blobObject) {
+    toggleViewBlob(blobObject) {
         this.setState({
             curBlob: blobObject
         });
@@ -599,7 +600,7 @@ class SoundSeekerApp extends React.Component {
                 <SuiteLevelView
                     toggleViewSuite = {suiteObject => this.toggleViewSuite(suiteObject)}
                     toggleEditSuite = {suiteObject => this.toggleEditSuite(suiteObject)}
-                    handleBlobClick = {blobObject => this.handleBlobClick(blobObject)}
+                    toggleViewBlob = {blobObject => this.toggleViewBlob(blobObject)}
                     toggleEditBlob = {blobObject => this.toggleEditBlob(blobObject)}
                     toggleEditClip = {clipObject => this.toggleEditClip(clipObject)}
                     curSuite = {this.state.curSuite}

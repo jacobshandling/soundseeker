@@ -9,7 +9,7 @@ class BlobList extends React.Component {
             blobRenders.push(
                 <Blob
                     blobObject={this.props.userBlobMap[blobID]}
-                    handleBlobClick={this.props.handleBlobClick}
+                    toggleViewBlob={this.props.toggleViewBlob}
                     toggleEditBlob={this.props.toggleEditBlob}
                 />
             );

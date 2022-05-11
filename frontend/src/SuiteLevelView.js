@@ -12,7 +12,7 @@ class SuiteLevelView extends React.Component {
                 curBlob = {this.props.curBlob}
                 userBlobMap = {this.props.userBlobMap}
                 userClipMap = {this.props.userClipMap}
-                handleBlobClick = {this.props.handleBlobClick}
+                toggleViewBlob = {this.props.toggleViewBlob}
                 toggleEditBlob = {this.props.toggleEditBlob}
                 toggleEditClip = {this.props.toggleEditClip}
             />

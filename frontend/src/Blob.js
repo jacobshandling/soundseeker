@@ -7,7 +7,7 @@ class Blob extends React.Component {
             <li key={blob.id} className="listed-content">
                 <h3>{blob.name}</h3>
                 <span className="listed-content-actions">
-                    <button onClick={() => this.props.handleBlobClick(blob)}>View</button>
+                    <button onClick={() => this.props.toggleViewBlob(blob)}>View</button>
                     <button onClick={() => this.props.toggleEditBlob(blob)}>Edit</button>
                 </span>
             </li>
