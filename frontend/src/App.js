@@ -508,17 +508,20 @@ class SoundSeekerApp extends React.Component {
             console.error('Error with fetch operation:', error);
         });
     }
-    
+
     onEditSuite() {
         const suite = this.state.curSuite;
-        const url = suite.url;
 
         const csrftoken = this.getCookie('csrftoken');
         const newName = document.querySelector('#new-name').value;
+        if (!newName.length) {
+            alert('Suite must have a name');
+            return;
+        }
         const formData = new FormData();
         formData.append('name', newName);
 
-        fetch(url, {
+        fetch(suite.url, {
             method: 'PUT',
             headers: { 'X-CSRFToken': csrftoken },
             body: formData

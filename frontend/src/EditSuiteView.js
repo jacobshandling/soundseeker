@@ -23,7 +23,7 @@ class EditSuiteView extends React.Component {
                 <h3>Edit suite "{curSuite.name}"</h3>
                 <div id="edit-suite-form" className="form">
                     <legend>New name:</legend>
-                    <input id="new-name" className="form-field" type="text" placeholder={curSuite.name} />
+                    <input id="new-name" className="form-field" type="text" defaultValue={curSuite.name} />
                     <fieldset className="form-field" id="new-blob-associations">
                         <legend>Blobs of this Suite (at least 1):</legend> 
                         {blobOptions}
