@@ -21,7 +21,7 @@ class CreateBlobView extends React.Component {
         return(
             <section id="create-blob" className="action-view">
                 <div className="upload-form">
-                    <input id="blob-name" className="form-field" type="text" placeholder='new blob name' />
+                    <input id="blob-name" className="form-field" type="text" placeholder='new blob name' autoFocus/>
                     <fieldset className="form-field" id="suite-options">
                         <legend>Suites to associate this clip with (at least 1):</legend> 
                         {suiteOptions}
