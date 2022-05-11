@@ -5,32 +5,30 @@ from seeds.models import *
 
 class AudioClipSerializer(serializers.HyperlinkedModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username') 
+
     class Meta:
         model = AudioClip
-        fields = ['url', 'id', 'owner', 'name', 'file', 'blobs']
+        fields = ['url', 'id', 'owner', 'name', 'file']
 
 class BlobSerializer(serializers.HyperlinkedModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
-    clips = AudioClipSerializer(many=True, required=False)
     
     class Meta:
         model = Blob
-        fields = ['url', 'id', 'owner', 'name', 'clips', 'suites']
+        fields = ['url', 'id', 'owner', 'name', 'clips']
 
 class SuiteSerializer(serializers.HyperlinkedModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
-    blobs = BlobSerializer(many=True, required=False)
 
     class Meta:
         model = Suite
         fields = ['url', 'id', 'owner', 'name', 'blobs']
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
-    user_suites = SuiteSerializer(many=True, read_only=True, required=False)
 
     class Meta:
         model = User
-        fields = ['url', 'id', 'username', 'user_suites']
+        fields = ['id', 'username']
 
 
 class LabelSerializer(serializers.HyperlinkedModelSerializer):
