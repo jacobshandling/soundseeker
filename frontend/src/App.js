@@ -5,7 +5,7 @@ import ActionBar from './ActionBar';
 import ActionItem from './ActionItem';
 import PlusIcon from './icons/plus.svg';
 import DropdownMenu from './DropdownMenu';
-import ClipUploadView from './ClipUploadView';
+import CreateClipView from './CreateClipView';
 import CreateBlobView from './CreateBlobView';
 import CreateSuiteView from './CreateSuiteView';
 import EditSuiteView from './EditSuiteView';
@@ -38,12 +38,12 @@ class SoundSeekerApp extends React.Component {
         };
 
         this.toggleDropdown = this.toggleDropdown.bind(this);
-        this.toggleClipUpload = this.toggleClipUpload.bind(this);
+        this.toggleCreateClip = this.toggleCreateClip.bind(this);
         this.toggleCreateBlob = this.toggleCreateBlob.bind(this);
         this.toggleCreateSuite = this.toggleCreateSuite.bind(this);
 
         this.onClipSelect = this.onClipSelect.bind(this);
-        this.onClipUpload = this.onClipUpload.bind(this);
+        this.onCreateClip = this.onCreateClip.bind(this);
         this.onCreateBlob = this.onCreateBlob.bind(this);
         this.onCreateSuite = this.onCreateSuite.bind(this);
         
@@ -115,7 +115,7 @@ class SoundSeekerApp extends React.Component {
         );
     }
 
-    toggleClipUpload() {
+    toggleCreateClip() {
         this.setState(
             {
                 actionView: 'new-clip',
@@ -197,7 +197,7 @@ class SoundSeekerApp extends React.Component {
         return cookieValue;
     }
 
-    onClipUpload() {
+    onCreateClip() {
         const csrftoken = this.getCookie('csrftoken');
 
         // gather data for upload
@@ -550,9 +550,9 @@ class SoundSeekerApp extends React.Component {
             switch (this.state.actionView) {
                 case 'new-clip':
                     var mainContent = 
-                        <ClipUploadView
+                        <CreateClipView
                             onClipSelect = {this.onClipSelect} 
-                            onClipUpload = {this.onClipUpload} 
+                            onCreateClip = {this.onCreateClip} 
                             userBlobMap = {this.state.userBlobMap}
                         />;
                     break;
@@ -621,7 +621,7 @@ class SoundSeekerApp extends React.Component {
 
                     >
                         <DropdownMenu
-                            toggleClipUpload = {this.toggleClipUpload}
+                            toggleCreateClip = {this.toggleCreateClip}
                             toggleCreateBlob = {this.toggleCreateBlob}
                             toggleCreateSuite = {this.toggleCreateSuite}
                             onClipSelect = {this.onClipSelect}

@@ -1,6 +1,6 @@
 import React from 'react';
 
-class ClipUploadView extends React.Component {
+class CreateClipView extends React.Component {
 
     renderBlobOptions(userBlobMap) {
         const blobOptions = [];
@@ -34,7 +34,7 @@ class ClipUploadView extends React.Component {
                         <legend>Blobs to associate this clip with:</legend> 
                         {blobOptions}
                     </fieldset>
-                    <input type="button" className="form-field" onClick={this.props.onClipUpload} value="Upload" />
+                    <input type="button" className="form-field" onClick={this.props.onCreateClip} value="Upload" />
                 </div>
             </section>
         )
@@ -42,4 +42,4 @@ class ClipUploadView extends React.Component {
 
 }
 
-export default ClipUploadView;
+export default CreateClipView;
