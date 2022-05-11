@@ -588,6 +588,7 @@ class SoundSeekerApp extends React.Component {
                     var mainContent =
                         <EditSuiteView
                             suite = {this.state.curSuite}
+                            userBlobMap = {this.state.userBlobMap}
                             onDeleteSuite = {this.onDeleteSuite}
                             onEditSuite={this.onEditSuite}
                         />;
