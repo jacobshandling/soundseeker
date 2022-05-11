@@ -20,7 +20,7 @@ class FileUploadView extends React.Component {
         const blobOptions = this.renderBlobOptions(this.props.userBlobMap);
         return(
             <section id="file-upload" className="action-view">
-                <form className="upload-form">
+                <div className="upload-form">
                     <input id="selected-file" className="form-field" type="file" onChange={this.props.onFileSelect} required/>
                     <input id="clip-name" className="form-field" type="text" placeholder='clip name' />
                     <fieldset className="form-field" id="blob-options">
@@ -28,7 +28,7 @@ class FileUploadView extends React.Component {
                         {blobOptions}
                     </fieldset>
                     <input type="button" className="form-field" onClick={this.props.onFileUpload} value="Upload" />
-                </form>
+                </div>
             </section>
         )
     }

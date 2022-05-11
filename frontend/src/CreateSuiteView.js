@@ -5,10 +5,10 @@ class CreateSuiteView extends React.Component {
     render() {
         return(
             <section id="create-suite" className="action-view">
-                <form id="create-suite-form">
+                <div id="create-suite-form" className="upload-form">
                     <input id="suite-name" className="form-field" type="text" placeholder='new suite name' />
                     <input type="button" className="form-field" onClick={this.props.onCreateSuite} value="Create" />
-                </form>
+                </div>
             </section>
         )
     }
