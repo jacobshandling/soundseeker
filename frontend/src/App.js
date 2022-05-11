@@ -210,7 +210,7 @@ class SoundSeekerApp extends React.Component {
         }));
 
         if (!file) {
-            alert("Please select a clip to upload");
+            alert("Select a clip to upload");
             return;
         }
 

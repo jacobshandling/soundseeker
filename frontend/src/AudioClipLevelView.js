@@ -4,23 +4,18 @@ import AudioClip from './AudioClip'
 class AudioClipLevelView extends React.Component {
 
     render() {
-        const curSuite = this.props.curSuite
-        const curBlob = this.props.curBlob;
-        const blobClips = curBlob.clips;
-
         const clipRenders = [];
-        for (var id in blobClips) {
-            const clipObject = blobClips[id];
+        this.props.blobClipIDs.forEach((clipID) => {
             clipRenders.push(
                 <AudioClip 
-                    clipObject = {clipObject}
+                    clipObject = {this.props.userClipMap[clipID]}
                     toggleEditClip = {this.props.toggleEditClip}
                 />
             );
-        }
+        });
         return (
             <div className="audioclip-level-view content-view">
-                <h2>{curSuite.name} / {curBlob.name} / Clips</h2>
+                <h2>{this.props.curSuite.name} / {this.props.curBlob.name} / Clips</h2>
                 <ul id="audioclips" className="content-list">
                     {clipRenders}
                 </ul>
