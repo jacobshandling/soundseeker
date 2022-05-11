@@ -262,53 +262,46 @@ class SoundSeekerApp extends React.Component {
 
     onDeleteClip() {
         const csrftoken = this.getCookie('csrftoken');
-
         const clip = this.state.curClip;
-        const name = clip.name;
-        const id = clip.id;
-        // const url = clip.url;
 
-        fetch(url, {
+        fetch(clip.url, {
             method: 'DELETE',
             headers: { 'X-CSRFToken': csrftoken },
             }
-        )
-        .then(response => {
+        ).then(response => {
             if (!response.ok) {
                 throw new Error('Delete clip upload error – response not ok');
             }
             return;
-        })
-        .then(result => {
-            alert(`Deleted clip ${name} successfully`);
+        }).then(result => {
+            alert(`Deleted clip ${clip.name} successfully`);
             
-            // Remove clip from local state and return to previous view
+            // update local data
+            const updatedUserClipMap = {...this.state.userClipMap};
+            delete updatedUserClipMap[clip.id];
 
-            // remove clip from all Blobs that pointed to it
             const updatedUserBlobMap = {...this.state.userBlobMap};
-            for (let key in updatedUserBlobMap) {
-                const blob = updatedUserBlobMap[key];
-                for (let i = 0; i < blob.clips.length; i++) {
-                    if (blob.clips[i].id == id) {
-                        blob.clips.splice(i, 1);
-                        break;  // assumes no duplicate clips
-                    }
-                }
-            }
+            clip.blobs.forEach((blobID) => {
+                // find the index of the deleted clip's id in the blob's list of clip IDs
+                const iDeletedClip = updatedUserBlobMap[blobID].clips.findIndex((clipID) => clipID == clip.id);
+                // remove it
+                // assumes no duplicate clipIDs in blob.clips   
+                updatedUserBlobMap[blobID].clips.splice(iDeletedClip, 1);
+                })
             
-            this.setState(
-                {
+            this.setState( {
                     curClip: null,
                     actionView: null,
-                    userBlobMap: updatedUserBlobMap
+                    userBlobMap: updatedUserBlobMap,
+                    userClipMap: updatedUserClipMap
                 }
             );
 
-        })
-        .catch(error => {
-            console.error('Error with fetch operation:', error);
+        }).catch(error => {
+            console.error('Error:', error);
         });
     }
+
     onCreateBlob() {
         const csrftoken = this.getCookie('csrftoken');
 
