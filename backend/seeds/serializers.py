@@ -25,10 +25,13 @@ class SuiteSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['url', 'id', 'owner', 'name', 'blobs']
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
-
+    user_suites = SuiteSerializer(many=True, required=False)
+    user_blobs = BlobSerializer(many=True, required=False)
+    user_clips = AudioClipSerializer(many=True, required=False)
+    
     class Meta:
         model = User
-        fields = ['id', 'username']
+        fields = ['url', 'id', 'username', 'user_suites', 'user_blobs', 'user_clips']
 
 
 class LabelSerializer(serializers.HyperlinkedModelSerializer):
