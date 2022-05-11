@@ -1,6 +1,6 @@
 import React from 'react';
 
-class FileUploadView extends React.Component {
+class ClipUploadView extends React.Component {
 
     renderBlobOptions(userBlobMap) {
         const blobOptions = [];
@@ -19,15 +19,15 @@ class FileUploadView extends React.Component {
     render() {
         const blobOptions = this.renderBlobOptions(this.props.userBlobMap);
         return(
-            <section id="file-upload" className="action-view">
+            <section id="clip-upload" className="action-view">
                 <div className="form">
-                    <input id="selected-file" className="form-field" type="file" onChange={this.props.onFileSelect} required/>
+                    <input id="selected-clip" className="form-field" type="file" onChange={this.props.onClipSelect} required/>
                     <input id="clip-name" className="form-field" type="text" placeholder='clip name' />
                     <fieldset className="form-field" id="blob-options">
                         <legend>Blobs to associate this clip with (at least 1):</legend> 
                         {blobOptions}
                     </fieldset>
-                    <input type="button" className="form-field" onClick={this.props.onFileUpload} value="Upload" />
+                    <input type="button" className="form-field" onClick={this.props.onClipUpload} value="Upload" />
                 </div>
             </section>
         )
@@ -35,4 +35,4 @@ class FileUploadView extends React.Component {
 
 }
 
-export default FileUploadView;
+export default ClipUploadView;

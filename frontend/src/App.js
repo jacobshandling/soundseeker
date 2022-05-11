@@ -5,7 +5,7 @@ import ActionBar from './ActionBar';
 import ActionItem from './ActionItem';
 import PlusIcon from './icons/plus.svg';
 import DropdownMenu from './DropdownMenu';
-import FileUploadView from './FileUploadView';
+import ClipUploadView from './ClipUploadView';
 import CreateBlobView from './CreateBlobView';
 import CreateSuiteView from './CreateSuiteView';
 import EditSuiteView from './EditSuiteView';
@@ -33,7 +33,7 @@ class SoundSeekerApp extends React.Component {
             curBlob: null,
             dropdownIsOpen: false,
             actionView: null,
-            selectedFile: null
+            selectedClip: null
 
         };
 
@@ -43,8 +43,8 @@ class SoundSeekerApp extends React.Component {
         this.toggleClipUpload = this.toggleClipUpload.bind(this);
         this.toggleCreateBlob = this.toggleCreateBlob.bind(this);
         this.toggleCreateSuite = this.toggleCreateSuite.bind(this);
-        this.onFileSelect = this.onFileSelect.bind(this);
-        this.onFileUpload = this.onFileUpload.bind(this);
+        this.onClipSelect = this.onClipSelect.bind(this);
+        this.onClipUpload = this.onClipUpload.bind(this);
         this.onCreateBlob = this.onCreateBlob.bind(this);
         this.onCreateSuite = this.onCreateSuite.bind(this);
 
@@ -168,9 +168,9 @@ class SoundSeekerApp extends React.Component {
 
     // AJAX handlers
 
-    onFileSelect(event) {
+    onClipSelect(event) {
         this.setState(
-            {selectedFile: event.target.files[0]}
+            {selectedClip: event.target.files[0]}
         );
     }
     getCookie(name) {
@@ -189,12 +189,12 @@ class SoundSeekerApp extends React.Component {
         }
         return cookieValue;
     }
-    onFileUpload() {
+    onClipUpload() {
 
         const csrftoken = this.getCookie('csrftoken');
 
         // gather data for upload
-        const file = this.state.selectedFile;
+        const file = this.state.selectedClip;
         const clipName = document.querySelector('#clip-name').value;
         const [blobURLs, blobIDs] = [[], []];  // blobIDs only for locally adding clips after successful upload
         document.getElementsByName('blob-options').forEach((checkbox => {
@@ -207,7 +207,7 @@ class SoundSeekerApp extends React.Component {
         console.log(`blobIDs: ${blobIDs}`)
 
         if (!file) {
-            alert("Please select a file to upload");
+            alert("Please select a clip to upload");
             return;
         }
         if (!blobURLs.length) {
@@ -555,9 +555,9 @@ class SoundSeekerApp extends React.Component {
             switch (this.state.actionView) {
                 case 'new-clip':
                     var mainContent = 
-                        <FileUploadView
-                            onFileSelect = {this.onFileSelect} 
-                            onFileUpload = {this.onFileUpload} 
+                        <ClipUploadView
+                            onClipSelect = {this.onClipSelect} 
+                            onClipUpload = {this.onClipUpload} 
                             userBlobMap = {this.state.userBlobMap}
                         />;
                     break;
@@ -627,8 +627,8 @@ class SoundSeekerApp extends React.Component {
                             toggleClipUpload = {this.toggleClipUpload}
                             toggleCreateBlob = {this.toggleCreateBlob}
                             toggleCreateSuite = {this.toggleCreateSuite}
-                            onFileSelect = {this.onFileSelect}
-                            uploadFile = {this.uploadFile}
+                            onClipSelect = {this.onClipSelect}
+                            uploadClip = {this.uploadClip}
                             />
                     </ActionItem>
                     {mainContent}
