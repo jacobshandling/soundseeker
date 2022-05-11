@@ -95,7 +95,6 @@ class SoundSeekerApp extends React.Component {
                                     return map;
                                 }, {})
     }
-
     getUserBlobMapFromUserSuiteMap(userSuiteMap) {
         const userBlobMap = {};
         for (let key in userSuiteMap) {
@@ -115,7 +114,6 @@ class SoundSeekerApp extends React.Component {
             curSuite: suiteObject
         });
     }
-
     handleBlobClick(blobObject) {
         this.setState({
             curBlob: blobObject
@@ -129,7 +127,6 @@ class SoundSeekerApp extends React.Component {
             {dropdownIsOpen: !this.state.dropdownIsOpen}
         );
     }
-
     toggleClipUpload() {
         this.setState(
             {
@@ -138,7 +135,6 @@ class SoundSeekerApp extends React.Component {
             }
         );
     }
-
     toggleCreateBlob() {
         this.setState(
             {
@@ -147,7 +143,6 @@ class SoundSeekerApp extends React.Component {
             }
         )
     }
-
     toggleCreateSuite() {
         this.setState(
             {
@@ -167,7 +162,6 @@ class SoundSeekerApp extends React.Component {
             }
         )
     }
-
     toggleEditBlob(blobObject) {
         this.setState(
             {
@@ -176,7 +170,6 @@ class SoundSeekerApp extends React.Component {
             }
         )
     }
-
     toggleEditClip(clipObject) {
         this.setState(
             {
@@ -194,7 +187,6 @@ class SoundSeekerApp extends React.Component {
             {selectedFile: event.target.files[0]}
         );
     }
-
     getCookie(name) {
         // get CSRF token from cookie. See https://docs.djangoproject.com/en/4.0/ref/csrf/#acquiring-csrf-token-from-cookie
         let cookieValue = null;
@@ -211,7 +203,6 @@ class SoundSeekerApp extends React.Component {
         }
         return cookieValue;
     }
-    
     onFileUpload() {
 
         const csrftoken = this.getCookie('csrftoken');
@@ -281,8 +272,6 @@ class SoundSeekerApp extends React.Component {
             console.error('Error with fetch operation:', error);
         });
     };
-
-
     onDeleteClip() {
         const csrftoken = this.getCookie('csrftoken');
 
@@ -333,8 +322,6 @@ class SoundSeekerApp extends React.Component {
             console.error('Error with fetch operation:', error);
         });
     }
-
-
     onCreateBlob() {
         const csrftoken = this.getCookie('csrftoken');
 
@@ -398,7 +385,6 @@ class SoundSeekerApp extends React.Component {
             console.error('Error with fetch operation:', error);
         });
     }
-
     onDeleteBlob() {
         const csrftoken = this.getCookie('csrftoken');
 
@@ -452,7 +438,6 @@ class SoundSeekerApp extends React.Component {
             console.error('Error with fetch operation:', error);
         });
     }
-
     onCreateSuite() {
         const csrftoken = this.getCookie('csrftoken');
         const suiteName = document.querySelector('#suite-name').value;
@@ -493,7 +478,6 @@ class SoundSeekerApp extends React.Component {
             console.error('Error with fetch operation:', error);
         });
     }
-
     onDeleteSuite() {
         const csrftoken = this.getCookie('csrftoken');
 
@@ -532,7 +516,6 @@ class SoundSeekerApp extends React.Component {
             console.error('Error with fetch operation:', error);
         });
     }
-
     onEditSuite() {
         const suite = this.state.curSuite;
         const url = suite.url;
@@ -572,7 +555,6 @@ class SoundSeekerApp extends React.Component {
             console.error('Error with fetch operation:', error);
         });
     }
-
 
     render() {
         if (this.state.error) {
