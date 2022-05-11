@@ -62,16 +62,15 @@ class SoundSeekerApp extends React.Component {
     }
 
     componentDidMount() {
-        // fetch 
         fetch(`${APIURL}/users/${userID}/`)
             .then(response => response.json())
             .then((result) => {
 
                     this.setState({
                         isLoaded: true,
-                        userSuiteMap: this.getIDMapFromObjArray(result.user_suites);
-                        userBlobMap: this.getIDMapFromObjArray(result.user_blobs);
-                        userClipMap: this.getIDMapFromObjArray(result.user_clips);
+                        userSuiteMap: this.getIDMapFromObjArray(result.user_suites),
+                        userBlobMap: this.getIDMapFromObjArray(result.user_blobs),
+                        userClipMap: this.getIDMapFromObjArray(result.user_clips),
                     }
                     );
                 },
@@ -100,6 +99,7 @@ class SoundSeekerApp extends React.Component {
             curSuite: suiteObject
         });
     }
+
     handleBlobClick(blobObject) {
         this.setState({
             curBlob: blobObject
@@ -113,6 +113,7 @@ class SoundSeekerApp extends React.Component {
             {dropdownIsOpen: !this.state.dropdownIsOpen}
         );
     }
+
     toggleClipUpload() {
         this.setState(
             {
@@ -121,6 +122,7 @@ class SoundSeekerApp extends React.Component {
             }
         );
     }
+
     toggleCreateBlob() {
         this.setState(
             {
@@ -129,6 +131,7 @@ class SoundSeekerApp extends React.Component {
             }
         )
     }
+
     toggleCreateSuite() {
         this.setState(
             {
@@ -148,6 +151,7 @@ class SoundSeekerApp extends React.Component {
             }
         )
     }
+
     toggleEditBlob(blobObject) {
         this.setState(
             {
@@ -156,6 +160,7 @@ class SoundSeekerApp extends React.Component {
             }
         )
     }
+
     toggleEditClip(clipObject) {
         this.setState(
             {
@@ -173,6 +178,7 @@ class SoundSeekerApp extends React.Component {
             {selectedClip: event.target.files[0]}
         );
     }
+
     getCookie(name) {
         // get CSRF token from cookie. See https://docs.djangoproject.com/en/4.0/ref/csrf/#acquiring-csrf-token-from-cookie
         let cookieValue = null;
@@ -189,36 +195,29 @@ class SoundSeekerApp extends React.Component {
         }
         return cookieValue;
     }
-    onClipUpload() {
 
+    onClipUpload() {
         const csrftoken = this.getCookie('csrftoken');
 
         // gather data for upload
         const file = this.state.selectedClip;
         const clipName = document.querySelector('#clip-name').value;
-        const [blobURLs, blobIDs] = [[], []];  // blobIDs only for locally adding clips after successful upload
+        const blobIDs = [];
         document.getElementsByName('blob-options').forEach((checkbox => {
             if (checkbox.checked) {
-                blobURLs.push(checkbox.value);
-                blobIDs.push(checkbox.id);
+                blobIDs.push(checkbox.value);
             }
         }));
-        console.log(`blobURLs: ${blobURLs}`)
-        console.log(`blobIDs: ${blobIDs}`)
 
         if (!file) {
             alert("Please select a clip to upload");
-            return;
-        }
-        if (!blobURLs.length) {
-            alert("Please select at least one Blob to associate this Clip with");
             return;
         }
 
         // create formData instance
         const formData = new FormData();
         formData.append('name', clipName);
-        formData.append('blobs', blobURLs); 
+        formData.append('blobs', blobIDs); 
         formData.append('file', file);
 
 
@@ -235,29 +234,32 @@ class SoundSeekerApp extends React.Component {
             return response.json();
         })
         .then(result => {
-            console.log('Success:', result);
-            alert(`Uploaded ${clipName} successfully`);
             
             // prepare new local data
             const updatedUserBlobMap = { ...this.state.userBlobMap };
-            
             blobIDs.forEach(blobID => {
-                updatedUserBlobMap[blobID].clips.push(result)
-            })
-
+                updatedUserBlobMap[blobID].clips.push(result.id)
+            });
+            const updatedUserClipMap = { ...this.state.userClipMap };
+            updatedUserClipMap[result.id] = result;
+            
             // set new data as state and return to previous view
             this.setState(
                 {
                     actionView: null,
+                    userClipMap: updatedUserClipMap,
                     userBlobMap: updatedUserBlobMap
                 }
-            );
+                );
 
+            alert(`Uploaded ${clipName} successfully`);
         })
+
         .catch(error => {
             console.error('Error with fetch operation:', error);
         });
     };
+
     onDeleteClip() {
         const csrftoken = this.getCookie('csrftoken');
 
