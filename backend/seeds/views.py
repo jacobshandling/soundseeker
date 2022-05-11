@@ -67,7 +67,6 @@ class SuiteViewSet(viewsets.ModelViewSet):
     '''
     queryset = Suite.objects.all()
     serializer_class = SuiteSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -79,7 +78,6 @@ class BlobViewSet(viewsets.ModelViewSet):
     '''
     queryset = Blob.objects.all()
     serializer_class = BlobSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -92,7 +90,6 @@ class AudioClipViewSet(viewsets.ModelViewSet):
     '''
     queryset = AudioClip.objects.all()
     serializer_class = AudioClipSerializer
-    permission_classes = [permissions.IsAuthenticated]
     parser_classes = [MultiPartParser, FormParser]
 
     def perform_create(self, serializer):
@@ -105,7 +102,6 @@ class LabelViewSet(viewsets.ModelViewSet):
     '''
     queryset = Label.objects.all()
     serializer_class = LabelSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
