@@ -19,7 +19,6 @@ class BlobSerializer(serializers.ModelSerializer):
 
 class SuiteSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
-    blobs = serializers.ReadOnlyField(source='id')
 
     class Meta:
         model = Suite

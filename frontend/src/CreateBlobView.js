@@ -8,7 +8,14 @@ class CreateBlobView extends React.Component {
             const userSuite = userSuiteMap[key];
             suiteOptions.push(
                     <label htmlFor={userSuite.name} key={userSuite.id}>
-                        <input id={userSuite.id} className="select-checkbox" key={userSuite.id} type="checkbox" name="suite-options" value={userSuite.url} />
+                        <input
+                            id={userSuite.id}
+                            className="select-checkbox" 
+                            key={userSuite.id} 
+                            type="checkbox" 
+                            name="suite-options" 
+                            value={userSuite.id} 
+                        />
                     <p>{userSuite.name}</p></label>
                     
             )

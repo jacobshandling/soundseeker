@@ -266,7 +266,7 @@ class SoundSeekerApp extends React.Component {
         const clip = this.state.curClip;
         const name = clip.name;
         const id = clip.id;
-        const url = clip.url;
+        // const url = clip.url;
 
         fetch(url, {
             method: 'DELETE',
@@ -283,7 +283,6 @@ class SoundSeekerApp extends React.Component {
             alert(`Deleted clip ${name} successfully`);
             
             // Remove clip from local state and return to previous view
-            // * Not updating clips buried 2 levels down in userSuiteMap*
 
             // remove clip from all Blobs that pointed to it
             const updatedUserBlobMap = {...this.state.userBlobMap};
@@ -315,11 +314,10 @@ class SoundSeekerApp extends React.Component {
 
         // gather data for upload
         const blobName = document.querySelector('#blob-name').value;
-        const [suiteURLs, suiteIDs] = [[], []]
+        const suiteIDs = [];
         document.getElementsByName('suite-options').forEach((checkbox => {
             if (checkbox.checked) {
-                suiteURLs.push(checkbox.value);
-                suiteIDs.push(checkbox.id);
+                suiteIDs.push(checkbox.value);
             }
         }));
 
@@ -328,15 +326,11 @@ class SoundSeekerApp extends React.Component {
             alert("Please enter a name for your new Blob");
             return;
         }
-        if (!suiteURLs.length) {
-            alert("Please select at least one Suite to associate this Blob with")
-            return;
-        }
 
         // create formData instance
         const formData = new FormData();
         formData.append('name', blobName);
-        formData.append('suites', suiteURLs);
+        formData.append('suites', suiteIDs);
 
         fetch(`${APIURL}/blobs/`, {
             method: 'POST',
@@ -351,28 +345,28 @@ class SoundSeekerApp extends React.Component {
             return response.json();
         })
         .then(result => {
-            alert(`Created new blob ${blobName} successfully`);
             
             // add new blob to local state and return to previous view
             const updatedUserSuiteMap = { ...this.state.userSuiteMap }
             suiteIDs.forEach(suiteID => {
-                updatedUserSuiteMap[suiteID].blobs.push(result);
+                updatedUserSuiteMap[suiteID].blobs.push(result.id);
             })
             const updatedUserBlobMap = { ...this.state.userBlobMap };
-            updatedUserBlobMap[result['id']] = result;
+            updatedUserBlobMap[result.id] = result;
             this.setState(
                 {
                     actionView: null,
                     userSuiteMap: updatedUserSuiteMap,
                     userBlobMap: updatedUserBlobMap
                 }
-            );
-
+                );
+            alert(`Created new blob ${blobName} successfully`);
         })
         .catch(error => {
             console.error('Error with fetch operation:', error);
         });
     }
+    
     onDeleteBlob() {
         const csrftoken = this.getCookie('csrftoken');
 
