@@ -1,6 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from backend.storage_backends import PrivateMediaStorage
+from backend.storage_backends import S3PrivateMediaStorage
+
+import os
 
 class User(AbstractUser):
 
@@ -10,7 +12,10 @@ class User(AbstractUser):
 class AudioClip(models.Model):
     name = models.CharField(max_length=64, blank=True)
     # https://docs.djangoproject.com/en/3.2/topics/files/
-    file = models.FileField(storage=PrivateMediaStorage())
+    if os.environ.get('USE_S3') == 'TRUE':
+        file = models.FileField(storage=S3PrivateMediaStorage())
+    else:
+        file = models.FileField()
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_clips")
 
     def __str__(self):
