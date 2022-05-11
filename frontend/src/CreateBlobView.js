@@ -28,12 +28,23 @@ class CreateBlobView extends React.Component {
         return(
             <section id="create-blob" className="action-view">
                 <div className="form">
-                    <input id="blob-name" className="form-field" type="text" placeholder='new blob name' autoFocus/>
+                    <input 
+                        id="blob-name" 
+                        className="form-field" 
+                        type="text" 
+                        placeholder='new blob name' 
+                        autoFocus
+                    />
                     <fieldset className="form-field" id="suite-options">
-                        <legend>Suites to associate this clip with (at least 1):</legend> 
+                        <legend>Suites to associate this Blob with (at least 1):</legend> 
                         {suiteOptions}
                     </fieldset>
-                    <input type="button" className="form-field" onClick={this.props.onCreateBlob} value="Create" />
+                    <input 
+                        type="button" 
+                        className="form-field" 
+                        onClick={this.props.onCreateBlob} 
+                        value="Create" 
+                    />
                 </div>
             </section>
         )

@@ -10,6 +10,8 @@ class SuiteLevelView extends React.Component {
             <BlobLevelView 
                 curSuite = {this.props.curSuite}
                 curBlob = {this.props.curBlob}
+                userBlobMap = {this.props.userBlobMap}
+                userClipMap = {this.props.userClipMap}
                 handleBlobClick = {this.props.handleBlobClick}
                 toggleEditBlob = {this.props.toggleEditBlob}
                 toggleEditClip = {this.props.toggleEditClip}
@@ -19,7 +21,7 @@ class SuiteLevelView extends React.Component {
                 <h2>Suites</h2>
                 <SuiteList
                     userSuiteMap = {this.props.userSuiteMap} 
-                    handleSuiteClick = {this.props.handleSuiteClick} 
+                    toggleViewSuite = {this.props.toggleViewSuite} 
                     toggleEditSuite = {this.props.toggleEditSuite}
                 />
             </div>

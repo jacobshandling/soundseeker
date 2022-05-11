@@ -7,22 +7,20 @@ class BlobLevelView extends React.Component {
 
     render() {
         const suite = this.props.curSuite;
-        const suiteBlobMap = suite.blobs.reduce((map, obj) => {
-            map[obj.id] = obj;
-            return map;
-        }, {})
 
         const mainContent = this.props.curBlob ?
             <AudioClipLevelView 
+                userClipMap = {this.props.userClipMap}
                 curBlob = {this.props.curBlob}
-                curSuite = {this.props.curSuite}
+                curSuite = {suite}
                 toggleEditClip = {this.props.toggleEditClip}
             />
             :
             <div className="blob-list content-view">
-                <h2>{this.props.curSuite.name} / Blobs</h2>
+                <h2>{suite.name} / Blobs</h2>
                 <BlobList
-                    suiteBlobMap = {suiteBlobMap} 
+                    userBlobMap = {this.props.userBlobMap}
+                    suiteBlobIDs = {suite.blobs} 
                     handleBlobClick = {this.props.handleBlobClick} 
                     toggleEditBlob = {this.props.toggleEditBlob}
                 />

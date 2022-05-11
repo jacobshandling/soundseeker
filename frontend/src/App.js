@@ -37,7 +37,6 @@ class SoundSeekerApp extends React.Component {
 
         };
 
-        this.handleSuiteClick = this.handleSuiteClick.bind(this);
         this.handleBlobClick = this.handleBlobClick.bind(this);
         this.toggleDropdown = this.toggleDropdown.bind(this);
         this.toggleClipUpload = this.toggleClipUpload.bind(this);
@@ -47,7 +46,8 @@ class SoundSeekerApp extends React.Component {
         this.onClipUpload = this.onClipUpload.bind(this);
         this.onCreateBlob = this.onCreateBlob.bind(this);
         this.onCreateSuite = this.onCreateSuite.bind(this);
-
+        
+        this.toggleViewSuite = this.toggleViewSuite.bind(this);
         this.toggleEditSuite = this.toggleEditSuite.bind(this);
         this.onEditSuite = this.onEditSuite.bind(this);
         this.onDeleteSuite = this.onDeleteSuite.bind(this);
@@ -94,7 +94,7 @@ class SoundSeekerApp extends React.Component {
 
     // Handlers for navigating through layers of content (suites, blobs, clips)
 
-    handleSuiteClick(suiteObject) {
+    toggleViewSuite(suiteObject) {
         this.setState({
             curSuite: suiteObject
         });
@@ -323,7 +323,11 @@ class SoundSeekerApp extends React.Component {
 
         // validate
         if (!blobName.length) {
-            alert("Please enter a name for your new Blob");
+            alert("Enter a name for your new Blob");
+            return;
+        }
+        if (!suiteIDs.length) {
+            alert("Choose at least 1 Suite to associate your new Blob with");
             return;
         }
 
@@ -366,7 +370,7 @@ class SoundSeekerApp extends React.Component {
             console.error('Error with fetch operation:', error);
         });
     }
-    
+
     onDeleteBlob() {
         const csrftoken = this.getCookie('csrftoken');
 
@@ -424,7 +428,7 @@ class SoundSeekerApp extends React.Component {
         const csrftoken = this.getCookie('csrftoken');
         const suiteName = document.querySelector('#suite-name').value;
         if (!suiteName.length) {
-            alert("Please enter a name for your new Blob");
+            alert("Please enter a name for your new Suite");
             return;
         }
         const formData = new FormData();
@@ -460,6 +464,7 @@ class SoundSeekerApp extends React.Component {
             console.error('Error with fetch operation:', error);
         });
     }
+
     onDeleteSuite() {
         const csrftoken = this.getCookie('csrftoken');
 
@@ -599,14 +604,16 @@ class SoundSeekerApp extends React.Component {
         } else {
             var mainContent = 
                 <SuiteLevelView
-                    handleSuiteClick = {suiteObject => this.handleSuiteClick(suiteObject)}
+                    toggleViewSuite = {suiteObject => this.toggleViewSuite(suiteObject)}
                     toggleEditSuite = {suiteObject => this.toggleEditSuite(suiteObject)}
                     handleBlobClick = {blobObject => this.handleBlobClick(blobObject)}
                     toggleEditBlob = {blobObject => this.toggleEditBlob(blobObject)}
                     toggleEditClip = {clipObject => this.toggleEditClip(clipObject)}
                     curSuite = {this.state.curSuite}
-                    userSuiteMap = {this.state.userSuiteMap}
                     curBlob = {this.state.curBlob}
+                    userSuiteMap = {this.state.userSuiteMap}
+                    userBlobMap = {this.state.userBlobMap}
+                    userClipMap = {this.state.userClipMap}
                 />;
         }
 

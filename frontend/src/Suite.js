@@ -7,7 +7,7 @@ class Suite extends React.Component {
                 <li key={suite.id} className="listed-content">
                     <h3>{suite.name}</h3>
                     <span className="listed-content-actions">
-                        <button onClick={() => this.props.handleSuiteClick(suite)}>View</button>
+                        <button onClick={() => this.props.toggleViewSuite(suite)}>View</button>
                         <button onClick={() => this.props.toggleEditSuite(suite)}>Edit</button>
                     </span>
                 </li>

@@ -3,23 +3,21 @@ import Blob from './Blob';
 
 class BlobList extends React.Component {
     render() {
-        const blobs = [];
+        const blobRenders = [];
 
-        for (var blobID in this.props.suiteBlobMap) {
-            blobs.push(
+        this.props.suiteBlobIDs.forEach((blobID) => {
+            blobRenders.push(
                 <Blob
-                    blobObject={this.props.suiteBlobMap[blobID]}
+                    blobObject={this.props.userBlobMap[blobID]}
                     handleBlobClick={this.props.handleBlobClick}
                     toggleEditBlob={this.props.toggleEditBlob}
                 />
             );
-        }
-
-        blobs.reverse();
+        });
 
         return ( 
             <ul className="content-list">
-                {blobs}
+                {blobRenders}
             </ul>
         );
     }
