@@ -423,7 +423,7 @@ class SoundSeekerApp extends React.Component {
             console.error('Error:', error);
         });
     }
-    
+
     onCreateSuite() {
         const csrftoken = this.getCookie('csrftoken');
         const suiteName = document.querySelector('#suite-name').value;
@@ -467,34 +467,39 @@ class SoundSeekerApp extends React.Component {
 
     onDeleteSuite() {
         const csrftoken = this.getCookie('csrftoken');
-
         const suite = this.state.curSuite;
-        const name = suite.name;
-        const id = suite.id;
-        const url = suite.url;
 
-        fetch(url, {
+        fetch(suite.url, {
             method: 'DELETE',
             headers: { 'X-CSRFToken': csrftoken },
             }
-        )
-        .then(response => {
+        ).then(response => {
             if (!response.ok) {
                 throw new Error('Delete suite upload error – response not ok');
             }
             return;
-        })
-        .then(result => {
-            alert(`Deleted suite ${name} successfully`);
+        }).then(result => {
+            alert(`Deleted suite ${suite.name} successfully`);
             
-            // Remove Suite from local state and return to previous view
-            const updatedUserSuiteMap = { ...this.state.userSuiteMap }
-            delete updatedUserSuiteMap[id];
+            // Remove Suite from Suite and Blob maps, and return to previous view
+            const updatedUserSuiteMap = {...this.state.userSuiteMap};
+            delete updatedUserSuiteMap[suite.id];
+
+            const updatedUserBlobMap = {...this.state.userBlobMap};
+            suite.blobs.forEach((blobID) => {
+                // find the index of the deleted suite's id in the blob's list of suite IDs
+                const iDeletedSuite = updatedUserBlobMap[blobID].suites.findIndex((suiteID) => suiteID == suite.id);
+                // remove it
+                // assumes no duplicate suiteIDs in blob.suites   
+                updatedUserBlobMap[blobID].suites.splice(iDeletedSuite, 1);
+                });
+            
             this.setState(
                 {
                     curSuite: null,
                     actionView: null,
                     userSuiteMap: updatedUserSuiteMap,
+                    userBlobMap: updatedUserBlobMap
                 }
             );
 
@@ -503,6 +508,7 @@ class SoundSeekerApp extends React.Component {
             console.error('Error with fetch operation:', error);
         });
     }
+    
     onEditSuite() {
         const suite = this.state.curSuite;
         const url = suite.url;
