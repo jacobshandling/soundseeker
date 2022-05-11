@@ -38,11 +38,13 @@ class SoundSeekerApp extends React.Component {
         };
 
         this.toggleDropdown = this.toggleDropdown.bind(this);
+        
         this.toggleCreateClip = this.toggleCreateClip.bind(this);
         this.toggleCreateBlob = this.toggleCreateBlob.bind(this);
         this.toggleCreateSuite = this.toggleCreateSuite.bind(this);
 
         this.onClipSelect = this.onClipSelect.bind(this);
+
         this.onCreateClip = this.onCreateClip.bind(this);
         this.onCreateBlob = this.onCreateBlob.bind(this);
         this.onCreateSuite = this.onCreateSuite.bind(this);
@@ -54,12 +56,12 @@ class SoundSeekerApp extends React.Component {
         
         this.toggleViewBlob = this.toggleViewBlob.bind(this);
         this.toggleEditBlob = this.toggleEditBlob.bind(this);
-        this.onDeleteBlob = this.onDeleteBlob.bind(this);
         // this.onEditBlob = this.onEditBlob.bind(this);
+        this.onDeleteBlob = this.onDeleteBlob.bind(this);
 
         this.toggleEditClip = this.toggleEditClip.bind(this);
-        this.onDeleteClip = this.onDeleteClip.bind(this);
         // this.onEditClip = this.onEditClip.bind(this);
+        this.onDeleteClip = this.onDeleteClip.bind(this);
     }
 
     componentDidMount() {
@@ -277,7 +279,7 @@ class SoundSeekerApp extends React.Component {
         }).then(result => {
             alert(`Deleted clip ${clip.name} successfully`);
             
-            // update local data
+            // remove clip from Blob and Clip maps, then return to normal view
             const updatedUserClipMap = {...this.state.userClipMap};
             delete updatedUserClipMap[clip.id];
 
@@ -369,11 +371,8 @@ class SoundSeekerApp extends React.Component {
         const csrftoken = this.getCookie('csrftoken');
 
         const blob = this.state.curBlob;
-        const name = blob.name;
-        const id = blob.id;
-        const url = blob.url;
 
-        fetch(url, {
+        fetch(blob.url, {
             method: 'DELETE',
             headers: { 'X-CSRFToken': csrftoken },
             }
@@ -385,39 +384,46 @@ class SoundSeekerApp extends React.Component {
             return;
         })
         .then(result => {
-            alert(`Deleted blob ${name} successfully`);
+            alert(`Deleted blob ${blob.name} successfully`);
             
-            // Remove blob from local state and return to previous view
+            // Remove blob from Suite, Blob, and Clip maps and return to previous view
 
-                // remove Blob from all Suites that pointed to it
             const updatedUserSuiteMap = {...this.state.userSuiteMap};
-            for (let key in updatedUserSuiteMap) {
-                const suite = updatedUserSuiteMap[key];
-                for (let i = 0; i < suite.blobs.length; i++) {
-                    if (suite.blobs[i].id == id) {
-                        suite.blobs.splice(i, 1);
-                        break;  // assumes no duplicate Blobs
-                    }
-                }
-            }
-                // remove Blob from Blob map
-            const updatedUserBlobMap = {...this.state.userBlobMap};
-            delete updatedUserBlobMap[id];
+            blob.suites.forEach((suiteID) => {
+                // find the index of the deleted blob's id in the suite's list of blob IDs
+                const iDeletedBlob = updatedUserSuiteMap[suiteID].blobs.findIndex((blobID) => blobID == blob.id);
+                // remove it
+                // assumes no duplicate clipIDs in blob.clips   
+                updatedUserSuiteMap[suiteID].blobs.splice(iDeletedBlob, 1);
+                })
 
-            this.setState(
-                {
+            const updatedUserBlobMap = {...this.state.userBlobMap};
+            delete updatedUserBlobMap[blob.id];
+
+            const updatedUserClipMap = {...this.state.userClipMap};
+            blob.clips.forEach((clipID) => {
+                // find the index of the deleted blob's id in the clip's list of blob IDs
+                const iDeletedBlob = updatedUserClipMap[clipID].blobs.findIndex((blobID) => blobID == blob.id);
+                // remove it
+                // assumes no duplicate blobIDs in clip.blobs   
+                updatedUserClipMap[clipID].blobs.splice(iDeletedBlob, 1);
+                })
+
+            
+            this.setState( {
                     curBlob: null,
                     actionView: null,
                     userSuiteMap: updatedUserSuiteMap,
-                    userBlobMap: updatedUserBlobMap
+                    userBlobMap: updatedUserBlobMap,
+                    userClipMap: updatedUserClipMap
                 }
             );
 
-        })
-        .catch(error => {
-            console.error('Error with fetch operation:', error);
+        }).catch(error => {
+            console.error('Error:', error);
         });
     }
+    
     onCreateSuite() {
         const csrftoken = this.getCookie('csrftoken');
         const suiteName = document.querySelector('#suite-name').value;
