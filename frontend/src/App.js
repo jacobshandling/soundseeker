@@ -56,7 +56,7 @@ class SoundSeekerApp extends React.Component {
         
         this.toggleViewBlob = this.toggleViewBlob.bind(this);
         this.toggleEditBlob = this.toggleEditBlob.bind(this);
-        // this.onEditBlob = this.onEditBlob.bind(this);
+        this.onEditBlob = this.onEditBlob.bind(this);
         this.onDeleteBlob = this.onDeleteBlob.bind(this);
 
         this.toggleEditClip = this.toggleEditClip.bind(this);
@@ -429,6 +429,54 @@ class SoundSeekerApp extends React.Component {
         });
     }
 
+    onEditBlob() {
+        const blob = this.state.curBlob;
+        const csrftoken = this.getCookie('csrftoken');
+
+        const newName = document.querySelector('#new-name').value;
+        const clipIDs = [];
+        document.getElementsByName('clip-options').forEach((checkbox => {
+            if (checkbox.checked) {
+                clipIDs.push(checkbox.value);
+            }
+        }));
+        
+        if (!newName.length) {
+            alert('Enter a blob name');
+            return;
+        }
+        if (!clipIDs.length) {
+            alert('Associate the blob with at least one audioclip');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('name', newName);
+        formData.append('clips', clipIDs);
+        formData.append('suites', blob.suites);  // not giving ability to edit this for now
+
+        fetch(blob.url, {
+            method: 'PUT',
+            headers: { 'X-CSRFToken': csrftoken },
+            body: formData
+            }
+        )
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Edit blob upload error – response not ok');
+            }
+            return response.json();
+        })
+        .then(result => {
+            this.getAndSetFreshUserDataMaps(); 
+            this.setState({actionView: null});
+            alert(`Edited blob succcessfully`);
+        })
+        .catch(error => {
+            console.error('Error with fetch operation:', error);
+        });
+    }
+
     onCreateSuite() {
         const csrftoken = this.getCookie('csrftoken');
         const suiteName = document.querySelector('#suite-name').value;
@@ -605,7 +653,8 @@ class SoundSeekerApp extends React.Component {
                 case 'edit-blob':
                     var mainContent =
                         <EditBlobView
-                            blobObject = {this.state.curBlob}
+                            blob = {this.state.curBlob}
+                            userClipMap = {this.state.userClipMap}
                             onDeleteBlob = {this.onDeleteBlob}
                             onEditBlob={this.onEditBlob}
                         />;

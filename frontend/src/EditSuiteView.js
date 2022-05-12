@@ -3,8 +3,6 @@ import React from 'react';
 class EditSuiteView extends React.Component {
 
     renderBlobOptions(suiteBlobIDs, userBlobMap) {
-        console.log(suiteBlobIDs)
-        console.log(userBlobMap)
         const blobOptions = [];
         for (let blobID in userBlobMap) {
             const blob = userBlobMap[blobID];
