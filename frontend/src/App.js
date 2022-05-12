@@ -60,7 +60,7 @@ class SoundSeekerApp extends React.Component {
         this.onDeleteBlob = this.onDeleteBlob.bind(this);
 
         this.toggleEditClip = this.toggleEditClip.bind(this);
-        // this.onEditClip = this.onEditClip.bind(this);
+        this.onEditClip = this.onEditClip.bind(this);
         this.onDeleteClip = this.onDeleteClip.bind(this);
     }
 
@@ -307,6 +307,50 @@ class SoundSeekerApp extends React.Component {
 
         }).catch(error => {
             console.error('Error:', error);
+        });
+    }
+
+
+    onEditClip() {
+        const clip = this.state.curClip;
+        const csrftoken = this.getCookie('csrftoken');
+
+        const newName = document.querySelector('#new-name').value;
+        const clipIDs = [];
+        document.getElementsByName('clip-options').forEach((checkbox => {
+            if (checkbox.checked) {
+                clipIDs.push(checkbox.value);
+            }
+        }));
+        
+        if (!newName.length) {
+            alert('Enter a clip name');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('name', newName);
+        formData.append('blobs', clip.blobs);  // not giving ability to edit this for now
+
+        fetch(clip.url, {
+            method: 'PUT',
+            headers: { 'X-CSRFToken': csrftoken },
+            body: formData
+            }
+        )
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Edit clip upload error – response not ok');
+            }
+            return response.json();
+        })
+        .then(result => {
+            this.getAndSetFreshUserDataMaps(); 
+            this.setState({actionView: null});
+            alert(`Edited clip succcessfully`);
+        })
+        .catch(error => {
+            console.error('Error with fetch operation:', error);
         });
     }
 
@@ -662,7 +706,7 @@ class SoundSeekerApp extends React.Component {
                 case 'edit-clip':
                     var mainContent =
                         <EditClipView
-                            clipObject = {this.state.curClip}
+                            clip = {this.state.curClip}
                             onDeleteClip = {this.onDeleteClip}
                             onEditClip={this.onEditClip}
                         />;
