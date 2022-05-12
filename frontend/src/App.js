@@ -65,10 +65,16 @@ class SoundSeekerApp extends React.Component {
     }
 
     componentDidMount() {
+        this.getAndSetFreshUserDataMaps();
+    }
+    
+    // Methods for fetching and parsing user data from server
+    
+    getAndSetFreshUserDataMaps() {
         fetch(`${APIURL}/users/${userID}/`)
             .then(response => response.json())
             .then((result) => {
-
+    
                     this.setState({
                         isLoaded: true,
                         userSuiteMap: this.getIDMapFromObjArray(result.user_suites),
@@ -84,9 +90,8 @@ class SoundSeekerApp extends React.Component {
                     })
                 }
             )
-                }
 
-    // Methods for parsing user data on initial load
+    }
 
     getIDMapFromObjArray(obj_array) {
         return obj_array.reduce((map, obj) => {
@@ -511,15 +516,28 @@ class SoundSeekerApp extends React.Component {
 
     onEditSuite() {
         const suite = this.state.curSuite;
-
         const csrftoken = this.getCookie('csrftoken');
+
         const newName = document.querySelector('#new-name').value;
+        const blobIDs = [];
+        document.getElementsByName('blob-options').forEach((checkbox => {
+            if (checkbox.checked) {
+                blobIDs.push(checkbox.value);
+            }
+        }));
+        
         if (!newName.length) {
             alert('Suite must have a name');
             return;
         }
+        if (!blobIDs.length) {
+            alert('Suite must have at least one blob');
+            return;
+        }
+
         const formData = new FormData();
         formData.append('name', newName);
+        formData.append('blobs', blobIDs);
 
         fetch(suite.url, {
             method: 'PUT',
@@ -534,17 +552,8 @@ class SoundSeekerApp extends React.Component {
             return response.json();
         })
         .then(result => {
-            
-            // add new Suite to local state and return to previous view
-            const updatedUserSuiteMap = { ...this.state.userSuiteMap }
-            updatedUserSuiteMap[result.id] = result;
-            this.setState(
-                {
-                    curSuite: null,
-                    actionView: null,
-                    userSuiteMap: updatedUserSuiteMap,
-                }
-            );
+            this.getAndSetFreshUserDataMaps(); 
+            this.setState({actionView: null});
             alert(`Edited suite succcessfully`);
         })
         .catch(error => {

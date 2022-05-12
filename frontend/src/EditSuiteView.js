@@ -9,9 +9,24 @@ class EditSuiteView extends React.Component {
         for (let blobID in userBlobMap) {
             const blob = userBlobMap[blobID];
             const input = suiteBlobIDs.includes(blob.id) ?
-                        <input id={blob.id} className="select-checkbox" key={blob.id} type="checkbox" name="blob-options" value={blob.url} defaultChecked/>
+                        <input 
+                            id={blob.id} 
+                            className="select-checkbox" 
+                            key={blob.id} 
+                            type="checkbox" 
+                            name="blob-options" 
+                            value={blob.id} 
+                            defaultChecked
+                        />
                         :
-                        <input id={blob.id} className="select-checkbox" key={blob.id} type="checkbox" name="blob-options" value={blob.url} />;
+                        <input 
+                            id={blob.id} 
+                            className="select-checkbox" 
+                            key={blob.id} 
+                            type="checkbox" 
+                            name="blob-options" 
+                            value={blob.id} 
+                        />;
 
             blobOptions.push(
                     <label htmlFor={blob.name} key={blob.id}>
