@@ -13,7 +13,7 @@ class AllClipsView extends React.Component {
                     toggleEditClip = {this.props.toggleEditClip}
                 />
             );
-        });
+        };
         return (
             <div id="all-clips-view" className="content-view">
                 <h2>All Clips</h2>

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import AllClipsView from './AllClipsView';
 import SuiteLevelView from './SuiteLevelView';
 import ActionBar from './ActionBar';
 import ActionItem from './ActionItem';
@@ -38,7 +39,11 @@ class SoundSeekerApp extends React.Component {
         };
 
         this.toggleDropdown = this.toggleDropdown.bind(this);
-        
+
+        this.toggleAllSuitesView = this.toggleAllSuitesView.bind(this);
+        this.toggleAllBlobsView = this.toggleAllBlobsView.bind(this);
+        this.toggleAllClipsView = this.toggleAllClipsView.bind(this);
+
         this.toggleCreateClip = this.toggleCreateClip.bind(this);
         this.toggleCreateBlob = this.toggleCreateBlob.bind(this);
         this.toggleCreateSuite = this.toggleCreateSuite.bind(this);
@@ -674,9 +679,10 @@ class SoundSeekerApp extends React.Component {
                     var mainContent = <AllBlobsView userBlobMap = {this.state.userBlobMap} />;
                     break;
                 case 'all-clips':
-                    var mainContent = <AllClipsView 
-                        userClipMap = {this.state.userClipMap}
-                        toggleEditClip = {this.toggleEditClip}
+                    var mainContent = 
+                        <AllClipsView 
+                            userClipMap = {this.state.userClipMap}
+                            toggleEditClip = {this.toggleEditClip}
                         />;
                     break;
                 case 'new-clip':
