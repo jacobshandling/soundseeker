@@ -102,24 +102,30 @@ class SoundSeekerApp extends React.Component {
 
     // Handlers for navigating through layers of content (suites, blobs, clips)
 
+    toggleAllSuitesView() {
+        this.setState({curSuite: null, curBlob: null});
+    }
+
+    toggleAllBlobsView() {
+        this.setState({actionView: 'all-blobs'});        
+    }
+
+    toggleAllClipsView() {
+        this.setState({actionView: 'all-clips'});
+    }
+
     toggleViewSuite(suiteObject) {
-        this.setState({
-            curSuite: suiteObject
-        });
+        this.setState({ curSuite: suiteObject });
     }
 
     toggleViewBlob(blobObject) {
-        this.setState({
-            curBlob: blobObject
-        });
+        this.setState({ curBlob: blobObject });
     }
 
     // Dropdown menu selection handlers
 
     toggleDropdown() {
-        this.setState(
-            {dropdownIsOpen: !this.state.dropdownIsOpen}
-        );
+        this.setState( {dropdownIsOpen: !this.state.dropdownIsOpen});
     }
 
     toggleCreateClip() {
@@ -664,6 +670,12 @@ class SoundSeekerApp extends React.Component {
 
         if (this.state.actionView) {
             switch (this.state.actionView) {
+                case 'all-blobs':
+                    var mainContent = <AllBlobsView userBlobMap = {this.state.userBlobMap} />;
+                    break;
+                case 'all-clips':
+                    var mainContent = <AllClipsView userClipMap = {this.state.userClipMap} />;
+                    break;
                 case 'new-clip':
                     var mainContent = 
                         <CreateClipView
@@ -732,6 +744,11 @@ class SoundSeekerApp extends React.Component {
         return (
             <div id="react-wrapper">
                 <main id="main-content">
+                    <div id="app-nav">
+                        <button onClick={this.toggleAllSuitesView}>Suites</button>
+                        <button onClick={this.toggleAllBlobsView}>All Blobs</button>
+                        <button onClick={this.toggleAllClipsView}>All Clips</button>
+                    </div>
                     <ActionItem
                         icon = {<PlusIcon />} 
                         toggleDropdown = {this.toggleDropdown}
