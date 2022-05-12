@@ -674,7 +674,10 @@ class SoundSeekerApp extends React.Component {
                     var mainContent = <AllBlobsView userBlobMap = {this.state.userBlobMap} />;
                     break;
                 case 'all-clips':
-                    var mainContent = <AllClipsView userClipMap = {this.state.userClipMap} />;
+                    var mainContent = <AllClipsView 
+                        userClipMap = {this.state.userClipMap}
+                        toggleEditClip = {this.toggleEditClip}
+                        />;
                     break;
                 case 'new-clip':
                     var mainContent = 
