@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+import psycopg2
 
 ADMINS = [('Jacob Shandling', 'jacobshandling@icloud.com')]
 MANAGERS = [('Jacob Shandling', 'jacobshandling@icloud.com')]
@@ -36,9 +37,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('SOUNDSEEKER_SERVER_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['sound-seeker.herokuapp.com']
+ALLOWED_HOSTS = ['sound-seeker.herokuapp.com', '0.0.0.0']
 
 # HTTPS settings - https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/#s-https
 CSRF_COOKIE_SECURE = True
