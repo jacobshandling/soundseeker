@@ -1,5 +1,6 @@
 import React from 'react';
 
+import AllBlobsView from './AllBlobsView';
 import AllClipsView from './AllClipsView';
 import SuiteLevelView from './SuiteLevelView';
 import ActionBar from './ActionBar';
@@ -108,7 +109,11 @@ class SoundSeekerApp extends React.Component {
     // Handlers for navigating through layers of content (suites, blobs, clips)
 
     toggleAllSuitesView() {
-        this.setState({curSuite: null, curBlob: null});
+        this.setState({
+            actionView: null,
+            curSuite: null, 
+            curBlob: null
+        });
     }
 
     toggleAllBlobsView() {
@@ -676,7 +681,11 @@ class SoundSeekerApp extends React.Component {
         if (this.state.actionView) {
             switch (this.state.actionView) {
                 case 'all-blobs':
-                    var mainContent = <AllBlobsView userBlobMap = {this.state.userBlobMap} />;
+                    var mainContent = 
+                    <AllBlobsView 
+                        userBlobMap = {this.state.userBlobMap} 
+                        toggleEditBlob = {this.toggleEditBlob}
+                    />;
                     break;
                 case 'all-clips':
                     var mainContent = 
