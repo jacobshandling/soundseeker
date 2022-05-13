@@ -240,7 +240,25 @@ audio {
 }
 
 
-/* Action Items (Dropdown Menu) */
+/* Action Bar and Items */
+
+#action-bar {
+    height: auto;
+    padding-bottom: .5rem;
+    display: flex;
+    justify-content: space-around;
+    border-bottom: var(--border);
+}
+
+#app-nav {
+    display: flex;
+    gap: .5rem;
+}
+
+#app-nav > button {
+    background-color: var(--text-color);
+    color: var(--bg-alt);
+}
 
 .action-item {
     width: auto;
