@@ -14,14 +14,16 @@ import EditSuiteView from './EditSuiteView';
 import EditBlobView from './EditBlobView';
 import EditClipView from './EditClipView';
 
-const WHEREAMI = process.env.WHEREAMI;
-if ( WHEREAMI == 'heroku') {
-    // Heroku deployment API
-    var APIURL = "https://sound-seeker.herokuapp.com/api";
-} else {
-    // local development, server running on port 8002
-    var APIURL = "http://127.0.0.1:8002/api";
-}
+// const WHEREAMI = process.env.WHEREAMI;
+// if ( WHEREAMI == 'heroku') {
+//     // Heroku deployment API
+//     var APIURL = "https://sound-seeker.herokuapp.com/api";
+// } else {
+//     // local development, server running on port 8002
+//     var APIURL = "http://127.0.0.1:8002/api";
+// }
+
+var APIURL = "https://sound-seeker.herokuapp.com/api";
 
 class SoundSeekerApp extends React.Component {
     constructor(props) {
