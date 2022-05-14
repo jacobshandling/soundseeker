@@ -1,4 +1,4 @@
-# Soundseeker
+# [Soundseeker](https://sound-seeker.herokuapp.com)
 A tool for organizing and juxtaposing musical ideas in the form of short audio recordings
 
 ## Why? A problem that needed solving:
