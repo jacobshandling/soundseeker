@@ -37,9 +37,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('SOUNDSEEKER_SERVER_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['sound-seeker.herokuapp.com', '0.0.0.0']
+ALLOWED_HOSTS = ['sound-seeker.herokuapp.com', 'www.soundseeker.app', '0.0.0.0']
 
 # HTTPS settings - https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/#s-https
 CSRF_COOKIE_SECURE = True
