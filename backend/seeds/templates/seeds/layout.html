@@ -62,5 +62,25 @@
                 {% endblock %}
             </div>
         </div>
+        <footer>
+            <p>Created by <a href="https://dev.jakeshandling.com" target="_blank">Jake Shandling</a> 2022</p>
+            {% if not user.is_authenticated %}
+                <div id="donate-button-container">
+                    <div id="donate-button"></div>
+                    <script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
+                    <script>
+                        PayPal.Donation.Button({
+                        env:'production',
+                        hosted_button_id:'HYL8EJJAFCWAG',
+                        image: {
+                        src:'https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif',
+                        alt:'Donate with PayPal button',
+                        title:'PayPal - The safer, easier way to pay online!',
+                        }
+                        }).render('#donate-button');
+                    </script>
+                </div>
+            {% endif %}
+        </footer>
     </body>
 </html>

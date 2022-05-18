@@ -88,8 +88,6 @@ button {
     flex-direction: column;
     align-items: center;
     gap: .5rem;
-    border: var(--border);
-    border-radius: 2%;
 }
 
 nav {
@@ -126,6 +124,18 @@ header:after {
     margin-right: -0.5rem;
 }
 
+footer {
+    height: auto;
+    text-align: center;
+}
+
+footer * {
+    height: auto;
+    width: auto;
+    font-size: .3rem;
+    margin: .04rem;
+}
+
 #nav-items {
     list-style: none;
     display: flex;
@@ -154,11 +164,6 @@ header:after {
     gap: 1rem;
 }
 
-#welcome {
-    position: fixed;
-    top: 50%;
-    max-width: 100%;
-}
 
 .login-reg {
     max-width: 10rem;

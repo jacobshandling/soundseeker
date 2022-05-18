@@ -23,7 +23,9 @@ import EditClipView from './EditClipView';
 //     var APIURL = "http://127.0.0.1:8002/api";
 // }
 
-var APIURL = "https://sound-seeker.herokuapp.com/api";
+var APIURL = "https://www.soundseeker.app/api";
+// var APIURL = "https://sound-seeker.herokuapp.com/api";
+// var APIURL = "http://127.0.0.1:8002/api";
 
 class SoundSeekerApp extends React.Component {
     constructor(props) {
