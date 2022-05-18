@@ -8,7 +8,7 @@
     --link-hover-color: rgb(234	234	81	); 
     --delete-button-color: rgb(229	99	87);
     --border: 0.03rem solid #474a4d;
-    --structure-br: .2rem;
+    --structure-br: 2%;
     --content-br: 50%;
     --speed: 500ms;
     --menu-item-font-size: 0.4rem;
@@ -365,6 +365,7 @@ audio {
 
 .form {
     border: var(--border);
+    border-radius: var(--structure-br);
     padding: .5rem;
     height: auto;
     width: auto;
