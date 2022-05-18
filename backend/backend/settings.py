@@ -38,6 +38,8 @@ SECRET_KEY = os.environ.get('SOUNDSEEKER_SERVER_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+SITE_DOMAIN = 'www.soundseeker.app'
+
 ALLOWED_HOSTS = ['sound-seeker.herokuapp.com', 'www.soundseeker.app', '0.0.0.0']
 
 # HTTPS settings - https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/#s-https
@@ -63,6 +65,10 @@ MIDDLEWARE = [
     # Simplified static file serving.
     # https://warehouse.python.org/project/whitenoise/
     'whitenoise.middleware.WhiteNoiseMiddleware',
+
+    #  custom middleware to enforce client uses settings.SITE_DOMAIN
+    # from https://stackoverflow.com/questions/44743336/how-do-i-automatically-redirect-a-heroku-app-url-to-my-custom-domain-with-django
+    'seeds.CanonicalDomainMiddleware.CanonicalDomainMiddleware',
 
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
