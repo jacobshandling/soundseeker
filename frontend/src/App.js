@@ -24,7 +24,6 @@ import EditClipView from './EditClipView';
 // }
 
 var APIURL = "https://www.soundseeker.app/api/v1";
-// var APIURL = "https://sound-seeker.herokuapp.com/api";
 // var APIURL = "http://127.0.0.1:8002/api/v1";
 
 class SoundSeekerApp extends React.Component {
@@ -129,11 +128,17 @@ class SoundSeekerApp extends React.Component {
     }
 
     toggleViewSuite(suiteObject) {
-        this.setState({ curSuite: suiteObject });
+        this.setState({ 
+            curSuite: suiteObject,
+            actionView: null
+         });
     }
 
     toggleViewBlob(blobObject) {
-        this.setState({ curBlob: blobObject });
+        this.setState({
+            curBlob: blobObject,
+            actionView: null
+         });
     }
 
     // Dropdown menu selection handlers
@@ -686,6 +691,7 @@ class SoundSeekerApp extends React.Component {
                     <AllBlobsView 
                         userBlobMap = {this.state.userBlobMap} 
                         toggleEditBlob = {this.toggleEditBlob}
+                        toggleViewBlob = {blobObject => this.toggleViewBlob(blobObject)}
                     />;
                     break;
                 case 'all-clips':
@@ -693,6 +699,7 @@ class SoundSeekerApp extends React.Component {
                         <AllClipsView 
                             userClipMap = {this.state.userClipMap}
                             toggleEditClip = {this.toggleEditClip}
+
                         />;
                     break;
                 case 'new-clip':

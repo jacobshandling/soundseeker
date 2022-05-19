@@ -11,6 +11,7 @@ class AllBlobsView extends React.Component {
                 <Blob 
                     blobObject = {blobMap[key]}
                     toggleEditBlob = {this.props.toggleEditBlob}
+                    toggleViewBlob = {this.props.toggleViewBlob}
                 />
             );
         };
