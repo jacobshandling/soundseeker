@@ -23,9 +23,9 @@ import EditClipView from './EditClipView';
 //     var APIURL = "http://127.0.0.1:8002/api";
 // }
 
-var APIURL = "https://www.soundseeker.app/api";
+var APIURL = "https://www.soundseeker.app/api/v1";
 // var APIURL = "https://sound-seeker.herokuapp.com/api";
-// var APIURL = "http://127.0.0.1:8002/api";
+// var APIURL = "http://127.0.0.1:8002/api/v1";
 
 class SoundSeekerApp extends React.Component {
     constructor(props) {
@@ -336,12 +336,6 @@ class SoundSeekerApp extends React.Component {
         const csrftoken = this.getCookie('csrftoken');
 
         const newName = document.querySelector('#new-name').value;
-        const clipIDs = [];
-        document.getElementsByName('clip-options').forEach((checkbox => {
-            if (checkbox.checked) {
-                clipIDs.push(checkbox.value);
-            }
-        }));
         
         if (!newName.length) {
             alert('Enter a clip name');
@@ -350,7 +344,6 @@ class SoundSeekerApp extends React.Component {
 
         const formData = new FormData();
         formData.append('name', newName);
-        formData.append('blobs', clip.blobs);  // not giving ability to edit this for now
 
         fetch(clip.url, {
             method: 'PUT',
@@ -499,11 +492,11 @@ class SoundSeekerApp extends React.Component {
 
         const newName = document.querySelector('#new-name').value;
         const clipIDs = [];
-        document.getElementsByName('clip-options').forEach((checkbox => {
+        document.getElementsByName('clip-options').forEach(checkbox => {
             if (checkbox.checked) {
                 clipIDs.push(checkbox.value);
             }
-        }));
+        });
         
         if (!newName.length) {
             alert('Enter a blob name');
@@ -516,8 +509,10 @@ class SoundSeekerApp extends React.Component {
 
         const formData = new FormData();
         formData.append('name', newName);
-        formData.append('clips', clipIDs);
         formData.append('suites', blob.suites);  // not giving ability to edit this for now
+        clipIDs.forEach(id => {
+            formData.append('clips', id);
+        });
 
         fetch(blob.url, {
             method: 'PUT',
@@ -649,7 +644,9 @@ class SoundSeekerApp extends React.Component {
 
         const formData = new FormData();
         formData.append('name', newName);
-        formData.append('blobs', blobIDs);
+        blobIDs.forEach(id => {
+            formData.append('blobs', id);
+        });
 
         fetch(suite.url, {
             method: 'PUT',
