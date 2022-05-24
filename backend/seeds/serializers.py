@@ -19,7 +19,7 @@ class BlobSerializer(serializers.ModelSerializer):
 
 class SuiteSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
-
+    
     class Meta:
         model = Suite
         fields = ['id', 'url', 'owner', 'name', 'blobs']

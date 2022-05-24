@@ -15,5 +15,7 @@ urlpatterns = [
     path("", index, name="index"),
     path("register", register, name="register"),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('api/v1/', include(router.urls))
+
+    # api v1
+    path('api/v1/', include(router.urls)),
 ]
