@@ -27,7 +27,6 @@ class Blob(models.Model):
 
 class AudioClip(models.Model):
     name = models.CharField(max_length=64, blank=True)
-    # https://docs.djangoproject.com/en/3.2/topics/files/
     if os.environ.get('USE_S3') == 'TRUE':
         file = models.FileField(storage=S3PrivateMediaStorage())
     else:

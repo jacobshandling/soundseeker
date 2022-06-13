@@ -1,8 +1,6 @@
 from rest_framework import serializers
 from seeds.models import *
 
-# https://www.django-rest-framework.org/api-guide/serializers/#dealing-with-nested-objects
-
 class AudioClipSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username') 
 

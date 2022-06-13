@@ -40,7 +40,6 @@ def register(request):
             user = User.objects.create_user(username, email, password)
             user.save()
         except IntegrityError:
-            # TODO: modify below to work with REST / frontend setup
             return render(request, "registration/register.html", {
                 "message": "Username already taken."
             })
