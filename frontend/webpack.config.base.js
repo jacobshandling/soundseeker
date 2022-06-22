@@ -1,30 +1,23 @@
-// frontend/webpack.config.js
-
 const path = require('path');
 const webpack = require('webpack');
 const Dotenv = require('dotenv-webpack');
 
 module.exports = {
-
-    // Where Webpack looks to load your JavaScript
     entry: {
-        main: path.resolve(__dirname, 'src/index.js'),
+        // main: path.resolve(__dirname, '..', 'src', 'index.js'),
+        main: path.resolve(__dirname, 'src', 'index.js'),
     },
-
-    mode: 'development',
-
-    // Where Webpack spits out the results
-    output: {
-        path: path.resolve(__dirname, '../backend/seeds/static/seeds/build'),
-        filename: '[name].js',
-    },
-
     plugins: [
         // Don't output new files if there is an error
         new webpack.NoEmitOnErrorsPlugin(),
         // use Dotenv to access environment vars with process.env.ENV_VAR
         new Dotenv()
     ],
+    output: {
+        // path: path.resolve(__dirname, '..', '..', 'backend', 'seeds', 'static','seeds', 'build'),
+        path: path.resolve(__dirname, '..', 'backend', 'seeds', 'static','seeds', 'build'),
+        filename: '[name].bundle.js',
+    },
 
     // Where find modules that can be imported (eg. React) 
     resolve: {
@@ -36,8 +29,8 @@ module.exports = {
     },
 
     // Tell webpack to read JS with Babel
-    // "for any file ending with .js, use babel-loader
-    // on that file, expect for anything in node_modules".
+    // "for any file ending with .js or .jsx, use babel-loader
+    // on that file, excluding anything in node_modules".
     module: {
         rules: [
             {
@@ -45,6 +38,7 @@ module.exports = {
                 exclude: /node_modules/,
                 use: ['babel-loader']
             },
+            
             {
                 test: /\.svg$/,
                 use: ['@svgr/webpack']
@@ -53,4 +47,4 @@ module.exports = {
     }
 
 
-    }
+    }// 
