@@ -2,10 +2,11 @@
   "name": "frontend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack --watch --config webpack.config.js"
+    "watch": "webpack --watch --config webpack.config.dev.js --progress",
+    "build": "webpack --config webpack.config.prod.js"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +22,7 @@
     "@babel/core": "^7.16.5",
     "@babel/preset-react": "^7.16.5",
     "babel-loader": "^8.2.3",
-    "dotenv-webpack": "^7.1.0"
+    "dotenv-webpack": "^7.1.0",
+    "webpack-merge": "^5.8.0"
   }
 }
