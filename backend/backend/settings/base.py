@@ -3,6 +3,9 @@ settings common to all app instances
 """
 
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 ADMINS = [('Jacob Shandling', 'jacobshandling@icloud.com')]
 MANAGERS = [('Jacob Shandling', 'jacobshandling@icloud.com')]
