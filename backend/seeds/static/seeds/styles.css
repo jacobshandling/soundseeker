@@ -126,7 +126,9 @@ header:after {
 
 footer {
     height: auto;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 footer * {
@@ -136,7 +138,7 @@ footer * {
     margin: .1rem;
 }
 
-#nav-items {
+.nav-items {
     list-style: none;
     display: flex;
     align-items: center;

@@ -5,9 +5,9 @@
     {% if user.is_authenticated %}
         <div id="react-root" />
         <script>var userID = "{{ user.id }}"</script>
-        <script src="{% static 'seeds/build/main.js' %}"></script>
+        <script src="{% static 'seeds/build/main.bundle.js' %}"></script>
     {% else %}
-        <h2 id="welcome">Welcome. Please <a href="{% url 'register' %}">register</a> or <a href="{% url 'login' %}">log in.</a></h2>
+        <h2 id="welcome">Welcome. Please <a href="{% url 'register' %}">register</a>, <a href="{% url 'login' %}">log in</a>, or <a href="https://youtu.be/_Qm0abmDYak" target="_blank">watch a demo</a>.</h2>
         <!-- TODO: Awesome welcome intro graphic / animation right here -->
     {% endif %}
 {% endblock %}

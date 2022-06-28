@@ -9,7 +9,7 @@ from django.urls import reverse
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, generics
 from rest_framework.decorators import action, permission_classes
 from rest_framework.response import Response
 
@@ -50,7 +50,7 @@ def register(request):
 
 
 
-# API Views
+# API v1 Views
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
     '''
@@ -69,6 +69,7 @@ class SuiteViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
 
 class BlobViewSet(viewsets.ModelViewSet):
     '''
@@ -104,3 +105,4 @@ class LabelViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+        

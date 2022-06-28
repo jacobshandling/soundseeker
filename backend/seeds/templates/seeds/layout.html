@@ -39,7 +39,7 @@
         <div id="app-wrapper">
             <nav>
                 <header><a id="navbar-title" href="{% url 'index' %}">SoundSeeker</a></header>
-                <ul id="nav-items">
+                <ul id="main-nav" class="nav-items">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="#">{{ user.username }}</a>
@@ -63,23 +63,19 @@
             </div>
         </div>
         <footer>
-            <p>Created by <a href="https://dev.jakeshandling.com" target="_blank">Jake Shandling</a> 2022</p>
+            <p>Created by <a href="https://dev.jakeshandling.com" target="_blank">Jacob Shandling</a> 2022</p>
             {% if not user.is_authenticated %}
-                <div id="donate-button-container">
-                    <div id="donate-button"></div>
-                    <script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
-                    <script>
-                        PayPal.Donation.Button({
-                        env:'production',
-                        hosted_button_id:'HYL8EJJAFCWAG',
-                        image: {
-                        src:'https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif',
-                        alt:'Donate with PayPal button',
-                        title:'PayPal - The safer, easier way to pay online!',
-                        }
-                        }).render('#donate-button');
-                    </script>
-                </div>
+                <ul id="footer-nav-links" class="nav-items">
+                    <li id="donate-button-container" class="footer-nav-link">
+                        <a href="https://www.paypal.com/donate/?hosted_button_id=HYL8EJJAFCWAG" id="donate-link" target="-blank">Donate</a>
+                    </li>
+                    <li class="footer-nav-link">
+                        <a href="https://github.com/jacobshandling/soundseeker" id="source-link" target="_blank">Source</a>
+                    </li>
+                    <li class="footer-nav-link">
+                        <a href="https://youtu.be/_Qm0abmDYak" id="demo-link" target="_blank">Demo</a>
+                    </li>
+                </ul>
             {% endif %}
         </footer>
     </body>
