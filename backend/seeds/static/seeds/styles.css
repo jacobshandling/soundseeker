@@ -12,6 +12,7 @@
     --content-br: 50%;
     --speed: 500ms;
     --menu-item-font-size: 0.4rem;
+    --alert-font-size: .4rem;
 }
 
 * {
@@ -188,11 +189,12 @@ footer * {
     gap: .5rem;
 }
 
-main {
+#main-content {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    gap: .4rem;
 }
 
 .content-view {
@@ -410,3 +412,19 @@ label {
     align-items: center;
     gap: .2rem;
   }
+
+.MuiAlert-filled {
+    height: 1.2rem;
+    width: 60%;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.MuiAlert-filled * {
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--alert-font-size);
+}
