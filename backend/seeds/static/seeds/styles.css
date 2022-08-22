@@ -50,6 +50,7 @@ body {
 
 ul {
     list-style: none;
+    padding: 0;
 }
 
 #app-wrapper {
@@ -243,14 +244,13 @@ form {
     flex-direction: inherit;
     justify-content: inherit;
     align-items: inherit;
-    gap: 1rem; */
+    gap: 1rem;
     max-height: 85%;
 }
 
 .content-list {
     padding-top: .5rem;
     overflow: auto;
-    list-style: none;
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
@@ -263,26 +263,6 @@ form {
 .content-list > li {
     height: auto;
     width: auto;
-}
-
-.listed-content {
-    border: var(--border);
-    border-radius: var(--content-br);
-    height: auto;
-    width: auto;
-    padding: .5rem;
-    display: inherit;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.listed-content-actions {
-    height: auto;
-    width: auto;
-    display: inherit;
-    justify-content: center;
-    align-items: center;
 }
 
 audio {

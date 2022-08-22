@@ -800,9 +800,9 @@ class SoundSeekerApp extends React.Component {
                 <main id="main-content">
                     <div id="action-bar">
                         <span id="app-nav">
-                            <button onClick={this.toggleAllSuitesView}>Suites</button>
-                            <button onClick={this.toggleAllBlobsView}>All Blobs</button>
-                            <button onClick={this.toggleAllClipsView}>All Clips</button>
+                            <button type="button" className="btn btn-light" onClick={this.toggleAllSuitesView}>Suites</button>
+                            <button type="button" className="btn btn-light" onClick={this.toggleAllBlobsView}>All Blobs</button>
+                            <button type="button" className="btn btn-light" onClick={this.toggleAllClipsView}>All Clips</button>
                         </span>
                         <ActionItem
                             icon = {<PlusIcon />} 
