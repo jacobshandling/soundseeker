@@ -8,16 +8,16 @@
         <script src="{% static 'seeds/build/main.bundle.js' %}"></script>
     {% else %}
         <div id="intro">
-            <p>Welcome to SoundSeeker, a tool for organizing and juxtaposing musical ideas in the form of short audio recordings. <a href="https://youtu.be/_Qm0abmDYak" target="_blank">Watch a demo.</a></p>
+            <h2 class="display-2">Organize and Juxtapose Your Musical Ideas</h2>
             <div>
                 <p>There are <strong>3 tiers of organization:</strong></p>
-                   <ul>
-                        <li><p><strong>Suite</strong> - the highest level, represents an overall concept, such as for an album. Suites contain blobs.</p></li>
-                        <li><p><strong>Blob</strong> - a mid-scale idea, such as a song. Blobs contain audioclips.</p></li>
-                        <li><p><strong>Audioclip</strong> - the most granular form of musical idea, like a single musical phrase, bass line, rhythm, sound.</p></li>
-                    </ul> 
-                    </div>
-                <p>You can associate an audioclip with different blobs, and a blob with different suites. One small idea (audioclip) might be included in multiple songs (blobs). Mix and match however you find useful for your compositional process!</p>
+                <ul>
+                    <li><p><strong>Suite</strong> - the big picture, like an album. Suites contain blobs.</p></li>
+                    <li><p><strong>Blob</strong> - a medium-sized idea, like a song. Blobs contain audioclips.</p></li>
+                    <li><p><strong>Audioclip</strong> - the smallest idea, like a melodic phrase, bass line, rhythm, or sound.</p></li>
+                </ul> 
+                <p>Associate each audioclip with different blobs, and each blob with different suites. Associate different ideas however you find useful in your process. To begin, <a href="{% url 'register' %}">register</a> or <a href="https://youtu.be/_Qm0abmDYak" target="_blank">watch a demo.</a></p>
+            </div>
         </div>
     {% endif %}
 {% endblock %}
