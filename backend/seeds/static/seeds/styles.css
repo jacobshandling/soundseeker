@@ -22,7 +22,7 @@
 }
 
 html {
-    font-size: 5vmin;
+    font-size: 16px;
     font-family: "Gill Sans", sans-serif;
     background-color: var(--bg-main);
     color: var(--text-color);
@@ -37,6 +37,7 @@ body {
 }
 
 #intro {
+    font-size: 1.4rem;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -62,9 +63,16 @@ ul {
     gap: .5rem;
 }
 
+.navbar-toggler {
+    padding: 6px;
+}
+
+.display-1 {
+    font-size: 3rem;
+}
 
 h2 {
-    font-size: 1rem;
+    /* font-size: 1rem; */
     height: auto;
     width: auto;
     text-align: center;
@@ -72,18 +80,18 @@ h2 {
 
 h3 {
     text-align: center;
-    font-size: 0.7rem;
+    /* font-size: 0.7rem; */
     height: auto;
     width: auto;
 }
 
 h4 {
-    font-size: 0.5rem;
+    /* font-size: 0.5rem; */
 }
 
 
 p {
-    font-size: 0.5rem;
+    /* font-size: 0.5rem; */
 }
 
 a {
@@ -120,7 +128,7 @@ nav {
 
 
 header {
-    font-size: 1rem;
+    /* font-size: 1rem; */
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -130,8 +138,12 @@ header {
 #navbar-title {
     display: flex;
     align-items: center;
+<<<<<<< HEAD
     justify-content: center;
     width: auto;
+=======
+    justify-content: flex-end;
+>>>>>>> 197ed6d (adjust sizes in navbar and intro for bootstrap)
     color: var(--text-accent-color);
 }
 
@@ -163,7 +175,7 @@ footer {
 footer * {
     height: auto;
     width: auto;
-    font-size: .4rem;
+    /* font-size: .4rem; */
     margin: .1rem;
 }
 
@@ -181,7 +193,7 @@ footer * {
 }
 
 .nav-link {
-    font-size: .8rem;
+    /* font-size: .8rem; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -359,7 +371,7 @@ audio {
 }
 
 .menu-item > * {
-    font-size: var(--menu-item-font-size);
+    /* font-size: var(--menu-item-font-size); */
 }
 
 .menu-item:hover {
@@ -414,7 +426,7 @@ audio {
 }
 
 legend {
-    font-size: .5rem;
+    /* font-size: .5rem; */
     height: auto;
     width: auto;
 }
@@ -441,5 +453,5 @@ label {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: var(--alert-font-size);
+    /* font-size: var(--alert-font-size); */
 }
