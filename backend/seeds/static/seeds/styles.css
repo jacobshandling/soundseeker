@@ -17,6 +17,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    height: 100%;    
+    width: 100%;
 }
 
 html {
@@ -24,7 +26,6 @@ html {
     font-family: "Gill Sans", sans-serif;
     background-color: var(--bg-main);
     color: var(--text-color);
-    height: 100%;
 }
 
 body {
@@ -32,7 +33,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100%;
+    
 }
 
 #intro {
@@ -43,12 +44,17 @@ body {
     gap: .6rem;
 }
 
+#intro * {
+    height: auto;
+}
+
 ul {
     list-style: none;
 }
 
 #app-wrapper {
-    height: 100%;
+    
+    
     padding: .2rem;
     display: flex;
     flex-direction: column;
@@ -129,8 +135,18 @@ header {
     color: var(--text-accent-color);
 }
 
+header:after {
+    content: "";
+    position: absolute;
+    background: #474a4d;
+    width: 0.03rem;
+    height: 1.4rem;
+    margin-right: -0.5rem;
+
+}
+
 #block-body {
-    height: 100%;
+    
     display: flex;
     flex-direction: column;
     justify-content: center;
