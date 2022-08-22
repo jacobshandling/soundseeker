@@ -116,21 +116,10 @@ button {
 
 
 nav {
-    height: 15%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    height: auto;
     gap: 1rem;
 }
 
-
-header {
-    /* font-size: 1rem; */
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    
-}
 
 #navbar-title {
     display: flex;
@@ -172,15 +161,19 @@ footer * {
     margin: .1rem;
 }
 
-.nav-items {
-    list-style: none;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: .5rem;
+#nav-links {
+    width: auto;
+    flex-grow: 0;
+}
+
+#main-nav {
+    width: auto;
 }
 
 .nav-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: auto;
     width: auto;
 }
