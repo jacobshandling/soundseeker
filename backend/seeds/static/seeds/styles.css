@@ -197,10 +197,22 @@ footer * {
 }
 
 .login-reg {
-    max-width: 10rem;
+    max-width: 24rem;
     display: flex;
     flex-direction: column;
-    gap: .5rem;
+    gap: 2rem;
+}
+
+.login-reg * {
+    height: auto;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .5rem; 
 }
 
 .toggle-reg-or-login {
@@ -389,37 +401,6 @@ audio {
     align-items: center;
     justify-content: space-around;
     gap: 1rem;
-}
-
-.form {
-    border: var(--border);
-    border-radius: var(--structure-br);
-    padding: .5rem;
-    height: auto;
-    width: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    gap: .5rem;
-    flex-wrap: wrap;
-
-}
-
-.form-field {
-    height: auto;
-    padding: .2rem;
-    width: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: .5rem;
-}
-
-.form-field * {
-    height: auto;
-    width: auto;
 }
 
 legend {
