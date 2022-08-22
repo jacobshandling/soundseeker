@@ -4,12 +4,13 @@
     --text-color: rgb(104 105 245); /* bright-purple */
     --text-accent-color: rgb(226 91	86);  /* pink-orange */
     --link-hover-color: rgb(255	196	57); 
+    --button-size: 3rem;
     --delete-button-color: rgb(229 99 87);
     --border: 0.03rem solid #474a4d;
     --structure-br: 2%;
     --content-br: 50%;
     --speed: 500ms;
-    --menu-item-font-size: 0.4rem;
+    --menu-item-font-size: 1rem;
     --alert-font-size: .4rem;
 }
 
@@ -315,12 +316,11 @@ audio {
 }
 
 .icon-button {
-    --button-size: 1rem;
     width: var(--button-size);
     height: var(--button-size);
     background-color: var(--bg-alt);
     border-radius: 50%;
-    padding: 5px;
+    padding: .7rem;
     margin: 2px;
     display: flex;
     align-items: center;
@@ -347,8 +347,8 @@ audio {
 /* style svgs passed into icon buttons. They don't inherit size by default, so set fixed width and height here */
 .icon-button svg {
     fill: var(--text-color);
-    width: .5rem;
-    height: .5rem;
+    width: auto;
+    height: auto;
 }
 
 
@@ -356,8 +356,8 @@ audio {
 
 .dropdown {
     position: absolute;
-    top: 4.5rem;
-    right: .8rem;
+    top: 12.5rem;
+    right: 0rem;
     height: auto;
     width: auto;
     transform: translateX(-45%);
@@ -377,10 +377,6 @@ audio {
     border-radius: var(--structure-br);
     transition: background var(--speed);
     padding: 0.5rem;
-}
-
-.menu-item > * {
-    /* font-size: var(--menu-item-font-size); */
 }
 
 .menu-item:hover {
