@@ -7,7 +7,17 @@
         <script>var userID = "{{ user.id }}"</script>
         <script src="{% static 'seeds/build/main.bundle.js' %}"></script>
     {% else %}
-        <h2 id="welcome">Welcome. Please <a href="{% url 'register' %}">register</a>, <a href="{% url 'login' %}">log in</a>, or <a href="https://youtu.be/_Qm0abmDYak" target="_blank">watch a demo</a>.</h2>
-        <!-- TODO: Awesome welcome intro graphic / animation right here -->
+        <div id="intro">
+            <p>Welcome to SoundSeeker, a tool for organizing and juxtaposing musical ideas in the form of short audio recordings. <a href="https://youtu.be/_Qm0abmDYak" target="_blank">Watch a demo.</a></p>
+            <div>
+                <p>There are <strong>3 tiers of organization:</strong></p>
+                   <ul>
+                        <li><p><strong>Suite</strong> - the highest level, represents an overall concept, such as for an album. Suites contain blobs.</p></li>
+                        <li><p><strong>Blob</strong> - a mid-scale idea, such as a song. Blobs contain audioclips.</p></li>
+                        <li><p><strong>Audioclip</strong> - the most granular form of musical idea, like a single musical phrase, bass line, rhythm, sound.</p></li>
+                    </ul> 
+                    </div>
+                <p>You can associate an audioclip with different blobs, and a blob with different suites. One small idea (audioclip) might be included in multiple songs (blobs). Mix and match however you find useful for your compositional process!</p>
+        </div>
     {% endif %}
 {% endblock %}
