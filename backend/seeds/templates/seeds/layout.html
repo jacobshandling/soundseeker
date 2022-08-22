@@ -24,41 +24,38 @@
         <meta name="twitter:description" content="Software Engineer and Musician">
 
         <!-- Styles -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="{% static 'seeds/styles.css' %}" />
 
         {% block script %}
         {% endblock %}
     </head>
     <body>
-        <div id="app-wrapper">
-            <nav>
-                <header><a id="navbar-title" href="{% url 'index' %}">SoundSeeker</a></header>
-                <ul id="main-nav" class="nav-items">
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">{{ user.username }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">log out</a>
-                    </li>
-                {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">log in</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'register' %}">register</a>
-                    </li>
-                {% endif %}
-                </ul>
+        <div class="container-xxl text-center" id="app-wrapper">
+            <nav class="navbar navbar-expand-lg bg-light sticky-top justify-content-between py-md-0 px-md-5">
+                    <a class="navbar-brand" id="navbar-title" href="{% url 'index' %}><h1 class="display-1">SoundSeeker</h1></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-links" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div id="nav-links" class="nav-items collapse navbar-collapse">
+                        <ul id="main-nav" class="navbar-nav me-auto mb-2 mb-md-0">
+                            {% if user.is_authenticated %}
+                                <li class="nav-item"><a class="nav-link active" href="#">{{ user.username }}</a></li>
+                                <li class="nav-item"><a class="nav-link active" href="{% url 'logout' %}">log out</a></li>
+                            {% else %}
+                                <li class="nav-item"><a class="nav-link active" href="{% url 'login' %}">log in</a></li>
+                                <li class="nav-item"><a class="nav-link active" href="{% url 'register' %}">register</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
             </nav>
             <div id="block-body">
                 {% block body %}
                 {% endblock %}
             </div>
-        </div>
-        <footer>
-            <p>Created by <a href="https://dev.jakeshandling.com" target="_blank">Jacob Shandling</a> 2022</p>
-            {% if not user.is_authenticated %}
+            <footer>
+                <p>Created by <a href="https://dev.jakeshandling.com" target="_blank">Jacob Shandling</a> 2022</p>
+                {% if not user.is_authenticated %}
                 <ul id="footer-nav-links" class="nav-items">
                     <li id="donate-button-container" class="footer-nav-link">
                         <a href="https://www.paypal.com/donate/?hosted_button_id=HYL8EJJAFCWAG" id="donate-link" target="-blank">Donate</a>
@@ -70,7 +67,10 @@
                         <a href="https://youtu.be/_Qm0abmDYak" id="demo-link" target="_blank">Demo</a>
                     </li>
                 </ul>
-            {% endif %}
-        </footer>
+                {% endif %}
+            </footer>
+        </div>
+        <!-- JavaScript Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
     </body>
 </html>
