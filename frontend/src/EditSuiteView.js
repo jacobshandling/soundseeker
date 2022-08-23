@@ -46,7 +46,7 @@ class EditSuiteView extends React.Component {
                     <label htmlFor="new-name">New name:</label>
                     <input id="new-name" className="form-control" type="text" defaultValue={suite.name} />
                 </div>
-                <fieldset className="form-group" id="new-blob-associations">
+                <fieldset className="form-group association-options" id="new-blob-associations">
                     <label htmlFor="new-blob-associations">Blobs of this Suite (at least 1):</label> 
                     {blobOptions}
                 </fieldset>
