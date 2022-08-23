@@ -214,6 +214,11 @@ class SoundSeekerApp extends React.Component {
     // AJAX handlers
 
     onClipSelect(event) {
+        // set form name field to the name of the selected file
+        const selectedFile = event.target.files[0];
+        const name = document.querySelector('#clip-name');
+        name.value = selectedFile.name;
+
         this.setState(
             {selectedClip: event.target.files[0]}
         );
