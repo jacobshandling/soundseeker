@@ -796,28 +796,28 @@ class SoundSeekerApp extends React.Component {
 
         return (
             <div id="react-wrapper">
-                <main id="main-content">
-                    <div id="action-bar" class="pb-3 px-sm-5">
-                        <span id="app-nav">
-                            <button type="button" className="btn btn-light" onClick={this.toggleAllSuitesView}>Suites</button>
-                            <button type="button" className="btn btn-light" onClick={this.toggleAllBlobsView}>All Blobs</button>
-                            <button type="button" className="btn btn-light" onClick={this.toggleAllClipsView}>All Clips</button>
-                        </span>
-                        <ActionItem
-                            icon = {<PlusIcon />} 
-                            toggleDropdown = {this.toggleDropdown}
-                            dropdownIsOpen = {this.state.dropdownIsOpen} 
+                <div id="action-bar" class="pb-3 px-sm-5">
+                    <span id="app-nav">
+                        <button type="button" className="btn btn-light" onClick={this.toggleAllSuitesView}>Suites</button>
+                        <button type="button" className="btn btn-light" onClick={this.toggleAllBlobsView}>All Blobs</button>
+                        <button type="button" className="btn btn-light" onClick={this.toggleAllClipsView}>All Clips</button>
+                    </span>
+                    <ActionItem
+                        icon = {<PlusIcon />} 
+                        toggleDropdown = {this.toggleDropdown}
+                        dropdownIsOpen = {this.state.dropdownIsOpen} 
 
-                        >
-                            <DropdownMenu
-                                toggleCreateClip = {this.toggleCreateClip}
-                                toggleCreateBlob = {this.toggleCreateBlob}
-                                toggleCreateSuite = {this.toggleCreateSuite}
-                                onClipSelect = {this.onClipSelect}
-                                uploadClip = {this.uploadClip}
-                                />
-                        </ActionItem>
-                    </div>
+                    >
+                        <DropdownMenu
+                            toggleCreateClip = {this.toggleCreateClip}
+                            toggleCreateBlob = {this.toggleCreateBlob}
+                            toggleCreateSuite = {this.toggleCreateSuite}
+                            onClipSelect = {this.onClipSelect}
+                            uploadClip = {this.uploadClip}
+                            />
+                    </ActionItem>
+                </div>
+                <main id="main-content">
                     {mainContent}
                 </main>
             </div>
