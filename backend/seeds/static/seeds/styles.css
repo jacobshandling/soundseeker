@@ -257,7 +257,6 @@ audio {
 
 #action-bar {
     height: auto;
-    padding: 0 1rem 1rem 1rem;
     display: flex;
     justify-content: space-around;
     border-bottom: var(--border);
@@ -265,7 +264,7 @@ audio {
 
 #app-nav {
     display: flex;
-    gap: 2rem;
+    justify-content: space-around;
 }
 
 .action-item {
@@ -319,6 +318,7 @@ audio {
 
 .dropdown {
     position: absolute;
+    z-index: 1;
     top: 12.5rem;
     right: 0rem;
     height: auto;
