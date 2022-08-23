@@ -7,7 +7,7 @@
         <script>var userID = "{{ user.id }}"</script>
         <script src="{% static 'seeds/build/main.bundle.js' %}"></script>
     {% else %}
-        <div id="intro">
+        <div id="intro" class="container-md pt-4 pt-md-5">
             <h2 class="display-2">Organize Your Musical Ideas</h2>
             <div>
                 <p>There are <strong>3 tiers of organization:</strong></p>
@@ -16,7 +16,11 @@
                     <li><p><strong>Blob</strong> - a medium-sized idea, like a song. Blobs contain audioclips.</p></li>
                     <li><p><strong>Audioclip</strong> - the smallest idea, like a melodic phrase, bass line, rhythm, or sound.</p></li>
                 </ul> 
-                <p>Associate each audioclip with different blobs, and each blob with different suites. Associate different ideas however you find useful in your process. To begin, <a href="{% url 'register' %}">register</a> or <a href="https://youtu.be/_Qm0abmDYak" target="_blank">watch a demo.</a></p>
+                <p>
+                    Associate each audioclip with different blobs, and each blob with different suites.<br>
+                    Associate different ideas however you find useful in your process.<br>
+                    To begin, <a href="{% url 'register' %}">register</a> or <a href="https://youtu.be/_Qm0abmDYak" target="_blank">watch a demo.</a>
+                </p>
             </div>
         </div>
     {% endif %}
