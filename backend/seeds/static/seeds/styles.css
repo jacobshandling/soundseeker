@@ -198,18 +198,7 @@ footer * {
     justify-content: center;
 }
 
-.login-reg {
-    max-width: 24rem;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
-
-.login-reg * {
-    height: auto;
-}
-
-form {
+.form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -371,12 +360,13 @@ audio {
 /* Registration; Login; Clip, Blob, and Suite Creation; */
 
 .action-view {
+    max-width: 24rem;
     height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    gap: 1rem;
+    gap: 2rem;
 }
 
 legend {

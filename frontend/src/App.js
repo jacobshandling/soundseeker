@@ -3,7 +3,6 @@ import React from 'react';
 import AllBlobsView from './AllBlobsView';
 import AllClipsView from './AllClipsView';
 import SuiteLevelView from './SuiteLevelView';
-import ActionBar from './ActionBar';
 import ActionItem from './ActionItem';
 import PlusIcon from './icons/plus.svg';
 import DropdownMenu from './DropdownMenu';
@@ -798,7 +797,7 @@ class SoundSeekerApp extends React.Component {
         return (
             <div id="react-wrapper">
                 <main id="main-content">
-                    <div id="action-bar">
+                    <div id="action-bar" class="mb-3">
                         <span id="app-nav">
                             <button type="button" className="btn btn-light" onClick={this.toggleAllSuitesView}>Suites</button>
                             <button type="button" className="btn btn-light" onClick={this.toggleAllBlobsView}>All Blobs</button>

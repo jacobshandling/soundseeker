@@ -4,21 +4,22 @@ class CreateSuiteView extends React.Component {
 
     render() {
         return(
-            <section id="create-suite" className="action-view">
-                <div id="create-suite-form" className="form">
+            <section className="action-view">
+                <div className="form-group">
                     <input
                         id="suite-name" 
-                        className="form-field" 
+                        className="form-control" 
                         type="text" 
-                        placeholder='new suite name' 
+                        placeholder='Enter suite name' 
                         autoFocus
                     />
-                    <input 
+                </div>
+                <div className="form-group">
+                    <button 
                         type="button" 
-                        className="form-field" 
+                        className="btn btn-primary" 
                         onClick={this.props.onCreateSuite} 
-                        value="Create" 
-                    />
+                    >Create</button>
                 </div>
             </section>
         )
