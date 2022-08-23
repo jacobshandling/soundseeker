@@ -399,3 +399,11 @@ label {
     justify-content: center;
     /* font-size: var(--alert-font-size); */
 }
+
+audio {
+    height: auto;
+    width: auto;
+    max-width: 10rem;
+    border-radius: .375rem;
+}
+
