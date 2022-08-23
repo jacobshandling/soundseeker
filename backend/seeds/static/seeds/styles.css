@@ -257,7 +257,7 @@ audio {
 
 #action-bar {
     height: auto;
-    padding-bottom: .5rem;
+    padding: 0 1rem 1rem 1rem;
     display: flex;
     justify-content: space-around;
     border-bottom: var(--border);
@@ -265,7 +265,7 @@ audio {
 
 #app-nav {
     display: flex;
-    gap: .5rem;
+    gap: 2rem;
 }
 
 .action-item {
