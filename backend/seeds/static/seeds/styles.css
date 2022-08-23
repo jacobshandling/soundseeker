@@ -39,7 +39,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: start;
-    gap: 5rem;
+    gap: 1rem;
 }
 
 #intro * {
@@ -414,4 +414,8 @@ audio {
         justify-content: start;
         gap: 2rem;
     }    
+
+    #intro {
+        gap: 5rem;
+    }
 }
