@@ -292,7 +292,7 @@ class SoundSeekerApp extends React.Component {
                 }
                 );
 
-            this.activateAlertWithTimeout('success', `Uploaded Clip "${clipName}" successfully`);
+            this.activateAlertWithTimeout('success', `Uploaded clip "${clipName}"`);
         })
 
         .catch(error => {
@@ -314,7 +314,7 @@ class SoundSeekerApp extends React.Component {
             }
             return;
         }).then(result => {
-            this.activateAlertWithTimeout('success', `Deleted Clip "${clip.name}" successfully`);
+            this.activateAlertWithTimeout('success', `Deleted clip "${clip.name}"`);
             
             // remove clip from Blob and Clip maps, then return to normal view
             const updatedUserClipMap = {...this.state.userClipMap};
@@ -350,7 +350,7 @@ class SoundSeekerApp extends React.Component {
         const newName = document.querySelector('#new-name').value;
         
         if (!newName.length) {
-            this.activateAlertWithTimeout('warning', 'Enter a Clip name');
+            this.activateAlertWithTimeout('warning', 'Enter a clip name');
             return;
         }
 
@@ -372,7 +372,7 @@ class SoundSeekerApp extends React.Component {
         .then(result => {
             this.getAndSetFreshUserDataMaps(); 
             this.setState({actionView: null});
-            this.activateAlertWithTimeout('success', `Edited Clip succcessfully`);
+            this.activateAlertWithTimeout('success', `Edited clip ${newName}`);
         })
         .catch(error => {
             console.error('Error with fetch operation:', error);
@@ -393,11 +393,11 @@ class SoundSeekerApp extends React.Component {
 
         // validate
         if (!blobName.length) {
-            this.activateAlertWithTimeout('warning', "Enter a name for your new Blob");
+            this.activateAlertWithTimeout('warning', "Enter a name for your new blob");
             return;
         }
         if (!suiteIDs.length) {
-            this.activateAlertWithTimeout('warning', "Choose at least 1 Suite to associate your new Blob with");
+            this.activateAlertWithTimeout('warning', "Choose at least 1 suite to associate your new blob with");
             return;
         }
 
@@ -434,7 +434,7 @@ class SoundSeekerApp extends React.Component {
                     userBlobMap: updatedUserBlobMap
                 }
                 );
-            this.activateAlertWithTimeout('success', `Created new Blob "${blobName}" successfully`);
+            this.activateAlertWithTimeout('success', `Created new blob "${blobName}"`);
         })
         .catch(error => {
             console.error('Error with fetch operation:', error);
@@ -458,7 +458,7 @@ class SoundSeekerApp extends React.Component {
             return;
         })
         .then(result => {
-            this.activateAlertWithTimeout('success', `Deleted Blob "${blob.name}" successfully`);
+            this.activateAlertWithTimeout('success', `Deleted blob "${blob.name}"`);
             
             // Remove blob from Suite, Blob, and Clip maps and return to previous view
 
@@ -511,11 +511,11 @@ class SoundSeekerApp extends React.Component {
         });
         
         if (!newName.length) {
-            this.activateAlertWithTimeout('warning', 'Enter a Blob name');
+            this.activateAlertWithTimeout('warning', 'Enter a blob name');
             return;
         }
         if (!clipIDs.length) {
-            this.activateAlertWithTimeout('warning', 'Associate the Blob with at least one Audioclip');
+            this.activateAlertWithTimeout('warning', 'Associate the blob with at least one audioclip');
             return;
         }
 
@@ -541,7 +541,7 @@ class SoundSeekerApp extends React.Component {
         .then(result => {
             this.getAndSetFreshUserDataMaps(); 
             this.setState({actionView: null});
-            this.activateAlertWithTimeout('success', `Edited Blob succcessfully`);
+            this.activateAlertWithTimeout('success', `Edited blob ${newName}`);
         })
         .catch(error => {
             console.error('Error with fetch operation:', error);
@@ -552,7 +552,7 @@ class SoundSeekerApp extends React.Component {
         const csrftoken = this.getCookie('csrftoken');
         const suiteName = document.querySelector('#suite-name').value;
         if (!suiteName.length) {
-            this.activateAlertWithTimeout('warning', "Enter a name for your new Suite");
+            this.activateAlertWithTimeout('warning', "Enter a name for your new suite");
             return;
         }
         const formData = new FormData();
@@ -571,7 +571,7 @@ class SoundSeekerApp extends React.Component {
             return response.json();
         })
         .then(result => {
-            this.activateAlertWithTimeout('success', `Created new Suite "${suiteName}" successfully`)
+            this.activateAlertWithTimeout('success', `Created new suite "${suiteName}"`)
             
             // add new Suite to local state and return to previous view
             const updatedUserSuiteMap = { ...this.state.userSuiteMap }
@@ -603,7 +603,7 @@ class SoundSeekerApp extends React.Component {
             }
             return;
         }).then(result => {
-            this.activateAlertWithTimeout('success', `Deleted Suite "${suite.name}" successfully`);
+            this.activateAlertWithTimeout('success', `Deleted suite "${suite.name}"`);
             
             // Remove Suite from Suite and Blob maps, and return to previous view
             const updatedUserSuiteMap = {...this.state.userSuiteMap};
@@ -650,7 +650,7 @@ class SoundSeekerApp extends React.Component {
             return;
         }
         if (!blobIDs.length) {
-            this.activateAlertWithTimeout('warning', "Suite must have at least one Blob");
+            this.activateAlertWithTimeout('warning', "Suite must have at least one blob");
             return;
         }
 
@@ -675,7 +675,7 @@ class SoundSeekerApp extends React.Component {
         .then(result => {
             this.getAndSetFreshUserDataMaps(); 
             this.setState({actionView: null});
-            this.activateAlertWithTimeout('success', `Edited Suite succcessfully`);
+            this.activateAlertWithTimeout('success', `Edited suite ${newName}`);
         })
         .catch(error => {
             console.error('Error with fetch operation:', error);
@@ -691,15 +691,14 @@ class SoundSeekerApp extends React.Component {
             return <div>Loading. . .</div>;
         } 
 
-        const mainContent = []
+        const [mainContent, alertVal] = [[], []];
 
         if (this.state.alert) {
             var alertSeverity = this.state.alert.severity;
             var alertMessage = this.state.alert.message;
-            mainContent.push(
-                <Alert variant='filled' severity={alertSeverity}>
-                    {alertMessage}
-                </Alert>)
+            alertVal.push(
+                <Alert variant='filled' severity={alertSeverity}>{alertMessage}</Alert>
+            );
         }
 
         if (this.state.actionView) {
@@ -796,7 +795,7 @@ class SoundSeekerApp extends React.Component {
 
         return (
             <div id="react-wrapper">
-                <div id="action-bar" class="pb-3 px-sm-5">
+                <div id="action-bar" className="pb-3 px-sm-5">
                     <span id="app-nav">
                         <button type="button" className="btn btn-light" onClick={this.toggleAllSuitesView}>Suites</button>
                         <button type="button" className="btn btn-light" onClick={this.toggleAllBlobsView}>All Blobs</button>
@@ -818,6 +817,9 @@ class SoundSeekerApp extends React.Component {
                     </ActionItem>
                 </div>
                 <main id="main-content">
+                    <div id="alert-container">
+                        {alertVal}
+                    </div>
                     {mainContent}
                 </main>
             </div>
