@@ -19,7 +19,7 @@ class BlobLevelView extends React.Component {
             />
             :
             <div className="blob-list content-view">
-                <h2>{suite.name} / Blobs</h2>
+                <h2>{suite.name}</h2>
                 <BlobList
                     userBlobMap = {this.props.userBlobMap}
                     suiteBlobIDs = {suite.blobs} 
