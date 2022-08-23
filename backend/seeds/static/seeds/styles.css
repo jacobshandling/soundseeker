@@ -258,19 +258,18 @@ audio {
 #action-bar {
     height: auto;
     display: flex;
-    justify-content: space-around;
+    gap: 2.65rem;
     border-bottom: var(--border);
 }
 
 #app-nav {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .action-item {
     width: auto;
     height: auto;
-    margin-right: 1rem;
     align-self: flex-end;
     display: flex;
     align-items: center;
@@ -409,3 +408,10 @@ audio {
     border-radius: .375rem;
 }
 
+/* same as bootstrap's sm breakpoint */
+@media (min-width: 576px) {
+    #app-nav {
+        justify-content: start;
+        gap: 2rem;
+    }    
+}

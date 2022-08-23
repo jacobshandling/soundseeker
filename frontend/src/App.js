@@ -797,7 +797,7 @@ class SoundSeekerApp extends React.Component {
         return (
             <div id="react-wrapper">
                 <main id="main-content">
-                    <div id="action-bar" class="pb-3">
+                    <div id="action-bar" class="pb-3 px-sm-5">
                         <span id="app-nav">
                             <button type="button" className="btn btn-light" onClick={this.toggleAllSuitesView}>Suites</button>
                             <button type="button" className="btn btn-light" onClick={this.toggleAllBlobsView}>All Blobs</button>
