@@ -3,7 +3,9 @@
     --bg-alt: rgb(244 246 250); /* light gray */
     --text-color: rgb(104 105 245); /* bright-purple */
     --text-accent-color: rgb(226 91	86);  /* pink-orange */
-    --link-hover-color: rgb(255	196	57); 
+    --text-light-color: rgb(128	130	141); /* light gray */
+    --link-hover-color: var(--text-accent-color);
+    /* --link-hover-color: rgb(255	196	57);  */
     --button-size: 3rem;
     --border: 0.03rem solid #474a4d;
     --structure-br: 2%;
@@ -39,11 +41,31 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: start;
+    align-items: center;
     gap: 1rem;
 }
 
 #intro * {
     height: auto;
+}
+
+#intro svg {
+    transform: rotate(90deg);
+    height: 2.5rem;
+}
+
+#subtitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 68vh;
+}
+
+#instructions {
+    min-height: 82vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 ul {
@@ -70,7 +92,6 @@ ul {
 }
 
 h2 {
-    /* font-size: 1rem; */
     height: auto;
     width: auto;
     text-align: center;
@@ -78,18 +99,8 @@ h2 {
 
 h3 {
     text-align: center;
-    /* font-size: 0.7rem; */
     height: auto;
     width: auto;
-}
-
-h4 {
-    /* font-size: 0.5rem; */
-}
-
-
-p {
-    /* font-size: 0.5rem; */
 }
 
 a {
@@ -145,27 +156,24 @@ header:after {
 }
 
 footer {
+    font-size: .9rem;
     height: auto;
     display: flex;
     align-items: center;
     flex-direction: column;
 }
 
-.footer-credit {
-    color: var(--text-accent-color);
-}
-
 footer ul {
     display: flex;
-    gap: 1rem;
+    gap: .5rem;
 }
 
 footer * {
     height: auto;
     width: auto;
     padding: 0;
-    margin: .1rem;
-    color: black;
+    margin: 0;
+    color: var(--text-light-color);
 }
 
 #nav-links {
@@ -422,4 +430,12 @@ audio {
     #intro {
         gap: 5rem;
     }
+
+    /* #intro svg {
+        visibility: hidden;
+    }
+
+    #subtitle {
+        min-height: auto;
+    } */
 }

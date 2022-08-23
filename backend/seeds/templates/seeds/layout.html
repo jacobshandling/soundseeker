@@ -53,8 +53,7 @@
                 {% block body %}
                 {% endblock %}
             </div>
-            <footer class="mt-1">
-                <p>Created by <a class="footer-credit" href="https://dev.jakeshandling.com" target="_blank">Jake Shandling</a> 2022</p>
+            <footer class="py-1">
                 {% if not user.is_authenticated %}
                 <ul>
                     <li id="donate-button-container">
@@ -68,6 +67,7 @@
                     </li>
                 </ul>
                 {% endif %}
+                <p>© <a class="footer-credit" href="https://dev.jakeshandling.com" target="_blank">Jake Shandling</a></p>
             </footer>
         </div>
         <!-- JavaScript Bundle with Popper -->
