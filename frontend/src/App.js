@@ -249,8 +249,17 @@ class SoundSeekerApp extends React.Component {
             }
         }));
 
+        // validate
         if (!file) {
             this.activateAlertWithTimeout('warning', 'Select a clip to upload');
+            return;
+        }
+        if (!clipName.length) {
+            this.activateAlertWithTimeout('warning', "Enter a name for your new clip");
+            return;
+        }
+        if (!blobIDs.length) {
+            this.activateAlertWithTimeout('warning', "Choose at least 1 blob to associate your new clip with");
             return;
         }
 
