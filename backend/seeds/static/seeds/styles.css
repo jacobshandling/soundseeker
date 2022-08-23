@@ -361,6 +361,11 @@ audio {
     gap: 2rem;
 }
 
+.action-view * {
+    height: auto;
+    width: auto;
+}
+
 .association-options * {
     margin: .5rem;
     height: auto;
