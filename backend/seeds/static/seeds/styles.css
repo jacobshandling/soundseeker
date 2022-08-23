@@ -5,7 +5,6 @@
     --text-accent-color: rgb(226 91	86);  /* pink-orange */
     --link-hover-color: rgb(255	196	57); 
     --button-size: 3rem;
-    --delete-button-color: rgb(229 99 87);
     --border: 0.03rem solid #474a4d;
     --structure-br: 2%;
     --content-br: 50%;
@@ -116,11 +115,6 @@ button {
     border-radius: var(--structure-br);
     background-color: var(--bg-alt);
 }
-
-.delete-button {
-    background-color: var(--delete-button-color);
-}
-
 
 nav {
     height: auto;

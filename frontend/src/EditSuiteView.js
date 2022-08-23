@@ -42,16 +42,18 @@ class EditSuiteView extends React.Component {
         return(
             <section id="edit-suite" className="action-view">
                 <h3>Edit suite "{suite.name}"</h3>
-                <div id="edit-suite-form" className="form">
-                    <legend>New name:</legend>
-                    <input id="new-name" className="form-field" type="text" defaultValue={suite.name} />
-                    <fieldset className="form-field" id="new-blob-associations">
-                        <legend>Blobs of this Suite (at least 1):</legend> 
-                        {blobOptions}
-                    </fieldset>
-                    <input type="button" className="form-field" onClick={this.props.onEditSuite} value="Submit" />
+                <div className="form-group">
+                    <label htmlFor="new-name">New name:</label>
+                    <input id="new-name" className="form-control" type="text" defaultValue={suite.name} />
                 </div>
-                <button className="delete-button" onClick={this.props.onDeleteSuite}>Delete "{suite.name}"</button>
+                <fieldset className="form-group" id="new-blob-associations">
+                    <label htmlFor="new-blob-associations">Blobs of this Suite (at least 1):</label> 
+                    {blobOptions}
+                </fieldset>
+                <div className="form-group">
+                    <button type="button" className="btn btn-primary" onClick={this.props.onEditSuite}>Submit</button>
+                </div>
+                <button className="btn btn-danger" onClick={this.props.onDeleteSuite}>Delete "{suite.name}"</button>
             </section>
         )
     }
