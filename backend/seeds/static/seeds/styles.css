@@ -155,6 +155,10 @@ header:after {
     gap: 1rem;
 }
 
+#compatibility-disclaimer {
+    color: var(--text-light-color)
+}
+
 footer {
     font-size: .9rem;
     height: auto;
@@ -257,10 +261,9 @@ footer * {
     width: auto;
 }
 
-audio {
-    width: 4rem;
+.card {
+    align-items: center;
 }
-
 
 /* Action Bar and Items */
 
@@ -425,7 +428,7 @@ label {
 audio {
     height: auto;
     width: auto;
-    max-width: 10rem;
+    max-width: 15rem;
     border-radius: .375rem;
 }
 
@@ -439,12 +442,4 @@ audio {
     #intro {
         gap: 5rem;
     }
-
-    /* #intro svg {
-        visibility: hidden;
-    }
-
-    #subtitle {
-        min-height: auto;
-    } */
 }
