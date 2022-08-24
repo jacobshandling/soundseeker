@@ -52,6 +52,7 @@ body {
 #intro svg {
     transform: rotate(90deg);
     height: 2.5rem;
+    opacity: 40%;
 }
 
 #subtitle {
