@@ -160,7 +160,6 @@ header:after {
 }
 
 footer {
-    font-size: .9rem;
     height: auto;
     display: flex;
     align-items: center;
