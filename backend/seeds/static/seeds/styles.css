@@ -406,7 +406,7 @@ label {
     height: auto;
     display: flex;
     justify-content: center;
-    max-width: 30rem;
+    max-width: 20rem;
 }
 
 .MuiAlert-filled {
