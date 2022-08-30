@@ -33,8 +33,6 @@ MIDDLEWARE += [
     # custom middleware to enforce client uses settings.SITE_DOMAIN
     # see https://stackoverflow.com/questions/44743336/how-do-i-automatically-redirect-a-heroku-app-url-to-my-custom-domain-with-django
     'seeds.CanonicalDomainMiddleware.CanonicalDomainMiddleware',
-
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 # s3 settings
