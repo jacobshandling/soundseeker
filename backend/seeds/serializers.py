@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from seeds.models import *
+from seeds.models import AudioClip, Blob, Suite, User
 
 # https://www.django-rest-framework.org/api-guide/serializers/#dealing-with-nested-objects
 
@@ -32,11 +32,3 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username', 'user_suites', 'user_blobs', 'user_clips']
-
-
-class LabelSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='owner.username')
-
-    class Meta:
-        model = Label
-        fields = ['id', 'url', 'name', 'owner', 'clips', 'blobs', 'suites']

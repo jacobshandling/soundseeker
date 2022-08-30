@@ -36,17 +36,3 @@ class AudioClip(models.Model):
 
     def __str__(self):
         return f"AudioClip '{self.name}'"
-
-class Label(models.Model):
-    name = models.CharField(max_length=64)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_labels")
-    clips = models.ManyToManyField(AudioClip, blank=True, related_name="labels")
-    blobs = models.ManyToManyField(Blob, blank=True, related_name="labels")
-    suites = models.ManyToManyField(Suite, blank=True, related_name="labels")
-
-    def __str__(self):
-        return f"Label '{self.name}'"
-
-
-
-

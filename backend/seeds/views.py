@@ -15,8 +15,8 @@ from rest_framework.response import Response
 
 from rest_framework.parsers import FormParser, MultiPartParser
 
-from .serializers import *
-from .models import *
+from .serializers import AudioClipSerializer, BlobSerializer, SuiteSerializer, UserSerializer
+from .models import User, Suite, Blob, AudioClip
 
 @ensure_csrf_cookie
 def index(request):
@@ -95,15 +95,3 @@ class AudioClipViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
-
-class LabelViewSet(viewsets.ModelViewSet):
-    '''
-    This viewset automatically provides `list`, `create`, `retrieve`,
-    `update` and `destroy` actions.
-    '''
-    queryset = Label.objects.all()
-    serializer_class = LabelSerializer
-
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
-        
