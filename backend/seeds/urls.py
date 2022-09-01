@@ -5,10 +5,10 @@ from rest_framework.routers import DefaultRouter
 from seeds.views import index, register, UserViewSet, SuiteViewSet, BlobViewSet, AudioClipViewSet
 
 router = DefaultRouter()
-router.register(r'suites', SuiteViewSet)
-router.register(r'users', UserViewSet)
-router.register(r'blobs', BlobViewSet)
-router.register(r'audioclips', AudioClipViewSet)
+router.register(r'users', UserViewSet, basename='User')
+router.register(r'suites', SuiteViewSet, basename='Suite')
+router.register(r'blobs', BlobViewSet, basename='Blob')
+router.register(r'audioclips', AudioClipViewSet, basename='AudioClip')
 
 urlpatterns = [
     path("", index, name="index"),

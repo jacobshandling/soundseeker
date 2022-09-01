@@ -10,10 +10,9 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from rest_framework import viewsets, permissions, generics
-from rest_framework.decorators import action, permission_classes
 from rest_framework.response import Response
-
 from rest_framework.parsers import FormParser, MultiPartParser
+
 
 from .serializers import AudioClipSerializer, BlobSerializer, SuiteSerializer, UserSerializer
 from .models import User, Suite, Blob, AudioClip
@@ -57,16 +56,20 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     '''
     Automatically provides 'list' and 'retrieve' actions
     '''
-    queryset = User.objects.all()
     serializer_class = UserSerializer
+
+    def get_queryset(self):
+        return User.objects.filter(id=self.request.user.id)
 
 class SuiteViewSet(viewsets.ModelViewSet):
     '''
     This viewset automatically provides `list`, `create`, `retrieve`,
     `update` and `destroy` actions.
     '''
-    queryset = Suite.objects.all()
     serializer_class = SuiteSerializer
+
+    def get_queryset(self):
+        return Suite.objects.filter(owner=self.request.user.id)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -77,8 +80,10 @@ class BlobViewSet(viewsets.ModelViewSet):
     This viewset automatically provides `list`, `create`, `retrieve`,
     `update` and `destroy` actions.
     '''
-    queryset = Blob.objects.all()
     serializer_class = BlobSerializer
+
+    def get_queryset(self):
+        return Blob.objects.filter(owner=self.request.user.id)    
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -89,9 +94,11 @@ class AudioClipViewSet(viewsets.ModelViewSet):
     This viewset automatically provides `list`, `create`, `retrieve`,
     `update` and `destroy` actions.
     '''
-    queryset = AudioClip.objects.all()
     serializer_class = AudioClipSerializer
     parser_classes = [MultiPartParser, FormParser]
+
+    def get_queryset(self):
+        return AudioClip.objects.filter(owner=self.request.user.id)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)

@@ -8,21 +8,21 @@ class AudioClipSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AudioClip
-        fields = ['id', 'url', 'owner', 'name', 'file', 'blobs']
+        fields = ['id', 'owner', 'name', 'file', 'blobs']
 
 class BlobSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     
     class Meta:
         model = Blob
-        fields = ['id', 'url', 'owner', 'name', 'clips', 'suites']
+        fields = ['id', 'owner', 'name', 'clips', 'suites']
 
 class SuiteSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     
     class Meta:
         model = Suite
-        fields = ['id', 'url', 'owner', 'name', 'blobs']
+        fields = ['id', 'owner', 'name', 'blobs']
 
 class UserSerializer(serializers.ModelSerializer):
     user_suites = SuiteSerializer(many=True, required=False)
