@@ -385,7 +385,7 @@ class SoundSeekerApp extends React.Component {
         })
         .then(result => {
             this.getAndSetFreshUserDataMaps(); 
-            this.setState({actionView: null});
+            this.setState({actionView: null, curClip: null});
             this.activateAlertWithTimeout('success', `Edited clip ${newName}`);
         })
         .catch(error => {
@@ -554,7 +554,7 @@ class SoundSeekerApp extends React.Component {
         })
         .then(result => {
             this.getAndSetFreshUserDataMaps(); 
-            this.setState({actionView: null});
+            this.setState({actionView: null, curBlob: null});
             this.activateAlertWithTimeout('success', `Edited blob ${newName}`);
         })
         .catch(error => {
@@ -688,7 +688,7 @@ class SoundSeekerApp extends React.Component {
         })
         .then(result => {
             this.getAndSetFreshUserDataMaps(); 
-            this.setState({actionView: null});
+            this.setState({actionView: null, curSuite: null});
             this.activateAlertWithTimeout('success', `Edited suite ${newName}`);
         })
         .catch(error => {

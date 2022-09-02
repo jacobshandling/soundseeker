@@ -51,7 +51,7 @@ class EditBlobView extends React.Component {
                     {clipOptions}
                 </fieldset>
                 <div className="form-group">
-                    <button type="button" className="btn btn-primary" onClick={this.props.onEditBlob}>Submit"</button>
+                    <button type="button" className="btn btn-primary" onClick={this.props.onEditBlob}>Submit</button>
                 </div>
                 <button className="btn btn-danger" onClick={this.props.onDeleteBlob}>Delete "{blob.name}"</button>
             </section>
