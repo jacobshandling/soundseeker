@@ -16,6 +16,7 @@ class BlobLevelView extends React.Component {
                 toggleEditClip = {this.props.toggleEditClip}
                 curSuite = {suite}
                 curBlob = {blob}
+                toggleViewSuite = {this.props.toggleViewSuite} // for navigating back up a level
             />
             :
             <div className="blob-list content-view">

@@ -15,6 +15,7 @@ class SuiteLevelView extends React.Component {
                 toggleViewBlob = {this.props.toggleViewBlob}
                 toggleEditBlob = {this.props.toggleEditBlob}
                 toggleEditClip = {this.props.toggleEditClip}
+                toggleViewSuite = {this.props.toggleViewSuite} // for navigating back up one level
             />
             :
             <div className="suite-list content-view">

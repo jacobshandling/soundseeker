@@ -137,6 +137,7 @@ class SoundSeekerApp extends React.Component {
     toggleViewSuite(suiteObject) {
         this.setState({ 
             curSuite: suiteObject,
+            curBlob: null,
             actionView: null
          });
     }
