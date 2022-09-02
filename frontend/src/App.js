@@ -318,7 +318,7 @@ class SoundSeekerApp extends React.Component {
         const csrftoken = this.getCookie('csrftoken');
         const clip = this.state.curClip;
 
-        fetch(clip.url, {
+        fetch(`${APIURL}/audioclips/${clip.id}/`, {
             method: 'DELETE',
             headers: { 'X-CSRFToken': csrftoken },
             }
@@ -371,8 +371,8 @@ class SoundSeekerApp extends React.Component {
         const formData = new FormData();
         formData.append('name', newName);
 
-        fetch(clip.url, {
-            method: 'PUT',
+        fetch(`${APIURL}/audioclips/${clip.id}/`, {
+            method: 'PATCH',
             headers: { 'X-CSRFToken': csrftoken },
             body: formData
             }
@@ -460,7 +460,7 @@ class SoundSeekerApp extends React.Component {
 
         const blob = this.state.curBlob;
 
-        fetch(blob.url, {
+        fetch(`${APIURL}/blobs/${blob.id}/`, {
             method: 'DELETE',
             headers: { 'X-CSRFToken': csrftoken },
             }
@@ -535,13 +535,13 @@ class SoundSeekerApp extends React.Component {
 
         const formData = new FormData();
         formData.append('name', newName);
-        formData.append('suites', blob.suites);  // not giving ability to edit this for now
         clipIDs.forEach(id => {
             formData.append('clips', id);
         });
-
-        fetch(blob.url, {
-            method: 'PUT',
+        
+        // using PATCH since not sending any 'suites' data, though that relationship exists in DB
+        fetch(`${APIURL}/blobs/${blob.id}/`, {
+            method: 'PATCH',
             headers: { 'X-CSRFToken': csrftoken },
             body: formData
             }
@@ -607,7 +607,7 @@ class SoundSeekerApp extends React.Component {
         const csrftoken = this.getCookie('csrftoken');
         const suite = this.state.curSuite;
 
-        fetch(suite.url, {
+        fetch(`${APIURL}/suites/${suite.id}/`, {
             method: 'DELETE',
             headers: { 'X-CSRFToken': csrftoken },
             }
@@ -674,7 +674,7 @@ class SoundSeekerApp extends React.Component {
             formData.append('blobs', id);
         });
 
-        fetch(suite.url, {
+        fetch(`${APIURL}/suites/${suite.id}/`, {
             method: 'PUT',
             headers: { 'X-CSRFToken': csrftoken },
             body: formData
