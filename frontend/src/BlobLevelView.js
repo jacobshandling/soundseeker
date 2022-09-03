@@ -26,7 +26,7 @@ class BlobLevelView extends React.Component {
                 <nav id="breadcrumbs" aria-label="breadcrumb">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item" aria-current="page">
-                            <h2><a onClick={this.props.toggleAllSuitesView}>Suites</a></h2>
+                            <h2><a href="#" onClick={this.props.toggleAllSuitesView}>Suites</a></h2>
                         </li>
                         <li className="breadcrumb-item active" aria-current="page">
                             <h2>{suite.name}</h2>
