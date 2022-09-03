@@ -15,7 +15,19 @@ class AudioClipLevelView extends React.Component {
         });
         return (
             <div className="audioclip-level-view content-view">
-                <h2><a onClick={() => {this.props.toggleViewSuite(this.props.curSuite)}}>{this.props.curSuite.name}</a> / {this.props.curBlob.name}</h2>
+                <nav id="breadcrumbs" aria-label="breadcrumb">
+                    <ol className="breadcrumb">
+                        <li className="breadcrumb-item" aria-current="page">
+                            <h2><a onClick={this.props.toggleAllSuitesView}>Suites</a></h2>
+                        </li>
+                        <li className="breadcrumb-item" aria-current="page">
+                            <h2><a onClick={() => {this.props.toggleViewSuite(this.props.curSuite)}}>{this.props.curSuite.name}</a></h2>
+                        </li>
+                        <li className="breadcrumb-item active" aria-current="page">
+                            <h2>{this.props.curBlob.name}</h2>
+                        </li>
+                    </ol>
+                </nav>
                 <ul id="audioclips" className="content-list">
                     {clipRenders}
                 </ul>

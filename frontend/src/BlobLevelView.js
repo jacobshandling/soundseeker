@@ -16,11 +16,23 @@ class BlobLevelView extends React.Component {
                 toggleEditClip = {this.props.toggleEditClip}
                 curSuite = {suite}
                 curBlob = {blob}
-                toggleViewSuite = {this.props.toggleViewSuite} // for navigating back up a level
+
+                // for breadcrumb nav
+                toggleViewSuite = {this.props.toggleViewSuite} 
+                toggleAllSuitesView = {this.props.toggleAllSuitesView}
             />
             :
             <div className="blob-list content-view">
-                <h2>{suite.name}</h2>
+                <nav id="breadcrumbs" aria-label="breadcrumb">
+                    <ol className="breadcrumb">
+                        <li className="breadcrumb-item" aria-current="page">
+                            <h2><a onClick={this.props.toggleAllSuitesView}>Suites</a></h2>
+                        </li>
+                        <li className="breadcrumb-item active" aria-current="page">
+                            <h2>{suite.name}</h2>
+                        </li>
+                    </ol>
+                </nav>
                 <BlobList
                     userBlobMap = {this.props.userBlobMap}
                     suiteBlobIDs = {suite.blobs} 

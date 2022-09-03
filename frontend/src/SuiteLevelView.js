@@ -15,11 +15,20 @@ class SuiteLevelView extends React.Component {
                 toggleViewBlob = {this.props.toggleViewBlob}
                 toggleEditBlob = {this.props.toggleEditBlob}
                 toggleEditClip = {this.props.toggleEditClip}
-                toggleViewSuite = {this.props.toggleViewSuite} // for navigating back up one level
+
+                // for breadcrumb navigation
+                toggleViewSuite = {this.props.toggleViewSuite} 
+                toggleAllSuitesView = {this.props.toggleAllSuitesView}
             />
             :
             <div className="suite-list content-view">
-                <h2>Suites</h2>
+                <nav id="breadcrumbs" aria-label="breadcrumb">
+                    <ol className="breadcrumb">
+                        <li className="breadcrumb-item active" aria-current="page">
+                            <h2>Suites</h2>
+                        </li>
+                    </ol>
+                </nav>
                 <SuiteList
                     userSuiteMap = {this.props.userSuiteMap} 
                     toggleViewSuite = {this.props.toggleViewSuite} 

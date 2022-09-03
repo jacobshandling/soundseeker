@@ -443,3 +443,13 @@ audio {
         gap: 5rem;
     }
 }
+
+/* breadcrumb nav */
+#breadcrumbs {
+    height: auto
+}
+
+#breadcrumbs * {
+    height: auto;
+    width: auto;
+}

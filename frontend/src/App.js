@@ -794,6 +794,7 @@ class SoundSeekerApp extends React.Component {
         } else {
                 mainContent.push( 
                 <SuiteLevelView
+                    toggleAllSuitesView = {() => this.toggleAllSuitesView()}
                     toggleViewSuite = {suiteObject => this.toggleViewSuite(suiteObject)}
                     toggleEditSuite = {suiteObject => this.toggleEditSuite(suiteObject)}
                     toggleViewBlob = {blobObject => this.toggleViewBlob(blobObject)}
