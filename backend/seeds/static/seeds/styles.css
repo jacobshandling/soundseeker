@@ -450,6 +450,7 @@ audio {
 }
 
 #breadcrumbs * {
-    height: auto;
+    height: 2rem;
     width: auto;
+    overflow: hidden;
 }
