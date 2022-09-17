@@ -23,8 +23,12 @@ class Suite(models.Model):
 
 class Blob(models.Model):
     name = models.CharField(max_length=64)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_blobs")
-    clips = models.ManyToManyField("AudioClip", blank=True, related_name="blobs")
+    owner = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="user_blobs"
+    )
+    clips = models.ManyToManyField(
+        "AudioClip", blank=True, related_name="blobs"
+    )
 
     def __str__(self):
         return f"Blob '{self.name}'"
@@ -37,7 +41,9 @@ class AudioClip(models.Model):
         file = models.FileField(storage=S3PrivateMediaStorage())
     else:
         file = models.FileField()
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_clips")
+    owner = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="user_clips"
+    )
 
     def __str__(self):
         return f"AudioClip '{self.name}'"
