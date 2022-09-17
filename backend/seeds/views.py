@@ -22,7 +22,7 @@ def index(request):
     return render(request, 'seeds/index.html')
 
 def register(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         username = request.POST["username"]
         email = request.POST["email"]
 
