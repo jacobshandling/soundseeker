@@ -14,12 +14,19 @@ from rest_framework.response import Response
 from rest_framework.parsers import FormParser, MultiPartParser
 
 
-from .serializers import AudioClipSerializer, BlobSerializer, SuiteSerializer, UserSerializer
+from .serializers import (
+    AudioClipSerializer,
+    BlobSerializer,
+    SuiteSerializer,
+    UserSerializer,
+)
 from .models import User, Suite, Blob, AudioClip
+
 
 @ensure_csrf_cookie
 def index(request):
-    return render(request, 'seeds/index.html')
+    return render(request, "seeds/index.html")
+
 
 def register(request):
     if request.method == "POST":
@@ -30,9 +37,11 @@ def register(request):
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
         if password != confirmation:
-            return render(request, "registration/register.html", {
-                "message": "Passwords must match."
-            })
+            return render(
+                request,
+                "registration/register.html",
+                {"message": "Passwords must match."},
+            )
 
         # Attempt to create new user
         try:
@@ -40,32 +49,37 @@ def register(request):
             user.save()
         except IntegrityError:
             # TODO: modify below to work with REST / frontend setup
-            return render(request, "registration/register.html", {
-                "message": "Username already taken."
-            })
+            return render(
+                request,
+                "registration/register.html",
+                {"message": "Username already taken."},
+            )
         login(request, user)
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "registration/register.html")
 
 
-
 # API v1 Views
 
+
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
-    '''
+    """
     Automatically provides 'list' and 'retrieve' actions
-    '''
+    """
+
     serializer_class = UserSerializer
 
     def get_queryset(self):
         return User.objects.filter(id=self.request.user.id)
 
+
 class SuiteViewSet(viewsets.ModelViewSet):
-    '''
+    """
     This viewset automatically provides `list`, `create`, `retrieve`,
     `update` and `destroy` actions.
-    '''
+    """
+
     serializer_class = SuiteSerializer
 
     def get_queryset(self):
@@ -76,24 +90,26 @@ class SuiteViewSet(viewsets.ModelViewSet):
 
 
 class BlobViewSet(viewsets.ModelViewSet):
-    '''
+    """
     This viewset automatically provides `list`, `create`, `retrieve`,
     `update` and `destroy` actions.
-    '''
+    """
+
     serializer_class = BlobSerializer
 
     def get_queryset(self):
-        return Blob.objects.filter(owner=self.request.user.id)    
+        return Blob.objects.filter(owner=self.request.user.id)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
 
 class AudioClipViewSet(viewsets.ModelViewSet):
-    '''
+    """
     This viewset automatically provides `list`, `create`, `retrieve`,
     `update` and `destroy` actions.
-    '''
+    """
+
     serializer_class = AudioClipSerializer
     parser_classes = [MultiPartParser, FormParser]
 

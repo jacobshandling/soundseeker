@@ -6,33 +6,33 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('seeds', '0001_initial'),
+        ("seeds", "0001_initial"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='audioclip',
-            old_name='user',
-            new_name='owner',
+            model_name="audioclip",
+            old_name="user",
+            new_name="owner",
         ),
         migrations.RenameField(
-            model_name='blob',
-            old_name='user',
-            new_name='owner',
+            model_name="blob",
+            old_name="user",
+            new_name="owner",
         ),
         migrations.RenameField(
-            model_name='label',
-            old_name='user',
-            new_name='owner',
+            model_name="label",
+            old_name="user",
+            new_name="owner",
         ),
         migrations.RenameField(
-            model_name='suite',
-            old_name='user',
-            new_name='owner',
+            model_name="suite",
+            old_name="user",
+            new_name="owner",
         ),
         migrations.AlterField(
-            model_name='audioclip',
-            name='file',
-            field=models.FileField(upload_to=''),
+            model_name="audioclip",
+            name="file",
+            field=models.FileField(upload_to=""),
         ),
     ]
