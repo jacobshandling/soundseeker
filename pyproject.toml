@@ -1,0 +1,4 @@
+# configuration for black python linter
+[tool.black]
+# match the max line length of .flake8
+line-length = 79

@@ -1,16 +1,10 @@
-from typing import *
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login
 from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.decorators.csrf import ensure_csrf_cookie
-from django.conf import settings
-from django.core.files.storage import FileSystemStorage
-from rest_framework import viewsets, permissions, generics
-from rest_framework.response import Response
+from rest_framework import viewsets
 from rest_framework.parsers import FormParser, MultiPartParser
 
 
