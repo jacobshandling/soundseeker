@@ -1,0 +1,15 @@
+name: Lint using black
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "job triggered by a ${{ github.event_name }} event"
+    - run: echo "job now running on a github-hosted ${{ runner.os }} server"
+    - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+    - name: Run black
+    - uses: actions/checkout@v2
+    - uses: psf/black@stable
+      with:
+        src: "./backend"
