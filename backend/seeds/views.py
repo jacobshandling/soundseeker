@@ -25,7 +25,7 @@ from .models import User, Suite, Blob, AudioClip
 
 @ensure_csrf_cookie
 def index(request):
-    return render(request, "seeds/index.html")
+    return render(request, 'seeds/index.html')
 
 
 def register(request):
