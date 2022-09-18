@@ -1,20 +1,15 @@
-from django.shortcuts import render
 from django.contrib.auth import login
 from django.db import IntegrityError
 from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import ensure_csrf_cookie
 from rest_framework import viewsets
 from rest_framework.parsers import FormParser, MultiPartParser
 
-
-from .serializers import (
-    AudioClipSerializer,
-    BlobSerializer,
-    SuiteSerializer,
-    UserSerializer,
-)
-from .models import User, Suite, Blob, AudioClip
+from .models import AudioClip, Blob, Suite, User
+from .serializers import (AudioClipSerializer, BlobSerializer, SuiteSerializer,
+                          UserSerializer)
 
 
 @ensure_csrf_cookie

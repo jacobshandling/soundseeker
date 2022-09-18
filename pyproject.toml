@@ -3,3 +3,5 @@
 # match the max line length of .flake8
 line-length = 79
 extend-exclude = 'migrations'
+[tool.isort]
+profile = "black"
