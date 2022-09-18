@@ -1,14 +1,12 @@
-from django.urls import path, include
-
+from django.urls import include, path
 from rest_framework.routers import DefaultRouter
-
 from seeds.views import (
+    AudioClipViewSet,
+    BlobViewSet,
+    SuiteViewSet,
+    UserViewSet,
     index,
     register,
-    UserViewSet,
-    SuiteViewSet,
-    BlobViewSet,
-    AudioClipViewSet,
 )
 
 router = DefaultRouter()
