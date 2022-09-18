@@ -54,7 +54,7 @@ REST_FRAMEWORK = {
     ]
 }
 
-ROOT_URLCONF = "backend.urls"
+ROOT_URLCONF = "config.urls"
 
 TEMPLATES = [
     {
@@ -72,7 +72,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "backend.wsgi.application"
+WSGI_APPLICATION = "config.wsgi.application"
 
 
 AUTH_USER_MODEL = "seeds.User"

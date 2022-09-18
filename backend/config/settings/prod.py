@@ -50,10 +50,10 @@ STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 # s3 public media settings
 PUBLIC_MEDIA_LOCATION = "media"
 MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/"
-DEFAULT_FILE_STORAGE = "backend.storage_backends.PublicMediaStorage"
+DEFAULT_FILE_STORAGE = "config.storage_backends.PublicMediaStorage"
 # s3 private media settings
 PRIVATE_MEDIA_LOCATION = "private"
-PRIVATE_FILE_STORAGE = "backend.storage_backends.PrivateMediaStorage"
+PRIVATE_FILE_STORAGE = "config.storage_backends.PrivateMediaStorage"
 
 # Extra places for collectstatic to find static files
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
