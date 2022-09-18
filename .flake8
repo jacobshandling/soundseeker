@@ -7,3 +7,4 @@ exclude =
     manage.py,
     settings,
     migrations
+    
