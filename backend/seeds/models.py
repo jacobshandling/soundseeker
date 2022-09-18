@@ -1,8 +1,9 @@
+import os
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from backend.storage_backends import S3PrivateMediaStorage
 
-import os
+from backend.storage_backends import S3PrivateMediaStorage
 
 
 class User(AbstractUser):

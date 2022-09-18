@@ -3,6 +3,7 @@ settings common to all app instances
 """
 
 import os
+
 from dotenv import load_dotenv
 
 load_dotenv()
