@@ -8,8 +8,12 @@ from rest_framework import viewsets
 from rest_framework.parsers import FormParser, MultiPartParser
 
 from .models import AudioClip, Blob, Suite, User
-from .serializers import (AudioClipSerializer, BlobSerializer, SuiteSerializer,
-                          UserSerializer)
+from .serializers import (
+    AudioClipSerializer,
+    BlobSerializer,
+    SuiteSerializer,
+    UserSerializer,
+)
 
 
 @ensure_csrf_cookie
