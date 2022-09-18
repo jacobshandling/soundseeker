@@ -1,9 +1,8 @@
 import os
 
+from config.storage_backends import S3PrivateMediaStorage
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-
-from config.storage_backends import S3PrivateMediaStorage
 
 
 class User(AbstractUser):
