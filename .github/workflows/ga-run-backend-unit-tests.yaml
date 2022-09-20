@@ -6,7 +6,7 @@ jobs:
     steps:
       - run: echo "Job triggered by a ${{ github.event_name }} event"
       - name: Check out repository code
-      - uses: actions/checkout@v3
+        uses: actions/checkout@v3
       - name: Run Django unit tests
-      - run: pip3 install --user -r backend/requirements.txt | python3 manage.py test
+        run: pip3 install --user -r backend/requirements.txt | python3 manage.py test
       
