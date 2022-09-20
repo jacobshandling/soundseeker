@@ -10,7 +10,7 @@ class BlobLevelView extends React.Component {
         const blob = this.props.curBlob;
 
         const mainContent = this.props.curBlob ?
-            <AudioClipLevelView 
+            <AudioClipLevelView
                 userClipMap = {this.props.userClipMap}
                 blobClipIDs = {blob.clips}
                 toggleEditClip = {this.props.toggleEditClip}
@@ -18,7 +18,7 @@ class BlobLevelView extends React.Component {
                 curBlob = {blob}
 
                 // for breadcrumb nav
-                toggleViewSuite = {this.props.toggleViewSuite} 
+                toggleViewSuite = {this.props.toggleViewSuite}
                 toggleAllSuitesView = {this.props.toggleAllSuitesView}
             />
             :
@@ -35,8 +35,8 @@ class BlobLevelView extends React.Component {
                 </nav>
                 <BlobList
                     userBlobMap = {this.props.userBlobMap}
-                    suiteBlobIDs = {suite.blobs} 
-                    toggleViewBlob = {this.props.toggleViewBlob} 
+                    suiteBlobIDs = {suite.blobs}
+                    toggleViewBlob = {this.props.toggleViewBlob}
                     toggleEditBlob = {this.props.toggleEditBlob}
                 />
             </div>

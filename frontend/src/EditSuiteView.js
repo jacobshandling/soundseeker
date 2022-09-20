@@ -7,30 +7,30 @@ class EditSuiteView extends React.Component {
         for (let blobID in userBlobMap) {
             const blob = userBlobMap[blobID];
             const input = suiteBlobIDs.includes(blob.id) ?
-                        <input 
-                            id={blob.id} 
-                            className="select-checkbox" 
-                            key={blob.id} 
-                            type="checkbox" 
-                            name="blob-options" 
-                            value={blob.id} 
+                        <input
+                            id={blob.id}
+                            className="select-checkbox"
+                            key={blob.id}
+                            type="checkbox"
+                            name="blob-options"
+                            value={blob.id}
                             defaultChecked
                         />
                         :
-                        <input 
-                            id={blob.id} 
-                            className="select-checkbox" 
-                            key={blob.id} 
-                            type="checkbox" 
-                            name="blob-options" 
-                            value={blob.id} 
+                        <input
+                            id={blob.id}
+                            className="select-checkbox"
+                            key={blob.id}
+                            type="checkbox"
+                            name="blob-options"
+                            value={blob.id}
                         />;
 
             blobOptions.push(
                     <label htmlFor={blob.name} key={blob.id}>
                         {input}
                     <p>{blob.name}</p></label>
-                    
+
             );
         };
         return blobOptions;
@@ -47,7 +47,7 @@ class EditSuiteView extends React.Component {
                     <input id="new-name" className="form-control" type="text" defaultValue={suite.name} />
                 </div>
                 <fieldset className="form-group association-options" id="new-blob-associations">
-                    <label htmlFor="new-blob-associations">Blobs of this Suite (at least 1):</label> 
+                    <label htmlFor="new-blob-associations">Blobs of this Suite (at least 1):</label>
                     {blobOptions}
                 </fieldset>
                 <div className="form-group">

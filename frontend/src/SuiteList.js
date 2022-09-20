@@ -13,7 +13,7 @@ class SuiteList extends React.Component {
                 />
             );
         }
-        return ( 
+        return (
             <ul className="content-list">
                 {suites}
             </ul>

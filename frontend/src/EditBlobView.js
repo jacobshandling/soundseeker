@@ -7,30 +7,30 @@ class EditBlobView extends React.Component {
         for (let clipID in userClipMap) {
             const clip = userClipMap[clipID];
             const input = blobClipIDs.includes(clip.id) ?
-                        <input 
-                            id={clip.id} 
-                            className="select-checkbox" 
-                            key={clip.id} 
-                            type="checkbox" 
-                            name="clip-options" 
-                            value={clip.id} 
+                        <input
+                            id={clip.id}
+                            className="select-checkbox"
+                            key={clip.id}
+                            type="checkbox"
+                            name="clip-options"
+                            value={clip.id}
                             defaultChecked
                         />
                         :
-                        <input 
-                            id={clip.id} 
-                            className="select-checkbox" 
-                            key={clip.id} 
-                            type="checkbox" 
-                            name="clip-options" 
-                            value={clip.id} 
+                        <input
+                            id={clip.id}
+                            className="select-checkbox"
+                            key={clip.id}
+                            type="checkbox"
+                            name="clip-options"
+                            value={clip.id}
                         />;
 
             clipOptions.push(
                     <label htmlFor={clip.name} key={clip.id}>
                         {input}
                     <p>{clip.name}</p></label>
-                    
+
             );
         };
         return clipOptions;
@@ -47,7 +47,7 @@ class EditBlobView extends React.Component {
                     <input id="new-name" className="form-control" type="text" defaultValue={blob.name} />
                 </div>
                 <fieldset className="form-group association-options" id="new-clip-associations">
-                    <label htmlFor="new-clip-associations">Clips of this blob (at least 1):</label> 
+                    <label htmlFor="new-clip-associations">Clips of this blob (at least 1):</label>
                     {clipOptions}
                 </fieldset>
                 <div className="form-group">

@@ -3,11 +3,11 @@
 {% block body %}
     <div class="action-view">
         <h2>Login</h2>
-    
+
         {% if message %}
             <div>{{ message }}</div>
         {% endif %}
-    
+
         <form class="form" action="{% url 'login' %}" method="post">
             {% csrf_token %}
             <div class="form-group">

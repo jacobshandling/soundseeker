@@ -57,12 +57,12 @@ class SoundSeekerApp extends React.Component {
         this.onCreateClip = this.onCreateClip.bind(this);
         this.onCreateBlob = this.onCreateBlob.bind(this);
         this.onCreateSuite = this.onCreateSuite.bind(this);
-        
+
         this.toggleViewSuite = this.toggleViewSuite.bind(this);
         this.toggleEditSuite = this.toggleEditSuite.bind(this);
         this.onEditSuite = this.onEditSuite.bind(this);
         this.onDeleteSuite = this.onDeleteSuite.bind(this);
-        
+
         this.toggleViewBlob = this.toggleViewBlob.bind(this);
         this.toggleEditBlob = this.toggleEditBlob.bind(this);
         this.onEditBlob = this.onEditBlob.bind(this);
@@ -85,12 +85,12 @@ class SoundSeekerApp extends React.Component {
     }
 
     // Methods for fetching and parsing user data from server
-    
+
     getAndSetFreshUserDataMaps() {
         fetch(`${APIURL}/users/${userID}/`)
             .then(response => response.json())
             .then((result) => {
-    
+
                     this.setState({
                         isLoaded: true,
                         userSuiteMap: this.getIDMapFromObjArray(result.user_suites),
@@ -121,13 +121,13 @@ class SoundSeekerApp extends React.Component {
     toggleAllSuitesView() {
         this.setState({
             actionView: null,
-            curSuite: null, 
+            curSuite: null,
             curBlob: null
         });
     }
 
     toggleAllBlobsView() {
-        this.setState({actionView: 'all-blobs'});        
+        this.setState({actionView: 'all-blobs'});
     }
 
     toggleAllClipsView() {
@@ -135,7 +135,7 @@ class SoundSeekerApp extends React.Component {
     }
 
     toggleViewSuite(suiteObject) {
-        this.setState({ 
+        this.setState({
             curSuite: suiteObject,
             curBlob: null,
             actionView: null
@@ -272,7 +272,7 @@ class SoundSeekerApp extends React.Component {
         // create formData instance
         const formData = new FormData();
         formData.append('name', clipName);
-        formData.append('blobs', blobIDs); 
+        formData.append('blobs', blobIDs);
         formData.append('file', file);
 
 
@@ -289,7 +289,7 @@ class SoundSeekerApp extends React.Component {
             return response.json();
         })
         .then(result => {
-            
+
             // prepare new local data
             const updatedUserBlobMap = { ...this.state.userBlobMap };
             blobIDs.forEach(blobID => {
@@ -297,7 +297,7 @@ class SoundSeekerApp extends React.Component {
             });
             const updatedUserClipMap = { ...this.state.userClipMap };
             updatedUserClipMap[result.id] = result;
-            
+
             // set new data as state and return to previous view
             this.setState(
                 {
@@ -330,7 +330,7 @@ class SoundSeekerApp extends React.Component {
             return;
         }).then(result => {
             this.activateAlertWithTimeout('success', `Deleted clip "${clip.name}"`);
-            
+
             // remove clip from Blob and Clip maps, then return to normal view
             const updatedUserClipMap = {...this.state.userClipMap};
             delete updatedUserClipMap[clip.id];
@@ -340,10 +340,10 @@ class SoundSeekerApp extends React.Component {
                 // find the index of the deleted clip's id in the blob's list of clip IDs
                 const iDeletedClip = updatedUserBlobMap[blobID].clips.findIndex((clipID) => clipID == clip.id);
                 // remove it
-                // assumes no duplicate clipIDs in blob.clips   
+                // assumes no duplicate clipIDs in blob.clips
                 updatedUserBlobMap[blobID].clips.splice(iDeletedClip, 1);
                 })
-            
+
             this.setState( {
                     curClip: null,
                     actionView: null,
@@ -363,7 +363,7 @@ class SoundSeekerApp extends React.Component {
         const csrftoken = this.getCookie('csrftoken');
 
         const newName = document.querySelector('#new-name').value;
-        
+
         if (!newName.length) {
             this.activateAlertWithTimeout('warning', 'Enter a clip name');
             return;
@@ -385,7 +385,7 @@ class SoundSeekerApp extends React.Component {
             return response.json();
         })
         .then(result => {
-            this.getAndSetFreshUserDataMaps(); 
+            this.getAndSetFreshUserDataMaps();
             this.setState({actionView: null, curClip: null});
             this.activateAlertWithTimeout('success', `Edited clip ${newName}`);
         })
@@ -434,7 +434,7 @@ class SoundSeekerApp extends React.Component {
             return response.json();
         })
         .then(result => {
-            
+
             // add new blob to local state and return to previous view
             const updatedUserSuiteMap = { ...this.state.userSuiteMap }
             suiteIDs.forEach(suiteID => {
@@ -474,7 +474,7 @@ class SoundSeekerApp extends React.Component {
         })
         .then(result => {
             this.activateAlertWithTimeout('success', `Deleted blob "${blob.name}"`);
-            
+
             // Remove blob from Suite, Blob, and Clip maps and return to previous view
 
             const updatedUserSuiteMap = {...this.state.userSuiteMap};
@@ -482,7 +482,7 @@ class SoundSeekerApp extends React.Component {
                 // find the index of the deleted blob's id in the suite's list of blob IDs
                 const iDeletedBlob = updatedUserSuiteMap[suiteID].blobs.findIndex((blobID) => blobID == blob.id);
                 // remove it
-                // assumes no duplicate clipIDs in blob.clips   
+                // assumes no duplicate clipIDs in blob.clips
                 updatedUserSuiteMap[suiteID].blobs.splice(iDeletedBlob, 1);
                 })
 
@@ -494,11 +494,11 @@ class SoundSeekerApp extends React.Component {
                 // find the index of the deleted blob's id in the clip's list of blob IDs
                 const iDeletedBlob = updatedUserClipMap[clipID].blobs.findIndex((blobID) => blobID == blob.id);
                 // remove it
-                // assumes no duplicate blobIDs in clip.blobs   
+                // assumes no duplicate blobIDs in clip.blobs
                 updatedUserClipMap[clipID].blobs.splice(iDeletedBlob, 1);
                 })
 
-            
+
             this.setState( {
                     curBlob: null,
                     actionView: null,
@@ -524,7 +524,7 @@ class SoundSeekerApp extends React.Component {
                 clipIDs.push(checkbox.value);
             }
         });
-        
+
         if (!newName.length) {
             this.activateAlertWithTimeout('warning', 'Enter a blob name');
             return;
@@ -539,7 +539,7 @@ class SoundSeekerApp extends React.Component {
         clipIDs.forEach(id => {
             formData.append('clips', id);
         });
-        
+
         // using PATCH since not sending any 'suites' data, though that relationship exists in DB
         fetch(`${APIURL}/blobs/${blob.id}/`, {
             method: 'PATCH',
@@ -554,7 +554,7 @@ class SoundSeekerApp extends React.Component {
             return response.json();
         })
         .then(result => {
-            this.getAndSetFreshUserDataMaps(); 
+            this.getAndSetFreshUserDataMaps();
             this.setState({actionView: null, curBlob: null});
             this.activateAlertWithTimeout('success', `Edited blob ${newName}`);
         })
@@ -587,7 +587,7 @@ class SoundSeekerApp extends React.Component {
         })
         .then(result => {
             this.activateAlertWithTimeout('success', `Created new suite "${suiteName}"`)
-            
+
             // add new Suite to local state and return to previous view
             const updatedUserSuiteMap = { ...this.state.userSuiteMap }
             updatedUserSuiteMap[result.id] = result;
@@ -619,7 +619,7 @@ class SoundSeekerApp extends React.Component {
             return;
         }).then(result => {
             this.activateAlertWithTimeout('success', `Deleted suite "${suite.name}"`);
-            
+
             // Remove Suite from Suite and Blob maps, and return to previous view
             const updatedUserSuiteMap = {...this.state.userSuiteMap};
             delete updatedUserSuiteMap[suite.id];
@@ -629,10 +629,10 @@ class SoundSeekerApp extends React.Component {
                 // find the index of the deleted suite's id in the blob's list of suite IDs
                 const iDeletedSuite = updatedUserBlobMap[blobID].suites.findIndex((suiteID) => suiteID == suite.id);
                 // remove it
-                // assumes no duplicate suiteIDs in blob.suites   
+                // assumes no duplicate suiteIDs in blob.suites
                 updatedUserBlobMap[blobID].suites.splice(iDeletedSuite, 1);
                 });
-            
+
             this.setState(
                 {
                     curSuite: null,
@@ -659,7 +659,7 @@ class SoundSeekerApp extends React.Component {
                 blobIDs.push(checkbox.value);
             }
         }));
-        
+
         if (!newName.length) {
             this.activateAlertWithTimeout('warning', "Suite must have a name");
             return;
@@ -688,7 +688,7 @@ class SoundSeekerApp extends React.Component {
             return response.json();
         })
         .then(result => {
-            this.getAndSetFreshUserDataMaps(); 
+            this.getAndSetFreshUserDataMaps();
             this.setState({actionView: null, curSuite: null});
             this.activateAlertWithTimeout('success', `Edited suite ${newName}`);
         })
@@ -704,7 +704,7 @@ class SoundSeekerApp extends React.Component {
 
         if (!this.state.isLoaded) {
             return <div>Loading. . .</div>;
-        } 
+        }
 
         const [mainContent, alertVal] = [[], []];
 
@@ -719,17 +719,17 @@ class SoundSeekerApp extends React.Component {
         if (this.state.actionView) {
             switch (this.state.actionView) {
                 case 'all-blobs':
-                    mainContent.push( 
-                        <AllBlobsView 
-                            userBlobMap = {this.state.userBlobMap} 
+                    mainContent.push(
+                        <AllBlobsView
+                            userBlobMap = {this.state.userBlobMap}
                             toggleEditBlob = {this.toggleEditBlob}
                             toggleViewBlob = {blobObject => this.toggleViewBlob(blobObject)}
                         />
                     );
                     break;
                 case 'all-clips':
-                    mainContent.push( 
-                        <AllClipsView 
+                    mainContent.push(
+                        <AllClipsView
                             userClipMap = {this.state.userClipMap}
                             toggleEditClip = {this.toggleEditClip}
 
@@ -737,31 +737,31 @@ class SoundSeekerApp extends React.Component {
                     );
                     break;
                 case 'new-clip':
-                    mainContent.push( 
+                    mainContent.push(
                         <CreateClipView
-                            onClipSelect = {this.onClipSelect} 
-                            onCreateClip = {this.onCreateClip} 
+                            onClipSelect = {this.onClipSelect}
+                            onCreateClip = {this.onCreateClip}
                             userBlobMap = {this.state.userBlobMap}
                         />
                     );
                     break;
                 case 'new-blob':
-                    mainContent.push( 
-                        <CreateBlobView 
+                    mainContent.push(
+                        <CreateBlobView
                             onCreateBlob = {this.onCreateBlob}
                             userSuiteMap = {this.state.userSuiteMap}
                         />
                     );
                     break;
                 case 'new-suite':
-                    mainContent.push( 
-                        <CreateSuiteView 
+                    mainContent.push(
+                        <CreateSuiteView
                             onCreateSuite = {this.onCreateSuite}
                         />
                     )
                     break;
                 case 'edit-suite':
-                    mainContent.push( 
+                    mainContent.push(
                         <EditSuiteView
                             suite = {this.state.curSuite}
                             userBlobMap = {this.state.userBlobMap}
@@ -771,7 +771,7 @@ class SoundSeekerApp extends React.Component {
                     );
                     break;
                 case 'edit-blob':
-                    mainContent.push( 
+                    mainContent.push(
                         <EditBlobView
                             blob = {this.state.curBlob}
                             userClipMap = {this.state.userClipMap}
@@ -781,7 +781,7 @@ class SoundSeekerApp extends React.Component {
                     );
                     break;
                 case 'edit-clip':
-                    mainContent.push( 
+                    mainContent.push(
                         <EditClipView
                             clip = {this.state.curClip}
                             onDeleteClip = {this.onDeleteClip}
@@ -792,7 +792,7 @@ class SoundSeekerApp extends React.Component {
 
             }
         } else {
-                mainContent.push( 
+                mainContent.push(
                 <SuiteLevelView
                     toggleAllSuitesView = {() => this.toggleAllSuitesView()}
                     toggleViewSuite = {suiteObject => this.toggleViewSuite(suiteObject)}
@@ -818,9 +818,9 @@ class SoundSeekerApp extends React.Component {
                         <button type="button" className="btn btn-light" onClick={this.toggleAllClipsView}>All Clips</button>
                     </span>
                     <ActionItem
-                        icon = {<PlusIcon />} 
+                        icon = {<PlusIcon />}
                         toggleDropdown = {this.toggleDropdown}
-                        dropdownIsOpen = {this.state.dropdownIsOpen} 
+                        dropdownIsOpen = {this.state.dropdownIsOpen}
 
                     >
                         <DropdownMenu

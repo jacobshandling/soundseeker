@@ -15,7 +15,7 @@ class BlobList extends React.Component {
             );
         });
 
-        return ( 
+        return (
             <ul className="content-list">
                 {blobRenders}
             </ul>

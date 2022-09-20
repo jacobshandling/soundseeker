@@ -17,7 +17,7 @@ module.exports = {
         filename: '[name].bundle.js',
     },
 
-    // Where to find modules that can be imported (eg. React) 
+    // Where to find modules that can be imported (eg. React)
     resolve: {
         extensions: ['*', '.js', '.jsx'],
         modules: [
@@ -36,7 +36,7 @@ module.exports = {
                 exclude: /node_modules/,
                 use: ['babel-loader']
             },
-            
+
             {
                 test: /\.svg$/,
                 use: ['@svgr/webpack']

@@ -10,14 +10,14 @@ class CreateBlobView extends React.Component {
                     <label htmlFor={userSuite.name} key={userSuite.id}>
                         <input
                             id={userSuite.id}
-                            className="select-checkbox" 
-                            key={userSuite.id} 
-                            type="checkbox" 
-                            name="suite-options" 
-                            value={userSuite.id} 
+                            className="select-checkbox"
+                            key={userSuite.id}
+                            type="checkbox"
+                            name="suite-options"
+                            value={userSuite.id}
                         />
                     <p>{userSuite.name}</p></label>
-                    
+
             )
         };
         return suiteOptions;
@@ -28,16 +28,16 @@ class CreateBlobView extends React.Component {
         return(
             <section className="action-view">
                 <div className="form-group">
-                    <input 
-                        id="blob-name" 
-                        className="form-control" 
-                        type="text" 
-                        placeholder='Enter blob name' 
+                    <input
+                        id="blob-name"
+                        className="form-control"
+                        type="text"
+                        placeholder='Enter blob name'
                         autoFocus
                     />
                 </div>
                 <fieldset className="form-group association-options" id="new-suite-associations">
-                    <label htmlFor="new-suite-associations">Suites to associate this Blob with (at least 1):</label> 
+                    <label htmlFor="new-suite-associations">Suites to associate this Blob with (at least 1):</label>
                     {suiteOptions}
                 </fieldset>
                 <div className="form-group">

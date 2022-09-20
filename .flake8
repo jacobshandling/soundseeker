@@ -1,10 +1,9 @@
 # config for flake8 code quality checking of .py files in backend
 [flake8]
-exclude = 
+exclude =
     .git,
     __pycache__,
     env*,
     manage.py,
     settings,
     migrations
-    

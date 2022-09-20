@@ -7,7 +7,7 @@ class SuiteLevelView extends React.Component {
 
     render() {
         const mainContent = this.props.curSuite ?
-            <BlobLevelView 
+            <BlobLevelView
                 curSuite = {this.props.curSuite}
                 curBlob = {this.props.curBlob}
                 userBlobMap = {this.props.userBlobMap}
@@ -17,7 +17,7 @@ class SuiteLevelView extends React.Component {
                 toggleEditClip = {this.props.toggleEditClip}
 
                 // for breadcrumb navigation
-                toggleViewSuite = {this.props.toggleViewSuite} 
+                toggleViewSuite = {this.props.toggleViewSuite}
                 toggleAllSuitesView = {this.props.toggleAllSuitesView}
             />
             :
@@ -30,8 +30,8 @@ class SuiteLevelView extends React.Component {
                     </ol>
                 </nav>
                 <SuiteList
-                    userSuiteMap = {this.props.userSuiteMap} 
-                    toggleViewSuite = {this.props.toggleViewSuite} 
+                    userSuiteMap = {this.props.userSuiteMap}
+                    toggleViewSuite = {this.props.toggleViewSuite}
                     toggleEditSuite = {this.props.toggleEditSuite}
                 />
             </div>

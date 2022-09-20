@@ -10,14 +10,14 @@ class CreateClipView extends React.Component {
                     <label htmlFor={userBlob.name} key={userBlob.id}>
                         <input
                             id={userBlob.id}
-                            className="select-checkbox" 
+                            className="select-checkbox"
                             key={userBlob.id}
-                            type="checkbox" 
-                            name="blob-options" 
+                            type="checkbox"
+                            name="blob-options"
                             value={userBlob.id}
                         />
                     <p>{userBlob.name}</p></label>
-                    
+
             )
         };
         return blobOptions;
@@ -34,7 +34,7 @@ class CreateClipView extends React.Component {
                     <input id="clip-name" className="form-control" type="text" placeholder='Enter clip name' />
                 </div>
                 <fieldset className="form-group association-options" id="new-blob-associations">
-                    <label htmlFor="new-blob-associations">Blobs to associate this clip with:</label> 
+                    <label htmlFor="new-blob-associations">Blobs to associate this clip with:</label>
                     {blobOptions}
                 </fieldset>
                 <div className="form-group">

@@ -7,7 +7,7 @@ class AudioClipLevelView extends React.Component {
         const clipRenders = [];
         this.props.blobClipIDs.forEach((clipID) => {
             clipRenders.push(
-                <AudioClip 
+                <AudioClip
                     clipObject = {this.props.userClipMap[clipID]}
                     toggleEditClip = {this.props.toggleEditClip}
                 />

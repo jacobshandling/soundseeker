@@ -19,7 +19,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    height: 100%;    
+    height: 100%;
     width: 100%;
 }
 
@@ -32,7 +32,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+
 }
 
 #intro {
@@ -209,7 +209,7 @@ footer * {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    gap: .5rem; 
+    gap: .5rem;
 }
 
 .toggle-reg-or-login {
@@ -340,7 +340,7 @@ footer * {
     border-radius: var(--structure-br);
     padding: .15rem;
     overflow: hidden;
-    
+
 }
 
 .menu-item {
@@ -414,7 +414,7 @@ label {
     width: 60%;
     align-items: center;
     justify-content: center;
-    
+
 }
 
 .MuiAlert-filled * {
@@ -437,7 +437,7 @@ audio {
     #app-nav {
         justify-content: start;
         gap: 2rem;
-    }    
+    }
 
     #intro {
         gap: 5rem;
