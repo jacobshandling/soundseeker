@@ -33,7 +33,7 @@ SESSION_COOKIE_SECURE = True
 MIDDLEWARE += [
     # custom middleware to enforce client uses settings.SITE_DOMAIN
     # see https://stackoverflow.com/questions/44743336/how-do-i-automatically-redirect-a-heroku-app-url-to-my-custom-domain-with-django
-    "seeds.CanonicalDomainMiddleware.CanonicalDomainMiddleware",
+    "seeds.middleware.CanonicalDomainMiddleware.CanonicalDomainMiddleware",
 ]
 
 # s3 settings
