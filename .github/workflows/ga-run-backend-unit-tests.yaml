@@ -12,5 +12,6 @@ jobs:
           SOUNDSEEKER_SERVER_SECRET_KEY: ${{ secrets.SOUNDSEEKER_SERVER_SECRET_KEY }}
           DJANGO_SETTINGS_MODULE: ${{ secrets.DJANGO_SETTINGS_MODULE }}
         run: |
-          pip3 install --user -r backend/requirements.txt
-          python3 backend/manage.py test
+          cd backend
+          pip3 install --user -r requirements.txt
+          python3 manage.py test
