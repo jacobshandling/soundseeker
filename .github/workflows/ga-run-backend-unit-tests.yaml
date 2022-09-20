@@ -13,3 +13,4 @@ jobs:
           export DJANGO_SETTINGS_MODULE="config.settings.dev"
           python3 backend/manage.py test
       
+          
