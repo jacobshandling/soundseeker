@@ -30,7 +30,7 @@ repos:
             exclude: (.*migrations/.*|.*settings/.*)
             args: [
                 --extend-ignore=E203,
-                # --max-line-length=79,
+                --max-line-length=88
             ]
 
     # isort
