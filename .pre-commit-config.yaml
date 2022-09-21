@@ -8,8 +8,8 @@ repos:
             name: black
             exclude: migrations.*
             args: [
-                --line-length 79,
-                --extend-exclude "migrations"
+                --line-length=79,
+                --extend-exclude="migrations"
             ]
             # It is recommended to specify the latest version of Python
             # supported by your project here, or alternatively use
@@ -19,7 +19,7 @@ repos:
 
     # pre-commit native hooks
     -   repo: https://github.com/pre-commit/pre-commit-hooks
-        rev: v2.3.0
+        rev: v4.3.0
         hooks:
         -   id: check-yaml
         -   id: trailing-whitespace
@@ -29,14 +29,14 @@ repos:
 
     # flake8
     -   repo: https://github.com/pycqa/flake8
-        rev: ''
+        rev: '5.0.4'
         hooks:
         -   id: flake8
             # exclude: migrations.*|settings.*
             args: [
                 --extend-ignore=E203,
-                --max-line-length=88
-                --extend-exclude=.git/, __pycache__,env*,manage.py,settings/,migrations/
+                --max-line-length=88,
+                --exclude=.git,__pycache__,env,manage.py,settings,migrations
             ]
 
     # isort
