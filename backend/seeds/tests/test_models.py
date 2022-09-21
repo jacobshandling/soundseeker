@@ -45,31 +45,37 @@ class BlobTests(TestCase):
         """
         Initialize all Blob tests with new User, Blob records
         """
-        blob_test_user = User.objects.create(username="test_user")
-        Blob.objects.create(name="Blob_test_blob", owner=blob_test_user)
+        test_user = User.objects.create(username="test_user")
+        Blob.objects.create(name="test_blob", owner=test_user)
 
     def test_blob_exists_and_has_name(self):
-        blob = Blob.objects.get(name="Blob_test_blob")
-        self.assertIsNotNone(blob)
+        test_blob = Blob.objects.get(name="test_blob")
+        self.assertIsNotNone(test_blob)
 
     def test_blob_has_correct_owner(self):
-        blob = Blob.objects.get(name="Blob_test_blob")
-        user = User.objects.get(username="Blob_test_user")
-        self.assertEqual(blob.owner, user)
+        test_blob = Blob.objects.get(name="test_blob")
+        test_user = User.objects.get(username="test_user")
+        self.assertEqual(test_blob.owner, test_user)
 
-    def test_suite_has_no_suites(self):
-        suite = Suite.objects.get(name="Suite_test_suite")
-        # create a new blob and add it to suite's blobs
-        blob = suite.blobs.create(name="Suite_test_blob", owner=suite.owner)
-        # test that this relationship exists from both directions
-        self.assertEqual(suite.blobs.get(name="Suite_test_blob"), blob)
-        self.assertEqual(blob.suites.get(name="Suite_test_suite"), suite)
+    def test_blob_has_no_suites(self):
+        test_blob = Blob.objects.get(name="test_blob")
+        self.assertEqual(test_blob.suites.count(), 0)
 
     def test_blob_has_no_clips(self):
-        pass
+        test_blob = Blob.objects.get(name="test_blob")
+        self.assertEqual(test_blob.clips.count(), 0)
 
     def test_blob_has_suite(self):
-        pass
+        test_blob = Blob.objects.get(name="test_blob")
+
+        # add a new suite to test_blob's suites
+        test_suite = test_blob.suites.create(name="test_suite", owner=test_blob.owner)
+        # test that this relationship exists from both directions
+        self.assertEqual(test_suite.blobs.get(name="test_blob"), test_blob)
+        self.assertEqual(test_blob.suites.get(name="test_suite"), test_suite)
 
     def test_blob_has_clip(self):
+        """
+        TODO: use Mock to simulate uploading an audio file to create a test AudioClip
+        """
         pass
