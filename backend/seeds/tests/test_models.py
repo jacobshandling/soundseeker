@@ -34,9 +34,7 @@ class SuiteTests(TestCase):
     def test_suite_has_blobs(self):
         test_suite = Suite.objects.get(name="test_suite")
         # create a new blob and add it to suite's blobs
-        test_blob = test_suite.blobs.create(
-            name="test_blob", owner=test_suite.owner
-        )
+        test_blob = test_suite.blobs.create(name="test_blob", owner=test_suite.owner)
         # test that this relationship exists from both directions
         self.assertEqual(test_suite.blobs.get(name="test_blob"), test_blob)
         self.assertEqual(test_blob.suites.get(name="test_suite"), test_suite)
