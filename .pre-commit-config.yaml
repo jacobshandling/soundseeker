@@ -27,10 +27,10 @@ repos:
         rev: '5.0.4'
         hooks:
         -   id: flake8
-            exclude: migrations,settings,manage.py
+            exclude: (.*migrations/.*|.*settings/.*)
             args: [
                 --extend-ignore=E203,
-                --max-line-length=79,
+                # --max-line-length=79,
             ]
 
     # isort
