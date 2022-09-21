@@ -1,15 +1,23 @@
 repos:
+
+    # black
     -   repo: https://github.com/psf/black
         rev: 22.8.0
         hooks:
-            - id: black
-              name: black
-              exclude: migrations.*
-              # It is recommended to specify the latest version of Python
-              # supported by your project here, or alternatively use
-              # pre-commit's default_language_version, see
-              # https://pre-commit.com/#top_level-default_language_version
-            #   language_version: python3.9
+        -   id: black
+            name: black
+            exclude: migrations.*
+            args: [
+                --line-length 79,
+                --extend-exclude "migrations"
+            ]
+            # It is recommended to specify the latest version of Python
+            # supported by your project here, or alternatively use
+            # pre-commit's default_language_version, see
+            # https://pre-commit.com/#top_level-default_language_version
+        #   language_version: python3.9
+
+    # pre-commit native hooks
     -   repo: https://github.com/pre-commit/pre-commit-hooks
         rev: v2.3.0
         hooks:
@@ -18,10 +26,24 @@ repos:
             exclude: build.*
         -   id: end-of-file-fixer
             exclude: build.*
+
+    # flake8
+    -   repo: https://github.com/pycqa/flake8
+        rev: ''
+        hooks:
         -   id: flake8
-            exclude: migrations.*|settings.*
+            # exclude: migrations.*|settings.*
+            args: [
+                --extend-ignore=E203,
+                --max-line-length=88
+                --extend-exclude=.git/, __pycache__,env*,manage.py,settings/,migrations/
+            ]
+
+    # isort
     -   repo: https://github.com/pycqa/isort
         rev: 5.10.1
         hooks:
-            - id: isort
-              name: isort (python)
+        -   id: isort
+            args: [
+                --profile black
+            ]
