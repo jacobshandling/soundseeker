@@ -6,11 +6,9 @@ class UserTests(TestCase):
     def setUp(self):
         User.objects.create(username="test_user")
 
-    def tearDown(self):
-        User.objects.get(username="test_user").delete()
-
-    def test_user_has_username(self):
+    def test_user_exists_with_name(self):
         test_user = User.objects.get(username="test_user")
+        self.assertIsNotNone(test_user)
         self.assertEqual(test_user.get_username(), "test_user")
 
 
@@ -22,16 +20,18 @@ class SuiteTests(TestCase):
         test_user = User.objects.create(username="test_user")
         Suite.objects.create(name="test_suite", owner=test_user)
 
-    def test_suite_exists_and_has_name(self):
+    def test_suite_exists_with_name_and_owner(self):
+        test_user = User.objects.get(username="test_user")
         test_suite = Suite.objects.get(name="test_suite")
         self.assertIsNotNone(test_suite)
-
-    def test_suite_has_correct_owner(self):
-        test_suite = Suite.objects.get(name="test_suite")
-        test_user = User.objects.get(username="test_user")
+        self.assertEqual(test_suite.name, "test_suite")
         self.assertEqual(test_suite.owner, test_user)
 
-    def test_suite_has_blobs(self):
+    def test_suite_has_no_blobs(self):
+        test_suite = Suite.objects.get(name="test_suite")
+        self.assertEqual(test_suite.blobs.count(), 0)
+
+    def test_add_blob_to_suite(self):
         test_suite = Suite.objects.get(name="test_suite")
         # create a new blob and add it to suite's blobs
         test_blob = test_suite.blobs.create(name="test_blob", owner=test_suite.owner)
@@ -48,13 +48,11 @@ class BlobTests(TestCase):
         test_user = User.objects.create(username="test_user")
         Blob.objects.create(name="test_blob", owner=test_user)
 
-    def test_blob_exists_and_has_name(self):
+    def test_blob_exists_with_name_and_owner(self):
+        test_user = User.objects.get(username="test_user")
         test_blob = Blob.objects.get(name="test_blob")
         self.assertIsNotNone(test_blob)
-
-    def test_blob_has_correct_owner(self):
-        test_blob = Blob.objects.get(name="test_blob")
-        test_user = User.objects.get(username="test_user")
+        self.assertEqual(test_blob.name, "test_blob")
         self.assertEqual(test_blob.owner, test_user)
 
     def test_blob_has_no_suites(self):
@@ -65,7 +63,7 @@ class BlobTests(TestCase):
         test_blob = Blob.objects.get(name="test_blob")
         self.assertEqual(test_blob.clips.count(), 0)
 
-    def test_blob_has_suite(self):
+    def test_add_suite_to_blob(self):
         test_blob = Blob.objects.get(name="test_blob")
 
         # add a new suite to test_blob's suites
@@ -74,8 +72,25 @@ class BlobTests(TestCase):
         self.assertEqual(test_suite.blobs.get(name="test_blob"), test_blob)
         self.assertEqual(test_blob.suites.get(name="test_suite"), test_suite)
 
-    def test_blob_has_clip(self):
+    def test_add_clip_to_blob(self):
         """
         TODO: use Mock to simulate uploading an audio file to create a test AudioClip
         """
+        pass
+
+
+class AudioClipTest(TestCase):
+    def setUp(self):
+        """
+        Initialize each test with a new User and new AudioClip
+        """
+        pass
+
+    def test_audioclip_exists_with_name_and_owner_and_file(self):
+        pass
+
+    def test_audioclip_has_no_blobs(self):
+        pass
+
+    def test_add_blob_to_audioclip(self):
         pass
