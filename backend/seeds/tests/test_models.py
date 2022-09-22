@@ -1,6 +1,9 @@
 from django.test import TestCase
 from seeds.models import Blob, Suite, User
 
+# "Django only flushes the default database at the start of each test run"
+# https://docs.djangoproject.com/en/4.1/topics/testing/tools/#testcase
+
 
 class UserTests(TestCase):
     def setUp(self):
@@ -10,7 +13,6 @@ class UserTests(TestCase):
         self.test_user.delete()
 
     def test_user_exists_with_name(self):
-        # test_user = User.objects.get(username="test_user")
         self.assertIsNotNone(self.test_user)
         self.assertEqual(self.test_user.get_username(), "test_user")
 
@@ -22,10 +24,6 @@ class SuiteTests(TestCase):
         """
         self.test_user = User.objects.create(username="test_user")
         self.test_suite = Suite.objects.create(name="test_suite", owner=self.test_user)
-
-    def tearDown(self):
-        self.test_user.delete()
-        self.test_suite.delete()
 
     def test_suite_exists_with_name_and_owner(self):
         self.assertIsNotNone(self.test_suite)
@@ -48,32 +46,28 @@ class BlobTests(TestCase):
         """
         Initialize all Blob tests with new User, Blob records
         """
-        test_user = User.objects.create(username="test_user")
-        Blob.objects.create(name="test_blob", owner=test_user)
+        self.test_user = User.objects.create(username="test_user")
+        self.test_blob = Blob.objects.create(name="test_blob", owner=self.test_user)
 
     def test_blob_exists_with_name_and_owner(self):
-        test_user = User.objects.get(username="test_user")
-        test_blob = Blob.objects.get(name="test_blob")
-        self.assertIsNotNone(test_blob)
-        self.assertEqual(test_blob.name, "test_blob")
-        self.assertEqual(test_blob.owner, test_user)
+        self.assertIsNotNone(self.test_blob)
+        self.assertEqual(self.test_blob.name, "test_blob")
+        self.assertEqual(self.test_blob.owner, self.test_user)
 
     def test_blob_has_no_suites(self):
-        test_blob = Blob.objects.get(name="test_blob")
-        self.assertEqual(test_blob.suites.count(), 0)
+        self.assertEqual(self.test_blob.suites.count(), 0)
 
     def test_blob_has_no_clips(self):
-        test_blob = Blob.objects.get(name="test_blob")
-        self.assertEqual(test_blob.clips.count(), 0)
+        self.assertEqual(self.test_blob.clips.count(), 0)
 
     def test_add_suite_to_blob(self):
-        test_blob = Blob.objects.get(name="test_blob")
-
         # add a new suite to test_blob's suites
-        test_suite = test_blob.suites.create(name="test_suite", owner=test_blob.owner)
+        test_suite = self.test_blob.suites.create(
+            name="test_suite", owner=self.test_user
+        )
         # test that this relationship exists from both directions
-        self.assertEqual(test_suite.blobs.get(name="test_blob"), test_blob)
-        self.assertEqual(test_blob.suites.get(name="test_suite"), test_suite)
+        self.assertEqual(test_suite.blobs.get(name="test_blob"), self.test_blob)
+        self.assertEqual(self.test_blob.suites.get(name="test_suite"), test_suite)
 
     def test_add_clip_to_blob(self):
         """
