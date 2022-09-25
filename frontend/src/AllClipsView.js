@@ -8,7 +8,7 @@ class AllClipsView extends React.Component {
         const clipRenders = [];
         for (let key in clipMap) {
             clipRenders.push(
-                <AudioClip 
+                <AudioClip
                     clipObject = {clipMap[key]}
                     toggleEditClip = {this.props.toggleEditClip}
                 />

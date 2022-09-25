@@ -5,11 +5,15 @@ class Suite extends React.Component {
             const suite = this.props.suiteObject;
             return (
                 <li key={suite.id} className="listed-content">
-                    <h3>{suite.name}</h3>
-                    <span className="listed-content-actions">
-                        <button onClick={() => this.props.toggleViewSuite(suite)}>View</button>
-                        <button onClick={() => this.props.toggleEditSuite(suite)}>Edit</button>
-                    </span>
+                    <div className="card">
+                        <div className="card-body">
+                            <h3 className="card-title">{suite.name}</h3>
+                            <div className="btn-group">
+                                <button type="button" className="btn btn-secondary" onClick={() => this.props.toggleViewSuite(suite)}>View</button>
+                                <button type="button" className="btn btn-secondary" onClick={() => this.props.toggleEditSuite(suite)}>Edit</button>
+                            </div>
+                        </div>
+                    </div>
                 </li>
             );
         }

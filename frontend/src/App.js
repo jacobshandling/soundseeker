@@ -3,7 +3,6 @@ import React from 'react';
 import AllBlobsView from './AllBlobsView';
 import AllClipsView from './AllClipsView';
 import SuiteLevelView from './SuiteLevelView';
-import ActionBar from './ActionBar';
 import ActionItem from './ActionItem';
 import PlusIcon from './icons/plus.svg';
 import DropdownMenu from './DropdownMenu';
@@ -13,6 +12,10 @@ import CreateSuiteView from './CreateSuiteView';
 import EditSuiteView from './EditSuiteView';
 import EditBlobView from './EditBlobView';
 import EditClipView from './EditClipView';
+
+// Material UI
+import Alert from '@mui/material/Alert';
+import { AlertTitle } from '@mui/material';
 
 if (process.env.NODE_ENV !== 'production') {
     // development API
@@ -25,6 +28,7 @@ if (process.env.NODE_ENV !== 'production') {
 class SoundSeekerApp extends React.Component {
     constructor(props) {
         super(props);
+        this.ALERTDURATION = 2500;
         this.state = {
             isLoaded: false,
             error: null,
@@ -34,8 +38,8 @@ class SoundSeekerApp extends React.Component {
             curBlob: null,
             dropdownIsOpen: false,
             actionView: null,
-            selectedClip: null
-
+            selectedClip: null,
+            alert: null,
         };
 
         this.toggleDropdown = this.toggleDropdown.bind(this);
@@ -53,12 +57,12 @@ class SoundSeekerApp extends React.Component {
         this.onCreateClip = this.onCreateClip.bind(this);
         this.onCreateBlob = this.onCreateBlob.bind(this);
         this.onCreateSuite = this.onCreateSuite.bind(this);
-        
+
         this.toggleViewSuite = this.toggleViewSuite.bind(this);
         this.toggleEditSuite = this.toggleEditSuite.bind(this);
         this.onEditSuite = this.onEditSuite.bind(this);
         this.onDeleteSuite = this.onDeleteSuite.bind(this);
-        
+
         this.toggleViewBlob = this.toggleViewBlob.bind(this);
         this.toggleEditBlob = this.toggleEditBlob.bind(this);
         this.onEditBlob = this.onEditBlob.bind(this);
@@ -72,14 +76,21 @@ class SoundSeekerApp extends React.Component {
     componentDidMount() {
         this.getAndSetFreshUserDataMaps();
     }
-    
+
+    activateAlertWithTimeout(severity, message) {
+        this.setState({
+            alert: {severity: severity, message: message}
+        });
+        setTimeout(() => {this.setState({alert: null})}, this.ALERTDURATION);
+    }
+
     // Methods for fetching and parsing user data from server
-    
+
     getAndSetFreshUserDataMaps() {
         fetch(`${APIURL}/users/${userID}/`)
             .then(response => response.json())
             .then((result) => {
-    
+
                     this.setState({
                         isLoaded: true,
                         userSuiteMap: this.getIDMapFromObjArray(result.user_suites),
@@ -110,13 +121,13 @@ class SoundSeekerApp extends React.Component {
     toggleAllSuitesView() {
         this.setState({
             actionView: null,
-            curSuite: null, 
+            curSuite: null,
             curBlob: null
         });
     }
 
     toggleAllBlobsView() {
-        this.setState({actionView: 'all-blobs'});        
+        this.setState({actionView: 'all-blobs'});
     }
 
     toggleAllClipsView() {
@@ -124,8 +135,9 @@ class SoundSeekerApp extends React.Component {
     }
 
     toggleViewSuite(suiteObject) {
-        this.setState({ 
+        this.setState({
             curSuite: suiteObject,
+            curBlob: null,
             actionView: null
          });
     }
@@ -203,6 +215,11 @@ class SoundSeekerApp extends React.Component {
     // AJAX handlers
 
     onClipSelect(event) {
+        // set form name field to the name of the selected file
+        const selectedFile = event.target.files[0];
+        const name = document.querySelector('#clip-name');
+        name.value = selectedFile.name;
+
         this.setState(
             {selectedClip: event.target.files[0]}
         );
@@ -238,15 +255,24 @@ class SoundSeekerApp extends React.Component {
             }
         }));
 
+        // validate
         if (!file) {
-            alert("Select a clip to upload");
+            this.activateAlertWithTimeout('warning', 'Select a clip to upload');
+            return;
+        }
+        if (!clipName.length) {
+            this.activateAlertWithTimeout('warning', "Enter a name for your new clip");
+            return;
+        }
+        if (!blobIDs.length) {
+            this.activateAlertWithTimeout('warning', "Choose at least 1 blob to associate your new clip with");
             return;
         }
 
         // create formData instance
         const formData = new FormData();
         formData.append('name', clipName);
-        formData.append('blobs', blobIDs); 
+        formData.append('blobs', blobIDs);
         formData.append('file', file);
 
 
@@ -263,7 +289,7 @@ class SoundSeekerApp extends React.Component {
             return response.json();
         })
         .then(result => {
-            
+
             // prepare new local data
             const updatedUserBlobMap = { ...this.state.userBlobMap };
             blobIDs.forEach(blobID => {
@@ -271,7 +297,7 @@ class SoundSeekerApp extends React.Component {
             });
             const updatedUserClipMap = { ...this.state.userClipMap };
             updatedUserClipMap[result.id] = result;
-            
+
             // set new data as state and return to previous view
             this.setState(
                 {
@@ -281,7 +307,7 @@ class SoundSeekerApp extends React.Component {
                 }
                 );
 
-            alert(`Uploaded ${clipName} successfully`);
+            this.activateAlertWithTimeout('success', `Uploaded clip "${clipName}"`);
         })
 
         .catch(error => {
@@ -293,7 +319,7 @@ class SoundSeekerApp extends React.Component {
         const csrftoken = this.getCookie('csrftoken');
         const clip = this.state.curClip;
 
-        fetch(clip.url, {
+        fetch(`${APIURL}/audioclips/${clip.id}/`, {
             method: 'DELETE',
             headers: { 'X-CSRFToken': csrftoken },
             }
@@ -303,8 +329,8 @@ class SoundSeekerApp extends React.Component {
             }
             return;
         }).then(result => {
-            alert(`Deleted clip ${clip.name} successfully`);
-            
+            this.activateAlertWithTimeout('success', `Deleted clip "${clip.name}"`);
+
             // remove clip from Blob and Clip maps, then return to normal view
             const updatedUserClipMap = {...this.state.userClipMap};
             delete updatedUserClipMap[clip.id];
@@ -314,10 +340,10 @@ class SoundSeekerApp extends React.Component {
                 // find the index of the deleted clip's id in the blob's list of clip IDs
                 const iDeletedClip = updatedUserBlobMap[blobID].clips.findIndex((clipID) => clipID == clip.id);
                 // remove it
-                // assumes no duplicate clipIDs in blob.clips   
+                // assumes no duplicate clipIDs in blob.clips
                 updatedUserBlobMap[blobID].clips.splice(iDeletedClip, 1);
                 })
-            
+
             this.setState( {
                     curClip: null,
                     actionView: null,
@@ -337,17 +363,17 @@ class SoundSeekerApp extends React.Component {
         const csrftoken = this.getCookie('csrftoken');
 
         const newName = document.querySelector('#new-name').value;
-        
+
         if (!newName.length) {
-            alert('Enter a clip name');
+            this.activateAlertWithTimeout('warning', 'Enter a clip name');
             return;
         }
 
         const formData = new FormData();
         formData.append('name', newName);
 
-        fetch(clip.url, {
-            method: 'PUT',
+        fetch(`${APIURL}/audioclips/${clip.id}/`, {
+            method: 'PATCH',
             headers: { 'X-CSRFToken': csrftoken },
             body: formData
             }
@@ -359,9 +385,9 @@ class SoundSeekerApp extends React.Component {
             return response.json();
         })
         .then(result => {
-            this.getAndSetFreshUserDataMaps(); 
-            this.setState({actionView: null});
-            alert(`Edited clip succcessfully`);
+            this.getAndSetFreshUserDataMaps();
+            this.setState({actionView: null, curClip: null});
+            this.activateAlertWithTimeout('success', `Edited clip ${newName}`);
         })
         .catch(error => {
             console.error('Error with fetch operation:', error);
@@ -382,11 +408,11 @@ class SoundSeekerApp extends React.Component {
 
         // validate
         if (!blobName.length) {
-            alert("Enter a name for your new Blob");
+            this.activateAlertWithTimeout('warning', "Enter a name for your new blob");
             return;
         }
         if (!suiteIDs.length) {
-            alert("Choose at least 1 Suite to associate your new Blob with");
+            this.activateAlertWithTimeout('warning', "Choose at least 1 suite to associate your new blob with");
             return;
         }
 
@@ -408,7 +434,7 @@ class SoundSeekerApp extends React.Component {
             return response.json();
         })
         .then(result => {
-            
+
             // add new blob to local state and return to previous view
             const updatedUserSuiteMap = { ...this.state.userSuiteMap }
             suiteIDs.forEach(suiteID => {
@@ -423,7 +449,7 @@ class SoundSeekerApp extends React.Component {
                     userBlobMap: updatedUserBlobMap
                 }
                 );
-            alert(`Created new blob ${blobName} successfully`);
+            this.activateAlertWithTimeout('success', `Created new blob "${blobName}"`);
         })
         .catch(error => {
             console.error('Error with fetch operation:', error);
@@ -435,7 +461,7 @@ class SoundSeekerApp extends React.Component {
 
         const blob = this.state.curBlob;
 
-        fetch(blob.url, {
+        fetch(`${APIURL}/blobs/${blob.id}/`, {
             method: 'DELETE',
             headers: { 'X-CSRFToken': csrftoken },
             }
@@ -447,8 +473,8 @@ class SoundSeekerApp extends React.Component {
             return;
         })
         .then(result => {
-            alert(`Deleted blob ${blob.name} successfully`);
-            
+            this.activateAlertWithTimeout('success', `Deleted blob "${blob.name}"`);
+
             // Remove blob from Suite, Blob, and Clip maps and return to previous view
 
             const updatedUserSuiteMap = {...this.state.userSuiteMap};
@@ -456,7 +482,7 @@ class SoundSeekerApp extends React.Component {
                 // find the index of the deleted blob's id in the suite's list of blob IDs
                 const iDeletedBlob = updatedUserSuiteMap[suiteID].blobs.findIndex((blobID) => blobID == blob.id);
                 // remove it
-                // assumes no duplicate clipIDs in blob.clips   
+                // assumes no duplicate clipIDs in blob.clips
                 updatedUserSuiteMap[suiteID].blobs.splice(iDeletedBlob, 1);
                 })
 
@@ -468,11 +494,11 @@ class SoundSeekerApp extends React.Component {
                 // find the index of the deleted blob's id in the clip's list of blob IDs
                 const iDeletedBlob = updatedUserClipMap[clipID].blobs.findIndex((blobID) => blobID == blob.id);
                 // remove it
-                // assumes no duplicate blobIDs in clip.blobs   
+                // assumes no duplicate blobIDs in clip.blobs
                 updatedUserClipMap[clipID].blobs.splice(iDeletedBlob, 1);
                 })
 
-            
+
             this.setState( {
                     curBlob: null,
                     actionView: null,
@@ -498,25 +524,25 @@ class SoundSeekerApp extends React.Component {
                 clipIDs.push(checkbox.value);
             }
         });
-        
+
         if (!newName.length) {
-            alert('Enter a blob name');
+            this.activateAlertWithTimeout('warning', 'Enter a blob name');
             return;
         }
         if (!clipIDs.length) {
-            alert('Associate the blob with at least one audioclip');
+            this.activateAlertWithTimeout('warning', 'Associate the blob with at least one audioclip');
             return;
         }
 
         const formData = new FormData();
         formData.append('name', newName);
-        formData.append('suites', blob.suites);  // not giving ability to edit this for now
         clipIDs.forEach(id => {
             formData.append('clips', id);
         });
 
-        fetch(blob.url, {
-            method: 'PUT',
+        // using PATCH since not sending any 'suites' data, though that relationship exists in DB
+        fetch(`${APIURL}/blobs/${blob.id}/`, {
+            method: 'PATCH',
             headers: { 'X-CSRFToken': csrftoken },
             body: formData
             }
@@ -528,9 +554,9 @@ class SoundSeekerApp extends React.Component {
             return response.json();
         })
         .then(result => {
-            this.getAndSetFreshUserDataMaps(); 
-            this.setState({actionView: null});
-            alert(`Edited blob succcessfully`);
+            this.getAndSetFreshUserDataMaps();
+            this.setState({actionView: null, curBlob: null});
+            this.activateAlertWithTimeout('success', `Edited blob ${newName}`);
         })
         .catch(error => {
             console.error('Error with fetch operation:', error);
@@ -541,7 +567,7 @@ class SoundSeekerApp extends React.Component {
         const csrftoken = this.getCookie('csrftoken');
         const suiteName = document.querySelector('#suite-name').value;
         if (!suiteName.length) {
-            alert("Please enter a name for your new Suite");
+            this.activateAlertWithTimeout('warning', "Enter a name for your new suite");
             return;
         }
         const formData = new FormData();
@@ -560,8 +586,8 @@ class SoundSeekerApp extends React.Component {
             return response.json();
         })
         .then(result => {
-            alert(`Created new suite ${suiteName} successfully`);
-            
+            this.activateAlertWithTimeout('success', `Created new suite "${suiteName}"`)
+
             // add new Suite to local state and return to previous view
             const updatedUserSuiteMap = { ...this.state.userSuiteMap }
             updatedUserSuiteMap[result.id] = result;
@@ -582,7 +608,7 @@ class SoundSeekerApp extends React.Component {
         const csrftoken = this.getCookie('csrftoken');
         const suite = this.state.curSuite;
 
-        fetch(suite.url, {
+        fetch(`${APIURL}/suites/${suite.id}/`, {
             method: 'DELETE',
             headers: { 'X-CSRFToken': csrftoken },
             }
@@ -592,8 +618,8 @@ class SoundSeekerApp extends React.Component {
             }
             return;
         }).then(result => {
-            alert(`Deleted suite ${suite.name} successfully`);
-            
+            this.activateAlertWithTimeout('success', `Deleted suite "${suite.name}"`);
+
             // Remove Suite from Suite and Blob maps, and return to previous view
             const updatedUserSuiteMap = {...this.state.userSuiteMap};
             delete updatedUserSuiteMap[suite.id];
@@ -603,10 +629,10 @@ class SoundSeekerApp extends React.Component {
                 // find the index of the deleted suite's id in the blob's list of suite IDs
                 const iDeletedSuite = updatedUserBlobMap[blobID].suites.findIndex((suiteID) => suiteID == suite.id);
                 // remove it
-                // assumes no duplicate suiteIDs in blob.suites   
+                // assumes no duplicate suiteIDs in blob.suites
                 updatedUserBlobMap[blobID].suites.splice(iDeletedSuite, 1);
                 });
-            
+
             this.setState(
                 {
                     curSuite: null,
@@ -633,13 +659,13 @@ class SoundSeekerApp extends React.Component {
                 blobIDs.push(checkbox.value);
             }
         }));
-        
+
         if (!newName.length) {
-            alert('Suite must have a name');
+            this.activateAlertWithTimeout('warning', "Suite must have a name");
             return;
         }
         if (!blobIDs.length) {
-            alert('Suite must have at least one blob');
+            this.activateAlertWithTimeout('warning', "Suite must have at least one blob");
             return;
         }
 
@@ -649,7 +675,7 @@ class SoundSeekerApp extends React.Component {
             formData.append('blobs', id);
         });
 
-        fetch(suite.url, {
+        fetch(`${APIURL}/suites/${suite.id}/`, {
             method: 'PUT',
             headers: { 'X-CSRFToken': csrftoken },
             body: formData
@@ -662,9 +688,9 @@ class SoundSeekerApp extends React.Component {
             return response.json();
         })
         .then(result => {
-            this.getAndSetFreshUserDataMaps(); 
-            this.setState({actionView: null});
-            alert(`Edited suite succcessfully`);
+            this.getAndSetFreshUserDataMaps();
+            this.setState({actionView: null, curSuite: null});
+            this.activateAlertWithTimeout('success', `Edited suite ${newName}`);
         })
         .catch(error => {
             console.error('Error with fetch operation:', error);
@@ -678,78 +704,97 @@ class SoundSeekerApp extends React.Component {
 
         if (!this.state.isLoaded) {
             return <div>Loading. . .</div>;
-        } 
+        }
+
+        const [mainContent, alertVal] = [[], []];
+
+        if (this.state.alert) {
+            var alertSeverity = this.state.alert.severity;
+            var alertMessage = this.state.alert.message;
+            alertVal.push(
+                <Alert variant='filled' severity={alertSeverity}>{alertMessage}</Alert>
+            );
+        }
 
         if (this.state.actionView) {
             switch (this.state.actionView) {
                 case 'all-blobs':
-                    var mainContent = 
-                    <AllBlobsView 
-                        userBlobMap = {this.state.userBlobMap} 
-                        toggleEditBlob = {this.toggleEditBlob}
-                        toggleViewBlob = {blobObject => this.toggleViewBlob(blobObject)}
-                    />;
+                    mainContent.push(
+                        <AllBlobsView
+                            userBlobMap = {this.state.userBlobMap}
+                            toggleEditBlob = {this.toggleEditBlob}
+                            toggleViewBlob = {blobObject => this.toggleViewBlob(blobObject)}
+                        />
+                    );
                     break;
                 case 'all-clips':
-                    var mainContent = 
-                        <AllClipsView 
+                    mainContent.push(
+                        <AllClipsView
                             userClipMap = {this.state.userClipMap}
                             toggleEditClip = {this.toggleEditClip}
 
-                        />;
+                        />
+                    );
                     break;
                 case 'new-clip':
-                    var mainContent = 
+                    mainContent.push(
                         <CreateClipView
-                            onClipSelect = {this.onClipSelect} 
-                            onCreateClip = {this.onCreateClip} 
+                            onClipSelect = {this.onClipSelect}
+                            onCreateClip = {this.onCreateClip}
                             userBlobMap = {this.state.userBlobMap}
-                        />;
+                        />
+                    );
                     break;
                 case 'new-blob':
-                    var mainContent = 
-                        <CreateBlobView 
+                    mainContent.push(
+                        <CreateBlobView
                             onCreateBlob = {this.onCreateBlob}
                             userSuiteMap = {this.state.userSuiteMap}
-                        />;
+                        />
+                    );
                     break;
                 case 'new-suite':
-                    var mainContent = 
-                        <CreateSuiteView 
+                    mainContent.push(
+                        <CreateSuiteView
                             onCreateSuite = {this.onCreateSuite}
-                        />;
+                        />
+                    )
                     break;
                 case 'edit-suite':
-                    var mainContent =
+                    mainContent.push(
                         <EditSuiteView
                             suite = {this.state.curSuite}
                             userBlobMap = {this.state.userBlobMap}
                             onDeleteSuite = {this.onDeleteSuite}
                             onEditSuite={this.onEditSuite}
-                        />;
+                        />
+                    );
                     break;
                 case 'edit-blob':
-                    var mainContent =
+                    mainContent.push(
                         <EditBlobView
                             blob = {this.state.curBlob}
                             userClipMap = {this.state.userClipMap}
                             onDeleteBlob = {this.onDeleteBlob}
                             onEditBlob={this.onEditBlob}
-                        />;
+                        />
+                    );
                     break;
                 case 'edit-clip':
-                    var mainContent =
+                    mainContent.push(
                         <EditClipView
                             clip = {this.state.curClip}
                             onDeleteClip = {this.onDeleteClip}
                             onEditClip={this.onEditClip}
-                        />;
+                        />
+                    );
                     break;
 
             }
         } else {
-            var mainContent = 
+                mainContent.push(
                 <SuiteLevelView
+                    toggleAllSuitesView = {() => this.toggleAllSuitesView()}
                     toggleViewSuite = {suiteObject => this.toggleViewSuite(suiteObject)}
                     toggleEditSuite = {suiteObject => this.toggleEditSuite(suiteObject)}
                     toggleViewBlob = {blobObject => this.toggleViewBlob(blobObject)}
@@ -760,32 +805,36 @@ class SoundSeekerApp extends React.Component {
                     userSuiteMap = {this.state.userSuiteMap}
                     userBlobMap = {this.state.userBlobMap}
                     userClipMap = {this.state.userClipMap}
-                />;
-        }
+                    />
+                );
+            }
 
         return (
             <div id="react-wrapper">
-                <main id="main-content">
-                    <div id="action-bar">
-                        <span id="app-nav">
-                            <button onClick={this.toggleAllSuitesView}>Suites</button>
-                            <button onClick={this.toggleAllBlobsView}>All Blobs</button>
-                            <button onClick={this.toggleAllClipsView}>All Clips</button>
-                        </span>
-                        <ActionItem
-                            icon = {<PlusIcon />} 
-                            toggleDropdown = {this.toggleDropdown}
-                            dropdownIsOpen = {this.state.dropdownIsOpen} 
+                <div id="action-bar" className="pb-3 px-sm-5">
+                    <span id="app-nav">
+                        <button type="button" className="btn btn-light" onClick={this.toggleAllSuitesView}>Suites</button>
+                        <button type="button" className="btn btn-light" onClick={this.toggleAllBlobsView}>All Blobs</button>
+                        <button type="button" className="btn btn-light" onClick={this.toggleAllClipsView}>All Clips</button>
+                    </span>
+                    <ActionItem
+                        icon = {<PlusIcon />}
+                        toggleDropdown = {this.toggleDropdown}
+                        dropdownIsOpen = {this.state.dropdownIsOpen}
 
-                        >
-                            <DropdownMenu
-                                toggleCreateClip = {this.toggleCreateClip}
-                                toggleCreateBlob = {this.toggleCreateBlob}
-                                toggleCreateSuite = {this.toggleCreateSuite}
-                                onClipSelect = {this.onClipSelect}
-                                uploadClip = {this.uploadClip}
-                                />
-                        </ActionItem>
+                    >
+                        <DropdownMenu
+                            toggleCreateClip = {this.toggleCreateClip}
+                            toggleCreateBlob = {this.toggleCreateBlob}
+                            toggleCreateSuite = {this.toggleCreateSuite}
+                            onClipSelect = {this.onClipSelect}
+                            uploadClip = {this.uploadClip}
+                            />
+                    </ActionItem>
+                </div>
+                <main id="main-content">
+                    <div id="alert-container">
+                        {alertVal}
                     </div>
                     {mainContent}
                 </main>

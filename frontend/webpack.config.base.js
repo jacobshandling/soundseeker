@@ -4,7 +4,6 @@ const Dotenv = require('dotenv-webpack');
 
 module.exports = {
     entry: {
-        // main: path.resolve(__dirname, '..', 'src', 'index.js'),
         main: path.resolve(__dirname, 'src', 'index.js'),
     },
     plugins: [
@@ -14,12 +13,11 @@ module.exports = {
         new Dotenv()
     ],
     output: {
-        // path: path.resolve(__dirname, '..', '..', 'backend', 'seeds', 'static','seeds', 'build'),
         path: path.resolve(__dirname, '..', 'backend', 'seeds', 'static','seeds', 'build'),
         filename: '[name].bundle.js',
     },
 
-    // Where find modules that can be imported (eg. React) 
+    // Where to find modules that can be imported (eg. React)
     resolve: {
         extensions: ['*', '.js', '.jsx'],
         modules: [
@@ -38,13 +36,11 @@ module.exports = {
                 exclude: /node_modules/,
                 use: ['babel-loader']
             },
-            
+
             {
                 test: /\.svg$/,
                 use: ['@svgr/webpack']
             }
         ]
     }
-
-
-    }// 
+}

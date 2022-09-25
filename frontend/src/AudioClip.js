@@ -7,14 +7,18 @@ class AudioClip extends React.Component {
         const clipURL = clip['file'];
 
         return (
-            <li className="audioclip listed-content" key={clip.id}>
-                <h3>{clip.name}</h3>
-                <audio controls>
-                    <source src={clipURL} type="audio/mpeg" />
-                </audio>
-                <span className="listed-content-actions">
-                    <button onClick={() => this.props.toggleEditClip(clip)}>Edit</button>
-                </span>
+            <li key={clip.id}>
+                <div className="card audioclip px-3">
+                    <div className="card-body">
+                        <h3 className="card-title">{clip.name}</h3>
+                    </div>
+                    <audio controls>
+                        <source src={clipURL} type="audio/mpeg" />
+                    </audio>
+                    <div className="card-body">
+                        <button type="button" className="btn btn-secondary" onClick={() => this.props.toggleEditClip(clip)}>Edit</button>
+                    </div>
+                </div>
             </li>
         )
     }

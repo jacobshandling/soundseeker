@@ -3,8 +3,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# C extensions
-*.so
+#CPython
+*.pyc
 
 # Distribution / packaging
 .Python
@@ -35,49 +35,17 @@ MANIFEST
 pip-log.txt
 pip-delete-this-directory.txt
 
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
-.pytest_cache/
-cover/
-
-# Translations
-*.mo
-*.pot
 
 # Django stuff:
 *.log
-local_settings.py
 db.sqlite3
 db.sqlite3-journal
 
-# Scrapy stuff:
-.scrapy
 
-# Sphinx documentation
-docs/_build/
-
-# PyBuilder
-.pybuilder/
-target/
-
-# IPython
-profile_default/
-ipython_config.py
-
-# PEP 582; used by e.g. github.com/David-OConnor/pyflow
+# PEP 582
 __pypackages__/
 
-# Environments
+# Environments and .env file
 .env
 .venv
 env/
@@ -87,32 +55,12 @@ env.bak/
 venv.bak/
 env*
 
-# mkdocs documentation
-/site
-
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
-# Pyre type checker
-.pyre/
-
-# pytype static type analyzer
-.pytype/
-
-# Cython debug symbols
-cython_debug/
-
 # VSCode
 .vscode
 *.code-workspace
 
 # Node
 node_modules/
-
-# Executables
-*.exe
 
 # macOS
 *.DS_Store

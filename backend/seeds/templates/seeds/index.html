@@ -7,7 +7,25 @@
         <script>var userID = "{{ user.id }}"</script>
         <script src="{% static 'seeds/build/main.bundle.js' %}"></script>
     {% else %}
-        <h2 id="welcome">Welcome. Please <a href="{% url 'register' %}">register</a>, <a href="{% url 'login' %}">log in</a>, or <a href="https://youtu.be/_Qm0abmDYak" target="_blank">watch a demo</a>.</h2>
-        <!-- TODO: Awesome welcome intro graphic / animation right here -->
+        <div id="intro" class="container-md pt-1 mt-sm-5">
+            <div id="subtitle">
+                <h2 class="display-2">Organize Your Musical Ideas</h2>
+            </div>
+            <a class="mb-5" href="#instructions"><svg viewBox="0 0 256 512"><path d="M24.707 38.101L4.908 57.899c-4.686 4.686-4.686 12.284 0 16.971L185.607 256 4.908 437.13c-4.686 4.686-4.686 12.284 0 16.971L24.707 473.9c4.686 4.686 12.284 4.686 16.971 0l209.414-209.414c4.686-4.686 4.686-12.284 0-16.971L41.678 38.101c-4.687-4.687-12.285-4.687-16.971 0z" class=""></path></svg></a>
+            <div id="instructions">
+                <p>There are <strong>3 structural tiers:</strong></p>
+                <ul>
+                    <li><p><strong>Suite</strong> - the big picture, like an album. Suites contain blobs.</p></li>
+                    <li><p><strong>Blob</strong> - a medium-sized idea, like a song. Blobs contain audioclips.</p></li>
+                    <li><p><strong>Audioclip</strong> - the smallest idea, like a melodic phrase, bass line, rhythm, or sound.</p></li>
+                </ul>
+                <p>
+                    Associate each audioclip with different blobs, and each blob with different suites.<br>
+                    Associate different ideas however you find useful in your process.<br>
+                    <a href="{% url 'login' %}">Log in</a> or <a href="{% url 'register' %}">register</a>
+                </p>
+                <p id="compatibility-disclaimer">Supports .flac, .mp3, .wav, and .m4a (compressed only) audioclips</p>
+            </div>
+        </div>
     {% endif %}
 {% endblock %}

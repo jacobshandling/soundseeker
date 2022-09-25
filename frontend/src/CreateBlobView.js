@@ -10,14 +10,14 @@ class CreateBlobView extends React.Component {
                     <label htmlFor={userSuite.name} key={userSuite.id}>
                         <input
                             id={userSuite.id}
-                            className="select-checkbox" 
-                            key={userSuite.id} 
-                            type="checkbox" 
-                            name="suite-options" 
-                            value={userSuite.id} 
+                            className="select-checkbox"
+                            key={userSuite.id}
+                            type="checkbox"
+                            name="suite-options"
+                            value={userSuite.id}
                         />
                     <p>{userSuite.name}</p></label>
-                    
+
             )
         };
         return suiteOptions;
@@ -26,25 +26,22 @@ class CreateBlobView extends React.Component {
     render() {
         const suiteOptions = this.renderSuiteOptions(this.props.userSuiteMap);
         return(
-            <section id="create-blob" className="action-view">
-                <div className="form">
-                    <input 
-                        id="blob-name" 
-                        className="form-field" 
-                        type="text" 
-                        placeholder='new blob name' 
+            <section className="action-view">
+                <div className="form-group">
+                    <input
+                        id="blob-name"
+                        className="form-control"
+                        type="text"
+                        placeholder='Enter blob name'
                         autoFocus
                     />
-                    <fieldset className="form-field" id="suite-options">
-                        <legend>Suites to associate this Blob with (at least 1):</legend> 
-                        {suiteOptions}
-                    </fieldset>
-                    <input 
-                        type="button" 
-                        className="form-field" 
-                        onClick={this.props.onCreateBlob} 
-                        value="Create" 
-                    />
+                </div>
+                <fieldset className="form-group association-options" id="new-suite-associations">
+                    <label htmlFor="new-suite-associations">Suites to associate this Blob with (at least 1):</label>
+                    {suiteOptions}
+                </fieldset>
+                <div className="form-group">
+                    <button type="button" className="btn btn-primary" onClick={this.props.onCreateBlob}>Create</button>
                 </div>
             </section>
         )

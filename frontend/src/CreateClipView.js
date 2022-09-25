@@ -10,14 +10,14 @@ class CreateClipView extends React.Component {
                     <label htmlFor={userBlob.name} key={userBlob.id}>
                         <input
                             id={userBlob.id}
-                            className="select-checkbox" 
+                            className="select-checkbox"
                             key={userBlob.id}
-                            type="checkbox" 
-                            name="blob-options" 
+                            type="checkbox"
+                            name="blob-options"
                             value={userBlob.id}
                         />
                     <p>{userBlob.name}</p></label>
-                    
+
             )
         };
         return blobOptions;
@@ -27,14 +27,18 @@ class CreateClipView extends React.Component {
         const blobOptions = this.renderBlobOptions(this.props.userBlobMap);
         return(
             <section id="clip-upload" className="action-view">
-                <div className="form">
-                    <input id="selected-clip" className="form-field" type="file" onChange={this.props.onClipSelect} required/>
-                    <input id="clip-name" className="form-field" type="text" placeholder='clip name' />
-                    <fieldset className="form-field" id="blob-options">
-                        <legend>Blobs to associate this clip with:</legend> 
-                        {blobOptions}
-                    </fieldset>
-                    <input type="button" className="form-field" onClick={this.props.onCreateClip} value="Upload" />
+                <div className="form-group">
+                    <input id="selected-clip" className="form-control" type="file" onChange={this.props.onClipSelect} required/>
+                </div>
+                <div className="form-group">
+                    <input id="clip-name" className="form-control" type="text" placeholder='Enter clip name' />
+                </div>
+                <fieldset className="form-group association-options" id="new-blob-associations">
+                    <label htmlFor="new-blob-associations">Blobs to associate this clip with:</label>
+                    {blobOptions}
+                </fieldset>
+                <div className="form-group">
+                    <button type="button" className="btn btn-primary" onClick={this.props.onCreateClip}>Upload</button>
                 </div>
             </section>
         )
