@@ -12,9 +12,9 @@ In Soundseeker, there are 3 scopes of organization:
 2. Blobs - a blob might represent the makings of an idea that's larger than one musical theme, but smaller than the overall picture, such as a song. Blobs contain audioclips.
 3. Audioclips - an audioclip represents the most granular form of musical idea. This represents something like a single musical phrase, bass line, rhythm. Something a composer might sing into their phone right before tripping over a curb.
 
-You can associate an audioclip with different blobs, and a blob with different suites. One small idea (audioclip) might be included in multiple songs (blobs). Mix and match however you find useful for your compositional process!
+You can associate an audioclip with different blobs, and a blob with different suites. One small idea (audioclip) might be included in multiple songs (blobs). Mix and match however you find useful for your compositional process. For example:
 
-![SoundSeeker - Suites, Blobs, and Clips](https://user-images.githubusercontent.com/61553566/192452268-b4b4df76-ab44-4a96-87c5-6b1c284eebd5.png)
+<img alt="Example diagram of how Suites, Blobs, and Clips relate in SoundSeeker, and of how one might use them" src="https://user-images.githubusercontent.com/61553566/192453921-ef83fa42-2195-49a6-a7de-7f5b9edeb14a.png">
 
 ## Soundseeker is built with:
 
