@@ -56,7 +56,7 @@ PRIVATE_MEDIA_LOCATION = "private"
 PRIVATE_FILE_STORAGE = "config.storage_backends.PrivateMediaStorage"
 
 # Extra places for collectstatic to find static files
-STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+# STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
 
 DATABASES = {
