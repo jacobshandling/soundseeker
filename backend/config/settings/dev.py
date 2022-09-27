@@ -7,7 +7,6 @@ from pathlib import Path
 
 from .base import *
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -29,6 +28,6 @@ DATABASES = {
         "USER": os.environ.get("PG_DB_USER"),
         "PASSWORD": os.environ.get("PG_DB_PW"),
         "HOST": "localhost",
-        "PORT": "",
+        "PORT": os.environ.get("PG_DB_PORT"),
     }
 }
