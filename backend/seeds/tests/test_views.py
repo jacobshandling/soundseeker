@@ -7,6 +7,7 @@ from django.urls import reverse
 
 
 class IndexTests(TestCase):
+    # This tests Django built-in features, low priority
     def test_successful_url(self):
         response = self.client.get(reverse("index"))
         self.assertEqual(response.status_code, 200)
@@ -14,6 +15,8 @@ class IndexTests(TestCase):
 
 
 class RegisterTests(TestCase):
+    # This tests Django built-in features, low priority
+
     # user unauthenticated
     def test_success_if_unauthenticated(self):
         response = self.client.get(reverse("register"))
@@ -59,6 +62,7 @@ class RegisterTests(TestCase):
 
 
 class AccountsLoginTests(TestCase):
+    # This tests Django built-in features, low priority
     # user not authenticated (normal)
     def test_success(self):
         pass
@@ -75,6 +79,7 @@ class AccountsLoginTests(TestCase):
 
 
 class AccountsLogoutTests(TestCase):
+    # This tests Django built-in features, low priority
     # user not authenticated (strange)
     def test_redirect_to_login_if_not_authenticated(self):
         pass
