@@ -14,7 +14,10 @@ In Soundseeker, there are 3 scopes of organization:
 
 You can associate an audioclip with different blobs, and a blob with different suites. One small idea (audioclip) might be included in multiple songs (blobs). Mix and match however you find useful for your compositional process!
 
+![SoundSeeker - Suites, Blobs, and Clips](https://user-images.githubusercontent.com/61553566/192452268-b4b4df76-ab44-4a96-87c5-6b1c284eebd5.png)
+
 ## Soundseeker is built with:
+
 - Django and Django REST Framework
 - React, Javascript
 - HTML, Vanilla CSS
