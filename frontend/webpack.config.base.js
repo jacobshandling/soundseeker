@@ -14,7 +14,6 @@ module.exports = {
     ],
     output: {
         path: path.resolve(__dirname, '..', 'backend', 'seeds', 'static','seeds', 'build'),
-        filename: '[name].bundle.js',
     },
 
     // Where to find modules that can be imported (eg. React)
