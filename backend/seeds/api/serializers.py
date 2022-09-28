@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from seeds.models import AudioClip, Blob, Suite, User
+
+from ..models import AudioClip, Blob, Suite, User
 
 # https://www.django-rest-framework.org/api-guide/serializers/#dealing-with-nested-objects
 
