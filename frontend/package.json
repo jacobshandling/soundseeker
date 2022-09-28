@@ -5,8 +5,8 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "webpack --watch --config webpack.config.dev.js --progress",
-    "build": "webpack --config webpack.config.prod.js"
+    "watch": "webpack --watch --config config/webpack.config.dev.js --progress",
+    "build": "webpack --config config/webpack.config.prod.js"
   },
   "keywords": [],
   "author": "",
