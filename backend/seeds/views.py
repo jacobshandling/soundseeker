@@ -1,3 +1,4 @@
+import os
 from django.contrib.auth import login
 from django.db import IntegrityError
 from django.http import HttpResponseRedirect
@@ -10,7 +11,12 @@ from .models import User
 
 @ensure_csrf_cookie
 def index(request):
-    return render(request, "seeds/index.html")
+    whereami = (
+        "prod"
+        if os.getenv("DJANGO_SETTINGS_MODULE") == "config.settings.prod"
+        else "dev"
+    )
+    return render(request, "seeds/index.html", {"whereami": whereami})
 
 
 def register(request):

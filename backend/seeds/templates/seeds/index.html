@@ -5,7 +5,11 @@
     {% if user.is_authenticated %}
         <div id="react-root" />
         <script>var userID = "{{ user.id }}"</script>
-        <script src="{% static 'seeds/build/main.bundle.js' %}"></script>
+        {% if whereami == "prod" %}
+            <script src="{% static 'seeds/build/prod.bundle.js' %}"></script>
+        {% else %}
+            <script src="{% static 'seeds/build/dev.bundle.js' %}"></script>
+        {% endif %}
     {% else %}
         <div id="intro" class="container-md pt-1 mt-sm-5">
             <div id="subtitle">
