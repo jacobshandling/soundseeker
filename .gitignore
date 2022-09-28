@@ -67,3 +67,6 @@ node_modules/
 
 # media files
 media
+
+# development js bundle
+dev.bundle.js
