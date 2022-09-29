@@ -70,3 +70,6 @@ media
 
 # development js bundle
 dev.bundle.js
+
+# coverage report results
+.coverage
