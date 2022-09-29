@@ -272,8 +272,11 @@ class SoundSeekerApp extends React.Component {
         // create formData instance
         const formData = new FormData();
         formData.append('name', clipName);
-        formData.append('blobs', blobIDs);
         formData.append('file', file);
+        // multiple "keys" 'blobs' to work with current API setup
+        blobIDs.forEach(blobID => {
+            formData.append('blobs', blobID);
+        })
 
 
         fetch(`${APIURL}/audioclips/`, {
@@ -419,7 +422,10 @@ class SoundSeekerApp extends React.Component {
         // create formData instance
         const formData = new FormData();
         formData.append('name', blobName);
-        formData.append('suites', suiteIDs);
+        // multiple "keys" 'suites' to work with current API setup
+        suiteIDs.forEach(suiteID => {
+            formData.append('suites', suiteID);
+        })
 
         fetch(`${APIURL}/blobs/`, {
             method: 'POST',
