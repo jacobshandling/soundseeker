@@ -1,5 +1,6 @@
 # [SoundSeeker](https://www.soundseeker.app)
 A tool for organizing and juxtaposing musical ideas in the form of short audio recordings.
+[Watch a Demo](https://youtu.be/p5JG3c3R2dA).
 
 ## Why? A problem that needed solving:
 
