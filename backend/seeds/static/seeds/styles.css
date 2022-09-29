@@ -260,6 +260,8 @@ footer * {
 .content-list > li {
     height: auto;
     width: auto;
+    display: flex;
+    align-items: center;
 }
 
 .card {
