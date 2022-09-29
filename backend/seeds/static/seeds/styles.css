@@ -266,6 +266,10 @@ footer * {
     align-items: center;
 }
 
+.card-title {
+    /* matches width of audio controls */
+    max-width: 300px;
+}
 /* Action Bar and Items */
 
 #action-bar {
@@ -429,7 +433,6 @@ label {
 audio {
     height: auto;
     width: auto;
-    max-width: 15rem;
     border-radius: .375rem;
 }
 

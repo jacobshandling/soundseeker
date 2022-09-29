@@ -8,11 +8,11 @@ class AudioClip extends React.Component {
 
         return (
             <li key={clip.id}>
-                <div className="card audioclip px-3">
+                <div className="card audioclip">
                     <div className="card-body">
                         <h3 className="card-title">{clip.name}</h3>
                     </div>
-                    <audio controls>
+                    <audio controls className="mx-3">
                         <source src={clipURL} type="audio/mpeg" />
                     </audio>
                     <div className="card-body">
