@@ -1,5 +1,5 @@
 // frontend/.babelrc
 
 {
-    "presets": ["@babel/preset-react"]
+  "presets": ["@babel/preset-react"]
 }
