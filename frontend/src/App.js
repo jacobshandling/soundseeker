@@ -19,10 +19,10 @@ import { AlertTitle } from "@mui/material";
 
 if (process.env.NODE_ENV !== "production") {
   // development API
-  var APIURL = "http://127.0.0.1:8002/api/v1";
+  const APIURL = "http://127.0.0.1:8002/api/v1";
 } else {
   // production API
-  var APIURL = "https://www.soundseeker.app/api/v1";
+  const APIURL = "https://www.soundseeker.app/api/v1";
 }
 
 class SoundSeekerApp extends React.Component {
