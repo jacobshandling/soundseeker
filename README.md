@@ -1,8 +1,7 @@
 # [SoundSeeker](https://www.soundseeker.app)
 A tool for organizing and juxtaposing musical ideas in the form of short audio recordings.
 
-https://user-images.githubusercontent.com/61553566/192957502-76c8ea39-9173-4e24-8890-da8ab4b04e29.mp4
-
+https://user-images.githubusercontent.com/61553566/192980935-f69c6409-8e4a-4734-be7d-656e904ef2b3.mp4
 
 ## Why? A problem that needed solving:
 
