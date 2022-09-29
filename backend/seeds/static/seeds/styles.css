@@ -13,6 +13,7 @@
     --speed: 500ms;
     --menu-item-font-size: 1rem;
     --alert-font-size: .4rem;
+    --bs-breadcrumb-font-size: 2rem;
 }
 
 * {
@@ -432,6 +433,11 @@ audio {
     border-radius: .375rem;
 }
 
+.breadcrumb-item {
+    display: flex;
+    align-items: center;
+}
+
 /* same as bootstrap's sm breakpoint */
 @media (min-width: 576px) {
     #app-nav {
@@ -450,7 +456,7 @@ audio {
 }
 
 #breadcrumbs * {
-    height: 2rem;
+    height: auto;
     width: auto;
     overflow: hidden;
 }
