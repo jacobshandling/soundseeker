@@ -12,21 +12,22 @@
         {% endif %}
     {% else %}
         <div id="intro" class="container-md pt-1 mt-sm-5">
-            <div id="subtitle">
-                <h2 class="display-2">Organize Your Musical Ideas</h2>
-            </div>
-            <a class="mb-5" href="#instructions"><svg viewBox="0 0 256 512"><path d="M24.707 38.101L4.908 57.899c-4.686 4.686-4.686 12.284 0 16.971L185.607 256 4.908 437.13c-4.686 4.686-4.686 12.284 0 16.971L24.707 473.9c4.686 4.686 12.284 4.686 16.971 0l209.414-209.414c4.686-4.686 4.686-12.284 0-16.971L41.678 38.101c-4.687-4.687-12.285-4.687-16.971 0z" class=""></path></svg></a>
-            <div id="instructions">
-                <div style="padding:75% 0 0 0;position:relative;">
-                    <iframe src="https://player.vimeo.com/video/755027936?h=38d70a97bc&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-                        frameborder="0"
-                        allow="autoplay; fullscreen; picture-in-picture"
-                        allowfullscreen
-                        style="position:absolute;top:0;left:0;width:100%;height:100%;"
-                        title="ss-demo-small">
-                    </iframe>
+            <div id="welcome">
+                <div id="demo" style="padding:56.25% 0 0 0;position:relative;">
+                    <iframe
+                    src="https://player.vimeo.com/video/755027936?h=38d70a97bc&byline=0&portrait=0"
+                    style="position:absolute;top:0;left:0;width:100%;height:100%;"
+                    frameborder="0"
+                    allow="autoplay; fullscreen; picture-in-picture"
+                    allowfullscreen></iframe>
                 </div>
-                <script src="https://player.vimeo.com/api/player.js"></script>
+                <a class="mb-5" href="#instructions">
+                    <svg viewBox="0 0 256 512">
+                        <path d="M24.707 38.101L4.908 57.899c-4.686 4.686-4.686 12.284 0 16.971L185.607 256 4.908 437.13c-4.686 4.686-4.686 12.284 0 16.971L24.707 473.9c4.686 4.686 12.284 4.686 16.971 0l209.414-209.414c4.686-4.686 4.686-12.284 0-16.971L41.678 38.101c-4.687-4.687-12.285-4.687-16.971 0z" class=""></path>
+                    </svg>
+                </a>
+            </div>
+            <div id="instructions">
                 <p>There are <strong>3 structural tiers:</strong></p>
                 <ul>
                     <li><p><strong>Suite</strong> - the big picture, like an album. Suites contain blobs.</p></li>
@@ -47,5 +48,6 @@
                 </svg>
             </a>
         </div>
+        <script src="https://player.vimeo.com/api/player.js"></script>
     {% endif %}
 {% endblock %}
