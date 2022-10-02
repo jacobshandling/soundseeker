@@ -5,7 +5,7 @@ https://user-images.githubusercontent.com/61553566/192980935-f69c6409-8e4a-4734-
 
 ## Why? A problem that needed solving:
 
-Composing music is different for everyone, yet some practices are employed by many musicians. One such practice is to record a musical idea on a phone, capturing the idea at its freshest, and for many, clearest. This often leads to a lengthy catalogue of chronologically organized recordings that can be difficult to parse when sitting down to flesh out a piece of music – what matters isn't when the idea was from, but the content of the idea. SoundSeeker allows you to organize musical ideas based on their content instead of when they came to be.
+Composing music is different for everyone, yet some practices are employed by many musicians. One such practice is to record a musical idea on a phone, capturing the idea at its freshest, and for many, clearest. This often leads to a lengthy catalogue of chronologically organized recordings that can be difficult to parse when sitting down to flesh out a piece of music – what matters most is the content of the idea, more so than when it was conceived. SoundSeeker allows you to organize musical ideas based on their content instead of when they came to be.
 
 ## How
 
@@ -22,10 +22,10 @@ You can associate an audioclip with different blobs, and a blob with different s
 
 - Django and Django REST Framework
 - React, Javascript
-- HTML, Vanilla CSS
+- HTML, CSS, Bootstrap
 - PostgreSQL
 - Webpack
 
-## and deployed using:
+## and deployed with:
 - Heroku
 - AWS S3
