@@ -30,12 +30,11 @@ body {
     font-family: "Gill Sans", sans-serif;
     background-color: var(--bg-main);
     color: var(--text-color);
-    padding: .5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-
 }
+
 
 #intro {
     font-size: 1.4rem;
@@ -58,12 +57,13 @@ body {
 }
 
 #welcome {
-    min-height: 80vh;
+    padding-top: 4vh;
+    min-height: 85vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 1rem;
+    justify-content: space-between;
+    gap: 1vh;
     overflow: hidden;
 }
 
@@ -72,14 +72,14 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 80%;
+    width: 100%;
 }
 
 #demo iframe {
     border-radius: var(--demo-br);
 }
 
-#instructions {
+#about {
     min-height: 82vh;
     display: flex;
     flex-direction: column;
@@ -456,25 +456,6 @@ audio {
     border-radius: .375rem;
 }
 
-.breadcrumb-item {
-    display: flex;
-    align-items: center;
-}
-
-/* same as bootstrap's sm breakpoint */
-@media (min-width: 576px) {
-    #app-nav {
-        justify-content: start;
-        gap: 2rem;
-    }
-
-    #intro {
-        gap: 5rem;
-    }
-
-    #welcome {
-        height: 85vh;
-    }
 
 /* breadcrumb nav */
 #breadcrumbs {
@@ -485,4 +466,24 @@ audio {
     height: auto;
     width: auto;
     overflow: hidden;
+}
+
+.breadcrumb-item {
+    display: flex;
+    align-items: center;
+}
+
+/* same as bootstrap's sm breakpoint */
+@media (min-width: 576px) {
+    body {
+        padding: .5rem;
+    }
+    #app-nav {
+        justify-content: start;
+        gap: 2rem;
+    }
+
+    #welcome {
+        min-height: 90vh;
+    }
 }
