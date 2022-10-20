@@ -11,19 +11,24 @@
             <script src="{% static 'seeds/build/dev.bundle.js' %}"></script>
         {% endif %}
     {% else %}
-        <div id="intro" class="container-md pt-1">
+        <section id="intro" class="container-md pt-1">
             <div id="welcome">
                 <div id="subtitle">
                     <h2 class="display-2">Organize Your Musical Ideas</h2>
                 </div>
-                <div id="demo" style="padding:48% 0 0 0;position:relative;">
-                    <iframe
-                    id="demo-frame"
-                    src="https://player.vimeo.com/video/755027936?h=38d70a97bc&byline=0&portrait=0"
-                    style="position:absolute;top:0;left:0;width:100%;height:100%;"
-                    frameborder="0"
-                    allow="autoplay; fullscreen; picture-in-picture"
-                    allowfullscreen></iframe>
+                <div id="welcome-details">
+                    <div id="why">
+                        <p>Composing music is different for everyone, yet some practices are employed by many musicians. One such practice is to record a musical idea on a phone, capturing the idea at its freshest, and for many, clearest. This often leads to a lengthy catalogue of chronologically organized recordings that can be difficult to parse when sitting down to flesh out a piece of music – what matters most is the content of the idea, more so than when it was conceived. The purpose of SoundSeeker is to allow you to organize musical ideas based on their content instead of when they came to be, and to serve as an educational personal project in my growth as a software engineer.</p>
+                    </div>
+                    <div id="demo" style="padding:48% 0 0 0;position:relative;">
+                        <iframe
+                        id="demo-frame"
+                        src="https://player.vimeo.com/video/755027936?h=38d70a97bc&byline=0&portrait=0"
+                        style="position:absolute;top:0;left:0;width:100%;height:100%;"
+                        frameborder="0"
+                        allow="autoplay; fullscreen; picture-in-picture"
+                        allowfullscreen></iframe>
+                    </div>
                 </div>
                 <a class="mb-2" href="#about">
                     <svg viewBox="0 0 256 512">
@@ -51,7 +56,7 @@
                     <path d="M24.707 38.101L4.908 57.899c-4.686 4.686-4.686 12.284 0 16.971L185.607 256 4.908 437.13c-4.686 4.686-4.686 12.284 0 16.971L24.707 473.9c4.686 4.686 12.284 4.686 16.971 0l209.414-209.414c4.686-4.686 4.686-12.284 0-16.971L41.678 38.101c-4.687-4.687-12.285-4.687-16.971 0z" class=""></path>
                 </svg>
             </a>
-        </div>
+        </section>
         <script src="https://player.vimeo.com/api/player.js"></script>
     {% endif %}
 {% endblock %}
