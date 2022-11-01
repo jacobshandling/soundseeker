@@ -8,6 +8,7 @@ class AllBlobsView extends React.Component {
     for (let key in blobMap) {
       blobRenders.push(
         <Blob
+          key={key}
           blobObject={blobMap[key]}
           toggleEditBlob={this.props.toggleEditBlob}
           toggleViewBlob={this.props.toggleViewBlob}

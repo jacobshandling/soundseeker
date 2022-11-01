@@ -4,15 +4,16 @@ import Suite from "./Suite";
 class SuiteList extends React.Component {
   render() {
     const suites = [];
-    for (var suiteID in this.props.userSuiteMap) {
+    for (let key in this.props.userSuiteMap) {
       suites.push(
         <Suite
-          suiteObject={this.props.userSuiteMap[suiteID]}
+          key={key}
+          suiteObject={this.props.userSuiteMap[key]}
           toggleViewSuite={this.props.toggleViewSuite}
           toggleEditSuite={this.props.toggleEditSuite}
         />
       );
-    }
+    };
     return <ul className="content-list">{suites}</ul>;
   }
 }

@@ -8,6 +8,7 @@ class BlobList extends React.Component {
     this.props.suiteBlobIDs.forEach((blobID) => {
       blobRenders.push(
         <Blob
+          key={blobID}
           blobObject={this.props.userBlobMap[blobID]}
           toggleViewBlob={this.props.toggleViewBlob}
           toggleEditBlob={this.props.toggleEditBlob}
