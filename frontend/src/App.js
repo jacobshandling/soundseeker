@@ -715,7 +715,7 @@ class SoundSeekerApp extends React.Component {
       return <div>Loading. . .</div>;
     }
 
-    let [mainContent, alertVal] = [undefined, undefined];
+    let mainContent, alertVal;
 
     if (this.state.alert) {
       var alertSeverity = this.state.alert.severity;
