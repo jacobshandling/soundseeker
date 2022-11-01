@@ -16,7 +16,6 @@ class SuiteLevelView extends React.Component {
         toggleEditClip={this.props.toggleEditClip}
         // for breadcrumb navigation
         toggleViewSuite={this.props.toggleViewSuite}
-        toggleAllSuitesView={this.props.toggleAllSuitesView}
       />
     ) : (
       <div className="suite-list content-view">

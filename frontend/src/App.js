@@ -1,5 +1,7 @@
 import React from "react";
 
+import NavHandlersContext from "./NavHandlersContext";
+
 import AllBlobsView from "./AllBlobsView";
 import AllClipsView from "./AllClipsView";
 import SuiteLevelView from "./SuiteLevelView";
@@ -799,7 +801,6 @@ class SoundSeekerApp extends React.Component {
     } else {
       mainContent.push(
         <SuiteLevelView
-          toggleAllSuitesView={() => this.toggleAllSuitesView()}
           toggleViewSuite={(suiteObject) => this.toggleViewSuite(suiteObject)}
           toggleEditSuite={(suiteObject) => this.toggleEditSuite(suiteObject)}
           toggleViewBlob={(blobObject) => this.toggleViewBlob(blobObject)}
@@ -812,6 +813,10 @@ class SoundSeekerApp extends React.Component {
           userClipMap={this.state.userClipMap}
         />
       );
+    }
+
+    const navHandlers = {
+      'toggleAllSuitesView': this.toggleAllSuitesView,
     }
 
     return (
@@ -856,7 +861,9 @@ class SoundSeekerApp extends React.Component {
         </div>
         <main id="main-content">
           <div id="alert-container">{alertVal}</div>
-          {mainContent}
+          <NavHandlersContext.Provider value={navHandlers}>
+            {mainContent}
+          </NavHandlersContext.Provider>
         </main>
       </div>
     );

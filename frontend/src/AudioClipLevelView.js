@@ -1,7 +1,11 @@
 import React from "react";
+
+import NavHandlersContext from "./NavHandlersContext";
+
 import AudioClip from "./AudioClip";
 
 class AudioClipLevelView extends React.Component {
+  static contextType = NavHandlersContext;
   render() {
     const clipRenders = [];
     this.props.blobClipIDs.forEach((clipID) => {
@@ -18,7 +22,7 @@ class AudioClipLevelView extends React.Component {
           <ol className="breadcrumb">
             <li className="breadcrumb-item" aria-current="page">
               <h2>
-                <a href="#" onClick={this.props.toggleAllSuitesView}>
+                <a href="#" onClick={this.context.toggleAllSuitesView}>
                   Suites
                 </a>
               </h2>

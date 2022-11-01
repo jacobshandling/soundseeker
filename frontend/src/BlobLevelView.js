@@ -1,9 +1,12 @@
 import React from "react";
 
+import NavHandlersContext from "./NavHandlersContext";
+
 import AudioClipLevelView from "./AudioClipLevelView";
 import BlobList from "./BlobList";
 
 class BlobLevelView extends React.Component {
+  static contextType = NavHandlersContext;
   render() {
     const suite = this.props.curSuite;
     const blob = this.props.curBlob;
@@ -17,7 +20,6 @@ class BlobLevelView extends React.Component {
         curBlob={blob}
         // for breadcrumb nav
         toggleViewSuite={this.props.toggleViewSuite}
-        toggleAllSuitesView={this.props.toggleAllSuitesView}
       />
     ) : (
       <div className="blob-list content-view">
@@ -25,7 +27,7 @@ class BlobLevelView extends React.Component {
           <ol className="breadcrumb">
             <li className="breadcrumb-item" aria-current="page">
               <h2>
-                <a href="#" onClick={this.props.toggleAllSuitesView}>
+                <a href="#" onClick={this.context.toggleAllSuitesView}>
                   Suites
                 </a>
               </h2>
