@@ -715,53 +715,41 @@ class SoundSeekerApp extends React.Component {
       return <div>Loading. . .</div>;
     }
 
-    const [mainContent, alertVal] = [[], []];
+    let [mainContent, alertVal] = [undefined, undefined];
 
     if (this.state.alert) {
       var alertSeverity = this.state.alert.severity;
       var alertMessage = this.state.alert.message;
-      alertVal.push(
-        <Alert variant="filled" severity={alertSeverity}>
-          {alertMessage}
-        </Alert>
-      );
+      alertVal = <Alert variant="filled" severity={alertSeverity}>{alertMessage}</Alert>;
     }
 
     if (this.state.actionView) {
       switch (this.state.actionView) {
         case "all-blobs":
-          mainContent.push(
-            <AllBlobsView
-              userBlobMap={this.state.userBlobMap}
-              toggleEditBlob={this.toggleEditBlob}
-              toggleViewBlob={(blobObject) => this.toggleViewBlob(blobObject)}
-            />
-          );
+          mainContent = <AllBlobsView
+                          userBlobMap={this.state.userBlobMap}
+                          toggleEditBlob={this.toggleEditBlob}
+                          toggleViewBlob={(blobObject) => this.toggleViewBlob(blobObject)}
+                        />;
           break;
         case "all-clips":
-          mainContent.push(
-            <AllClipsView
-              userClipMap={this.state.userClipMap}
-              toggleEditClip={this.toggleEditClip}
-            />
-          );
+          mainContent = <AllClipsView
+                          userClipMap={this.state.userClipMap}
+                          toggleEditClip={this.toggleEditClip}
+                        />;
           break;
         case "new-clip":
-          mainContent.push(
-            <CreateClipView
-              onClipSelect={this.onClipSelect}
-              onCreateClip={this.onCreateClip}
-              userBlobMap={this.state.userBlobMap}
-            />
-          );
+          mainContent = <CreateClipView
+                          onClipSelect={this.onClipSelect}
+                          onCreateClip={this.onCreateClip}
+                          userBlobMap={this.state.userBlobMap}
+                        />;
           break;
         case "new-blob":
-          mainContent.push(
-            <CreateBlobView
-              onCreateBlob={this.onCreateBlob}
-              userSuiteMap={this.state.userSuiteMap}
-            />
-          );
+          mainContent = <CreateBlobView
+                          onCreateBlob={this.onCreateBlob}
+                          userSuiteMap={this.state.userSuiteMap}
+                        />;
           break;
         case "new-suite":
           mainContent.push(
@@ -769,50 +757,42 @@ class SoundSeekerApp extends React.Component {
           );
           break;
         case "edit-suite":
-          mainContent.push(
-            <EditSuiteView
-              suite={this.state.curSuite}
-              userBlobMap={this.state.userBlobMap}
-              onDeleteSuite={this.onDeleteSuite}
-              onEditSuite={this.onEditSuite}
-            />
-          );
+          mainContent = <EditSuiteView
+                          suite={this.state.curSuite}
+                          userBlobMap={this.state.userBlobMap}
+                          onDeleteSuite={this.onDeleteSuite}
+                          onEditSuite={this.onEditSuite}
+                        />;
           break;
         case "edit-blob":
-          mainContent.push(
-            <EditBlobView
-              blob={this.state.curBlob}
-              userClipMap={this.state.userClipMap}
-              onDeleteBlob={this.onDeleteBlob}
-              onEditBlob={this.onEditBlob}
-            />
-          );
+          mainContent = <EditBlobView
+                          blob={this.state.curBlob}
+                          userClipMap={this.state.userClipMap}
+                          onDeleteBlob={this.onDeleteBlob}
+                          onEditBlob={this.onEditBlob}
+                        />;
           break;
         case "edit-clip":
-          mainContent.push(
-            <EditClipView
-              clip={this.state.curClip}
-              onDeleteClip={this.onDeleteClip}
-              onEditClip={this.onEditClip}
-            />
-          );
+          mainContent = <EditClipView
+                          clip={this.state.curClip}
+                          onDeleteClip={this.onDeleteClip}
+                          onEditClip={this.onEditClip}
+                        />;
           break;
       }
     } else {
-      mainContent.push(
-        <SuiteLevelView
-          toggleViewSuite={(suiteObject) => this.toggleViewSuite(suiteObject)}
-          toggleEditSuite={(suiteObject) => this.toggleEditSuite(suiteObject)}
-          toggleViewBlob={(blobObject) => this.toggleViewBlob(blobObject)}
-          toggleEditBlob={(blobObject) => this.toggleEditBlob(blobObject)}
-          toggleEditClip={(clipObject) => this.toggleEditClip(clipObject)}
-          curSuite={this.state.curSuite}
-          curBlob={this.state.curBlob}
-          userSuiteMap={this.state.userSuiteMap}
-          userBlobMap={this.state.userBlobMap}
-          userClipMap={this.state.userClipMap}
-        />
-      );
+      mainContent = <SuiteLevelView
+                      toggleViewSuite={(suiteObject) => this.toggleViewSuite(suiteObject)}
+                      toggleEditSuite={(suiteObject) => this.toggleEditSuite(suiteObject)}
+                      toggleViewBlob={(blobObject) => this.toggleViewBlob(blobObject)}
+                      toggleEditBlob={(blobObject) => this.toggleEditBlob(blobObject)}
+                      toggleEditClip={(clipObject) => this.toggleEditClip(clipObject)}
+                      curSuite={this.state.curSuite}
+                      curBlob={this.state.curBlob}
+                      userSuiteMap={this.state.userSuiteMap}
+                      userBlobMap={this.state.userBlobMap}
+                      userClipMap={this.state.userClipMap}
+                    />;
     }
 
     const navHandlers = {
